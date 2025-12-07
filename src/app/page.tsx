@@ -16,7 +16,7 @@ export default function Home() {
       <main className="flex-grow">
         <section className="relative h-[70vh] min-h-[550px] flex items-center justify-center text-center text-white">
           <Image
-            src="https://images.unsplash.com/photo-1576765689491-5a6881580540?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwYXJlbnQlMjBjaGlsZCUyMGxhcHRvcCUyMGNhcmVlcnxlbnwwfHx8fDE3NjcyNzQwMDB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+            src="https://images.unsplash.com/photo-1542744095-291d1f67b221?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzdHVkZW50cyUyMGxlYXJuaW5nJTIwbGFwdG9wfGVufDB8fHx8MTc2NzA5NjAyOHww&ixlib=rb-4.1.0&q=80&w=1080"
             alt="Supportive parent helping their child with career planning on a laptop"
             fill
             className="object-cover"
@@ -104,3 +104,4 @@ export default function Home() {
       </main>
     </div>
   );
+}
