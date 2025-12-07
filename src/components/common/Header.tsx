@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Route } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { MobileNav } from './MobileNav';
 
 export function Header() {
   return (
@@ -12,7 +13,7 @@ export function Header() {
             CareerRaah
           </span>
         </Link>
-        <nav className="flex items-center gap-2 sm:gap-4">
+        <nav className="hidden items-center gap-2 sm:gap-4 md:flex">
           <Button variant="ghost" asChild>
             <Link href="/assessment" className="text-sm font-medium">
               Expert Assessment
@@ -24,6 +25,9 @@ export function Header() {
             </Link>
           </Button>
         </nav>
+         <div className="md:hidden">
+            <MobileNav />
+        </div>
       </div>
     </header>
   );
