@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import {
   Search,
   X,
@@ -35,6 +36,8 @@ const CAREER_DB = [
     risk: 'Medium',
     trustScore: 8,
     description: 'Operate and manage unmanned aerial vehicles for aerial photography, surveying, and delivery.',
+    imageUrl: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxEUk9ORSUyMGZseWluZ3xlbnwwfHx8fDE3NjY4MjE0NTh8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'drone flying',
     roiChart: [
       { name: 'Cost', value: 2, fill: 'hsl(var(--muted))' },
       { name: 'Salary', value: 6, fill: 'hsl(var(--primary))' },
@@ -60,6 +63,8 @@ const CAREER_DB = [
     risk: 'Low',
     trustScore: 9,
     description: 'Assess, diagnose, and treat mental, emotional, and behavioral disorders.',
+    imageUrl: 'https://images.unsplash.com/photo-1579493934963-f145c3427b3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwc3ljaG9sb2d5JTIwdGhlcmFweXxlbnwwfHx8fDE3NjY4MjE4MDF8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'psychology therapy',
     roiChart: [
       { name: 'Cost', value: 8, fill: 'hsl(var(--muted))' },
       { name: 'Salary', value: 5, fill: 'hsl(var(--primary))' },
@@ -85,6 +90,8 @@ const CAREER_DB = [
     risk: 'Medium',
     trustScore: 8,
     description: 'Design user-friendly interfaces for websites and apps to enhance user experience.',
+    imageUrl: 'https://images.unsplash.com/photo-1587440871875-191322ee64b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxVSVVYJTIwZGVzaWdufGVufDB8fHx8MTc2NjgyMTg1Nnww&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'UIUX design',
     roiChart: [
       { name: 'Cost', value: 3, fill: 'hsl(var(--muted))' },
       { name: 'Salary', value: 7, fill: 'hsl(var(--primary))' },
@@ -110,6 +117,8 @@ const CAREER_DB = [
     risk: 'Low',
     trustScore: 9,
     description: 'Advise businesses on their legal rights, responsibilities, and obligations.',
+    imageUrl: 'https://images.unsplash.com/photo-1598257992949-8835a4623a8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb3Jwb3JhdGUlMjBsYXd8ZW58MHx8fHwxNzY2ODIxODk5fDA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'corporate law',
     roiChart: [
       { name: 'Cost', value: 15, fill: 'hsl(var(--muted))' },
       { name: 'Salary', value: 9, fill: 'hsl(var(--primary))' },
@@ -135,6 +144,8 @@ const CAREER_DB = [
     risk: 'High',
     trustScore: 9,
     description: 'Develop intelligent algorithms and systems that can learn and make decisions.',
+    imageUrl: 'https://images.unsplash.com/photo-1677756119517-756a188d2d94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhaSUyMGVuZ2luZWVyfGVufDB8fHx8MTc2NjgyMTk1NHww&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'ai engineer',
     roiChart: [
         { name: 'Cost', value: 12, fill: 'hsl(var(--muted))' },
         { name: 'Salary', value: 10, fill: 'hsl(var(--primary))' },
@@ -160,6 +171,8 @@ const CAREER_DB = [
     risk: 'Medium',
     trustScore: 9,
     description: 'Analyze large, complex data sets to identify trends, develop predictive models, and provide actionable insights to businesses.',
+    imageUrl: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkYXRhJTIwc2NpZW5jZXxlbnwwfHx8fDE3NjY4MjE5OTR8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'data science',
     roiChart: [
         { name: 'Cost', value: 5, fill: 'hsl(var(--muted))' },
         { name: 'Salary', value: 12, fill: 'hsl(var(--primary))' },
@@ -185,6 +198,8 @@ const CAREER_DB = [
     risk: 'High',
     trustScore: 7,
     description: 'Help companies and governments raise capital by issuing stocks and bonds, and provide advice on mergers and acquisitions (M&A).',
+    imageUrl: 'https://images.unsplash.com/photo-1664448039325-797c6241ab9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaW5hbmNlJTIwdHJhZGluZ3xlbnwwfHx8fDE3NjY4MjIwMzV8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'finance trading',
     roiChart: [
         { name: 'Cost', value: 25, fill: 'hsl(var(--muted))' },
         { name: 'Salary', value: 15, fill: 'hsl(var(--primary))' },
@@ -210,6 +225,8 @@ const CAREER_DB = [
     risk: 'Medium',
     trustScore: 8,
     description: 'Act as the "CEO" of a product, guiding its success by defining strategy, roadmap, and features from conception to launch.',
+    imageUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9kdWN0JTIwbWFuYWdlbWVudHxlbnwwfHx8fDE3NjY4MjIwODJ8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'product management',
     roiChart: [
         { name: 'Cost', value: 10, fill: 'hsl(var(--muted))' },
         { name: 'Salary', value: 15, fill: 'hsl(var(--primary))' },
@@ -298,13 +315,24 @@ export default function ParentExplorer() {
           {filteredCareers.map(career => {
             const CategoryIcon = career.icon;
             return (
-              <Card key={career.id} className="overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 group">
-                <CardContent className="p-5 flex flex-col h-full">
-                  <div className="flex-grow">
-                    <CategoryIcon className="w-8 h-8 mb-3 text-primary" />
-                    <h3 className="font-bold text-lg text-foreground mb-2">{career.name}</h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2">{career.description}</p>
-                  </div>
+              <Card key={career.id} className="overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 group flex flex-col">
+                <div className="relative h-40 w-full">
+                    <Image 
+                        src={career.imageUrl} 
+                        alt={career.name} 
+                        data-ai-hint={career.imageHint}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute bottom-4 left-4">
+                        <CategoryIcon className="w-8 h-8 mb-2 text-white" />
+                        <h3 className="font-bold text-lg text-white shadow-md">{career.name}</h3>
+                    </div>
+                </div>
+                <CardContent className="p-5 flex flex-col flex-grow">
+                  <p className="text-sm text-muted-foreground line-clamp-3 flex-grow">{career.description}</p>
                   <Button
                     variant="outline"
                     className="w-full mt-4 border-primary text-primary hover:bg-primary/10 hover:text-primary"
