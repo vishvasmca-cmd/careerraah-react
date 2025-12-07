@@ -34,6 +34,12 @@ const videos = [
     imageUrl: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0ZWNoJTIwdGVhbXxlbnwwfHx8fDE3NjcyNzQxMDF8MA&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'tech team',
   },
+  {
+    title: 'AI-Powered Assessments',
+    description: 'Understand strengths and weaknesses with our expert AI.',
+    imageUrl: 'https://images.unsplash.com/photo-1677756119517-756a188d2d94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhcmRpZmljaWFsJTIwaW50ZWxsaWdlbmNlfGVufDB8fHx8MTc2NzA5NjExOXww&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'artificial intelligence',
+  },
 ];
 
 export default function Home() {
@@ -44,7 +50,7 @@ export default function Home() {
       <main className="flex-grow">
         <section className="relative h-[70vh] min-h-[550px] flex items-center justify-center text-center text-white">
           <Image
-            src="https://images.unsplash.com/photo-1542744095-291d1f67b221?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzdHVkZW50cyUyMGxlYXJuaW5nJTIwbGFwdG9wfGVufDB8fHx8MTc2NzA5NjAyOHww&ixlib=rb-4.1.0&q=80&w=1080"
+            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGxlYXJuaW5nfGVufDB8fHx8MTc2NzA5NjAyOHww&ixlib=rb-4.1.0&q=80&w=1080"
             alt="Supportive parent helping their child with career planning on a laptop"
             fill
             className="object-cover"
@@ -84,7 +90,7 @@ export default function Home() {
         <section className="py-12 md:py-20 bg-background text-center">
           <div className="container mx-auto px-4 md:px-6">
             <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">Why Choose CareerRaah?</h2>
-             <div className="mt-8 max-w-3xl mx-auto">
+             <div className="mt-8 max-w-5xl mx-auto">
               <Carousel
                 opts={{
                   align: 'start',
@@ -94,8 +100,8 @@ export default function Home() {
               >
                 <CarouselContent>
                   {videos.map((video, index) => (
-                    <CarouselItem key={index} className="md:basis-1/1 lg:basis-1/1">
-                       <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl group cursor-pointer">
+                    <CarouselItem key={index} className="md:basis-1/2">
+                       <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-2xl group cursor-pointer m-2">
                         <Image
                           src={video.imageUrl}
                           alt={video.title}
@@ -103,17 +109,17 @@ export default function Home() {
                           fill
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center p-4">
-                           <PlayCircle className="w-20 h-20 text-white/80 transition-transform duration-300 group-hover:scale-110" />
-                           <h3 className="mt-4 text-xl font-bold text-white">{video.title}</h3>
-                           <p className="text-sm text-white/90">{video.description}</p>
+                        <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center p-4 text-center">
+                           <PlayCircle className="w-16 h-16 text-white/80 transition-transform duration-300 group-hover:scale-110" />
+                           <h3 className="mt-4 text-lg font-bold text-white">{video.title}</h3>
+                           <p className="mt-1 text-xs text-white/90">{video.description}</p>
                         </div>
                       </div>
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
+                <CarouselPrevious className="left-[-50px] hidden sm:flex" />
+                <CarouselNext className="right-[-50px] hidden sm:flex" />
               </Carousel>
             </div>
           </div>
