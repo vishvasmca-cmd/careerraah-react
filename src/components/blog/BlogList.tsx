@@ -8,9 +8,10 @@ import { Search } from 'lucide-react';
 
 interface BlogListProps {
   posts: BlogPost[];
+  showSearch?: boolean;
 }
 
-export function BlogList({ posts }: BlogListProps) {
+export function BlogList({ posts, showSearch = true }: BlogListProps) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredPosts = useMemo(() => {
@@ -24,17 +25,19 @@ export function BlogList({ posts }: BlogListProps) {
 
   return (
     <div>
-      <div className="relative mb-12 max-w-lg mx-auto">
-        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-        <Input
-          type="search"
-          aria-label="Search for articles"
-          placeholder="Search articles by keyword..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-12 py-6 text-base rounded-full shadow-inner bg-card border-border"
-        />
-      </div>
+      {showSearch && (
+        <div className="relative mb-12 max-w-lg mx-auto">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+          <Input
+            type="search"
+            aria-label="Search for articles"
+            placeholder="Search articles by keyword..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-12 py-6 text-base rounded-full shadow-inner bg-card border-border"
+          />
+        </div>
+      )}
 
       {filteredPosts.length > 0 ? (
         <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">

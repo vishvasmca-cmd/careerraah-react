@@ -35,6 +35,12 @@
       "description": "A library with many books",
       "imageUrl": "https://images.unsplash.com/photo-1602722053020-af31042989d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxsaWJyYXJ5JTIwYm9va3N8ZW58MHx8fHwxNzY1MDc4OTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "library books"
+    },
+    {
+      "id": "landing-hero",
+      "description": "Person working on a laptop with code on the screen",
+      "imageUrl": "https://images.unsplash.com/photo-1517414204284-fb7e98b2e255?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxibG9nJTIwdGVjaG5vbG9neXxlbnwwfHx8fDE3NjUwODAwMDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "blog technology"
     }
   ]
 }

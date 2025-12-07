@@ -14,7 +14,7 @@ export function Header() {
         </Link>
         <nav className="flex items-center gap-2 sm:gap-4">
           <Button variant="ghost" asChild>
-            <Link href="/" className="text-sm font-medium">
+            <Link href="/blog" className="text-sm font-medium">
               Blog
             </Link>
           </Button>
