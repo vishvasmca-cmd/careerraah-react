@@ -23,6 +23,11 @@ export function Header() {
               AI Assessment
             </Link>
           </Button>
+          <Button variant="ghost" asChild>
+            <Link href="/parent-explorer" className="text-sm font-medium">
+              Parent Explorer
+            </Link>
+          </Button>
         </nav>
       </div>
     </header>
