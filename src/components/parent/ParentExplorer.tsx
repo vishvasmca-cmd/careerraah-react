@@ -4,6 +4,7 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   Search,
   X,
@@ -25,6 +26,7 @@ import {
   Film,
   Trophy,
   Scale,
+  ArrowRight,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -257,7 +259,7 @@ const CAREER_DB = [
     risk: 'Low',
     trustScore: 10,
     description: 'Work on cutting-edge space missions, from satellite design to planetary exploration, contributing to India\'s prestigious space program.',
-    imageUrl: 'https://images.unsplash.com/photo-1614728263952-84ea256ec677?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJU1JPJTIwcm9ja2V0fGVufDB8fHx8MTc2NzEyNDQ2MHww&ixlib.rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1614728263952-84ea256ec677?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJU1JPJTIwcm9ja2V0fGVufDB8fHx8MTc2NzEyNDQ2MHww&ixlib-rb-4.1.0&q=80&w=1080',
     imageHint: 'ISRO rocket',
     roiChart: [
       { name: 'Avg. Edu Cost', value: 6, fill: 'hsl(var(--muted))' },
@@ -284,7 +286,7 @@ const CAREER_DB = [
     risk: 'Very High',
     trustScore: 5,
     description: 'The creative lead of a film, responsible for visualizing the script and guiding the actors and technical crew to bring that vision to life.',
-    imageUrl: 'https://images.unsplash.com/photo-1574717024633-596a8376b0f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaWxtJTIwZGlyZWN0b3J8ZW58MHx8fHwxNzY3MTI0NTMxfDA&ixlib.rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1574717024633-596a8376b0f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaWxtJTIwZGlyZWN0b3J8ZW58MHx8fHwxNzY3MTI0NTMxfDA&ixlib-rb-4.1.0&q=80&w=1080',
     imageHint: 'film director',
     roiChart: [
       { name: 'Avg. Edu Cost', value: 10, fill: 'hsl(var(--muted))' },
@@ -311,7 +313,7 @@ const CAREER_DB = [
     risk: 'Very High',
     trustScore: 3,
     description: 'A high-performance athlete dedicated to playing cricket at state, national, or international levels, including lucrative leagues like the IPL.',
-    imageUrl: 'https://images.unsplash.com/photo-1595435940989-798240980479?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmlja2V0JTIwYmF0dGluZ3xlbnwwfHx8fDE3NjcxMjQ2MTB8MA&ixlib.rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1595435940989-798240980479?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmlja2V0JTIwYmF0dGluZ3xlbnwwfHx8fDE3NjcxMjQ2MTB8MA&ixlib-rb-4.1.0&q=80&w=1080',
     imageHint: 'cricket batting',
     roiChart: [
       { name: 'Avg. Edu Cost', value: 5, fill: 'hsl(var(--muted))' },
@@ -338,7 +340,7 @@ const CAREER_DB = [
     risk: 'Very High',
     trustScore: 10,
     description: 'Serve the nation as a top-level administrator or police officer by cracking the highly competitive UPSC Civil Services Examination.',
-    imageUrl: 'https://images.unsplash.com/photo-1608222351213-824141947273?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJbmRpYW4lMjBwb2xpY2V8ZW58MHx8fHwxNzY3MTI0NzExfDA&ixlib.rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1608222351213-824141947273?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJbmRpYW4lMjBwb2xpY2V8ZW58MHx8fHwxNzY3MTI0NzExfDA&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'Indian police',
     roiChart: [
       { name: 'Avg. Edu Cost', value: 3, fill: 'hsl(var(--muted))' },
@@ -578,8 +580,11 @@ export default function ParentExplorer() {
               </div>
 
               <footer className="p-6 border-t border-gray-200 bg-gray-50/50">
-                <Button size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-                  <FileDown className="mr-2"/> Download Full Guide
+                <Button size="lg" className="w-full" asChild style={{ backgroundColor: '#FF6B00', color: 'white' }}>
+                  <Link href="/assessment">
+                    Create Roadmap for my child
+                    <ArrowRight className="ml-2" />
+                  </Link>
                 </Button>
               </footer>
             </motion.div>
