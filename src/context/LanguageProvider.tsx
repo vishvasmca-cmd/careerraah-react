@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useState, ReactNode } from 'react';
+import { createContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { translations } from '@/lib/translations';
 
 export type Language = 'en' | 'hi' | 'bn' | 'ta' | 'te' | 'mr';
@@ -27,12 +27,27 @@ export const LanguageContext = createContext<LanguageContextType>({
 });
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguageState] = useState<Language>('en');
 
-  const t = (key: keyof (typeof translations)['en']) => {
-    return translations[language][key] || translations.en[key];
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('career-raah-language') as Language;
+    if (savedLanguage && languageOptions.some(opt => opt.code === savedLanguage)) {
+      setLanguageState(savedLanguage);
+    }
+  }, []);
+
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang);
+    localStorage.setItem('career-raah-language', lang);
   };
 
+  const t = useCallback(
+    (key: keyof (typeof translations)['en']) => {
+      return translations[language]?.[key] || translations.en[key];
+    },
+    [language]
+  );
+  
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>
       {children}
