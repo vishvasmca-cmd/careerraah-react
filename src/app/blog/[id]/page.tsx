@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${post.title} | BlogFlow`,
+    title: `${post.title} | CareerRaah`,
     description: post.content.substring(0, 150),
   };
 }

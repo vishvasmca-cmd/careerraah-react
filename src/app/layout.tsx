@@ -5,8 +5,8 @@ import { Header } from '@/components/common/Header';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'BlogFlow',
-  description: 'Explore insightful articles and use our AI tools to enhance your learning.',
+  title: 'CareerRaah',
+  description: 'Your Personal AI Career Guide',
 };
 
 export default function RootLayout({
