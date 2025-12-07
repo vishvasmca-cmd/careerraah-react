@@ -4,7 +4,7 @@ import { BlogList } from '@/components/blog/BlogList';
 import { getBlogPosts } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowRight, BrainCircuit, Newspaper } from 'lucide-react';
+import { ArrowRight, BrainCircuit, Newspaper, PlayCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 
@@ -16,11 +16,11 @@ export default function Home() {
       <main className="flex-grow">
         <section className="relative h-[70vh] min-h-[550px] flex items-center justify-center text-center text-white">
           <Image
-            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGNhcmVlcnxlbnwwfHx8fDE3NjUxMjUwODl8MA&ixlib=rb-4.1.0&q=80&w=1080"
-            alt="Students collaborating on their future careers"
+            src="https://images.unsplash.com/photo-1541339907198-e08756ded66c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhc2lhbiUyMHN0dWRlbnRzJTIwY2xhc3Nyb29tfGVufDB8fHx8MTc2NzA3NjAzNHww&ixlib=rb-4.1.0&q=80&w=1080"
+            alt="Supportive parent helping their child with career planning on a laptop"
             fill
             className="object-cover"
-            data-ai-hint="students career"
+            data-ai-hint="parent child career"
             priority
           />
           <div className="absolute inset-0 bg-black/60" />
@@ -53,38 +53,21 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-12 md:py-20 bg-background">
+        <section className="py-12 md:py-20 bg-background text-center">
           <div className="container mx-auto px-4 md:px-6">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div className="space-y-4">
-                <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">Why Choose CareerRaah?</h2>
-                <p className="text-muted-foreground md:text-lg">
-                  We combine curated content with cutting-edge guidance to provide a unique learning experience.
-                </p>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between pb-2">
-                      <CardTitle className="text-lg font-medium font-headline">Insightful Articles</CardTitle>
-                      <Newspaper className="w-6 h-6 text-primary" />
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">
-                        Dive deep into a variety of topics with our collection of expertly written blog posts.
-                      </p>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between pb-2">
-                      <CardTitle className="text-lg font-medium font-headline">Expert-Led Tools</CardTitle>
-                      <BrainCircuit className="w-6 h-6 text-primary" />
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">
-                        Use our tools to summarize articles and assess your knowledge on any subject.
-                      </p>
-                    </CardContent>
-                  </Card>
+            <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">Why Choose CareerRaah?</h2>
+            <div className="mt-8 max-w-3xl mx-auto">
+              <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl group cursor-pointer">
+                <Image 
+                  src="https://images.unsplash.com/photo-1541339907198-e08756ded66c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhc2lhbiUyMHN0dWRlbnRzJTIwY2xhc3Nyb29tfGVufDB8fHx8MTc2NzA3NjAzNHww&ixlib=rb-4.1.0&q=80&w=1080"
+                  alt="Video thumbnail showing students in a classroom"
+                  data-ai-hint="students classroom"
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <PlayCircle className="w-20 h-20 text-white/80 transition-transform duration-300 group-hover:scale-110" />
+                </div>
               </div>
             </div>
           </div>
