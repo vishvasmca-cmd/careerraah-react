@@ -1,6 +1,21 @@
 # Settings to manage and configure a Firebase App Hosting backend.
 # https://firebase.google.com/docs/app-hosting/configure
 
+# Specifies the node version to use.
+runtime: nodejs20
+
+# Command to build your app
+build:
+  # The command to build your app
+  run: npm run build
+
+# Command to start your app
+run:
+  # The command to start your app
+  run: npm run start
+  # Timeout for server actions
+  serverActionTimeoutSeconds: 120
+
 runConfig:
   # Increase this value if you'd like to automatically spin up
   # more instances in response to increased traffic.
