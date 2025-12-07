@@ -13,16 +13,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { LanguageContext } from '@/context/LanguageProvider';
+import { LanguageContext, languageOptions, Language } from '@/context/LanguageProvider';
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const { language, setLanguage } = useContext(LanguageContext);
 
-  const handleLanguageChange = (lang: 'en' | 'hi') => {
+  const handleLanguageChange = (lang: Language) => {
     setLanguage(lang);
     setIsOpen(false);
   }
+  
+  const currentLanguageName = languageOptions.find(l => l.code === language)?.name || 'English';
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -64,16 +66,15 @@ export function MobileNav() {
              <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline">
-                  <Globe className="mr-2 h-4 w-4" /> {language === 'en' ? 'English' : 'हिंदी'}
+                  <Globe className="mr-2 h-4 w-4" /> {currentLanguageName}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => handleLanguageChange('en')}>
-                  English
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleLanguageChange('hi')}>
-                  हिंदी (Hindi)
-                </DropdownMenuItem>
+                {languageOptions.map((lang) => (
+                  <DropdownMenuItem key={lang.code} onClick={() => handleLanguageChange(lang.code)}>
+                    {lang.name}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

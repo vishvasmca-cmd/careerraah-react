@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { LanguageContext, Language } from '@/context/LanguageProvider';
+import { LanguageContext, languageOptions } from '@/context/LanguageProvider';
 
 
 export function Header() {
@@ -49,12 +49,11 @@ export function Header() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setLanguage('en')}>
-                  English
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLanguage('hi')}>
-                  हिंदी (Hindi)
-                </DropdownMenuItem>
+                {languageOptions.map((lang) => (
+                  <DropdownMenuItem key={lang.code} onClick={() => setLanguage(lang.code)}>
+                    {lang.name}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
 
