@@ -20,6 +20,10 @@ import {
   FileDown,
   BrainCircuit,
   Users,
+  Atom,
+  Film,
+  Trophy,
+  Scale,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -84,7 +88,7 @@ const CAREER_DB = [
   {
     id: 3,
     name: 'UI/UX Designer',
-    category: 'Creative',
+    category: 'Creative Arts',
     icon: Palette,
     salary: { low: 7, high: 25 },
     risk: 'Medium',
@@ -243,17 +247,128 @@ const CAREER_DB = [
         { question: 'Are they excellent communicators who can balance business and tech needs?' },
     ],
   },
+  {
+    id: 9,
+    name: 'ISRO/Space Scientist',
+    category: 'Science & Research',
+    icon: Atom,
+    salary: { low: 10, high: 45 },
+    risk: 'Low',
+    trustScore: 10,
+    description: 'Work on cutting-edge space missions, from satellite design to planetary exploration, contributing to India\'s prestigious space program.',
+    imageUrl: 'https://images.unsplash.com/photo-1614728263952-84ea256ec677?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJU1JPJTIwcm9ja2V0fGVufDB8fHx8MTc2NzEyNDQ2MHww&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'ISRO rocket',
+    roiChart: [
+      { name: 'Cost', value: 8, fill: 'hsl(var(--muted))' },
+      { name: 'Salary', value: 10, fill: 'hsl(var(--primary))' },
+    ],
+    roadmap: [
+      { step: '10+2 (Science, PCM)', desc: 'Excel in Physics, Chemistry, and Mathematics.' },
+      { step: 'B.Tech/M.Tech (Relevant Field)', desc: 'Aerospace, ECE, CS from IIST, IITs or NITs.' },
+      { step: 'Crack ICRB Exam', desc: 'ISRO Centralised Recruitment Board exam is the main entry point.' },
+      { step: 'Join as Scientist/Engineer \'SC\'', desc: 'Begin a prestigious career with the Indian Space Research Organisation.' },
+    ],
+    fitCheck: [
+      { question: 'Does your child have a deep passion for space, science, and technology?' },
+      { question: 'Are they exceptionally strong in physics and mathematics?' },
+      { question: 'Do they have a strong sense of patriotism and desire to contribute to national progress?' },
+    ],
+  },
+  {
+    id: 10,
+    name: 'Film Director',
+    category: 'Creative Arts',
+    icon: Film,
+    salary: { low: 4, high: 100 },
+    risk: 'Very High',
+    trustScore: 5,
+    description: 'The creative lead of a film, responsible for visualizing the script and guiding the actors and technical crew to bring that vision to life.',
+    imageUrl: 'https://images.unsplash.com/photo-1574717024633-596a8376b0f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaWxtJTIwZGlyZWN0b3J8ZW58MHx8fHwxNzY3MTI0NTMxfDA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'film director',
+    roiChart: [
+      { name: 'Cost', value: 10, fill: 'hsl(var(--muted))' },
+      { name: 'Salary', value: 4, fill: 'hsl(var(--primary))' },
+    ],
+    roadmap: [
+      { step: 'Any Stream, Focus on Arts', desc: 'Develop a strong foundation in storytelling, literature, and art.' },
+      { step: 'Degree in Film/Mass Comm', desc: 'Study at FTII, SRFTI, or private institutes like Whistling Woods.' },
+      { step: 'Create Short Films', desc: 'Build a strong portfolio by directing and creating your own content.' },
+      { step: 'Work as an Assistant Director', desc: 'Gain industry experience by working on film sets.' },
+    ],
+    fitCheck: [
+      { question: 'Is your child a natural storyteller with a strong visual imagination?' },
+      { question: 'Can they lead a team and communicate a complex vision clearly?' },
+      { question: 'Are they resilient and prepared for a highly competitive and often unstructured career path?' },
+    ],
+  },
+  {
+    id: 11,
+    name: 'Professional Cricketer',
+    category: 'Sports',
+    icon: Trophy,
+    salary: { low: 2, high: 2000 },
+    risk: 'Very High',
+    trustScore: 3,
+    description: 'A high-performance athlete dedicated to playing cricket at state, national, or international levels, including lucrative leagues like the IPL.',
+    imageUrl: 'https://images.unsplash.com/photo-1595435940989-798240980479?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmlja2V0JTIwYmF0dGluZ3xlbnwwfHx8fDE3NjcxMjQ2MTB8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'cricket batting',
+    roiChart: [
+      { name: 'Cost', value: 5, fill: 'hsl(var(--muted))' },
+      { name: 'Salary', value: 2, fill: 'hsl(var(--primary))' },
+    ],
+    roadmap: [
+      { step: 'Start Early (Age 8-12)', desc: 'Join a reputable local cricket academy for professional coaching.' },
+      { step: 'Play District/State U-14, U-16, U-19', desc: 'Perform consistently in age-group tournaments to get noticed.' },
+      { step: 'Ranji Trophy / Domestic Circuit', desc: 'Break into the senior state team, the gateway to national selection.' },
+      { step 'IPL / National Team', desc: 'Perform in domestic cricket to get an IPL contract or a call-up to the Indian team.' },
+    ],
+    fitCheck: [
+      { question: 'Does your child have exceptional natural talent and athletic ability?' },
+      { question: 'Are they mentally tough, disciplined, and able to handle extreme pressure?' },
+      { question: 'Is the entire family prepared to make significant sacrifices for a high-risk, high-reward career?' },
+    ],
+  },
+  {
+    id: 12,
+    name: 'IAS / IPS Officer',
+    category: 'Civil Services',
+    icon: Scale,
+    salary: { low: 7, high: 30 },
+    risk: 'Very High',
+    trustScore: 10,
+    description: 'Serve the nation as a top-level administrator or police officer by cracking the highly competitive UPSC Civil Services Examination.',
+    imageUrl: 'https://images.unsplash.com/photo-1608222351213-824141947273?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJbmRpYW4lMjBwb2xpY2V8ZW58MHx8fHwxNzY3MTI0NzExfDA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'Indian police',
+    roiChart: [
+      { name: 'Cost', value: 3, fill: 'hsl(var(--muted))' },
+      { name: 'Salary', value: 7, fill: 'hsl(var(--primary))' },
+    ],
+    roadmap: [
+      { step: 'Graduate in Any Stream', desc: 'A simple graduation degree is the only eligibility criteria.' },
+      { step: 'UPSC Exam Preparation (2-3 Years)', desc: 'Intensive preparation for Prelims, Mains, and Interview stages.' },
+      { step: 'Clear UPSC CSE', desc: 'One of the toughest exams in the world with a ~0.1% success rate.' },
+      { step: 'Training at LBSNAA/SVPNPA', desc: 'Foundation course and professional training to become an officer.' },
+    ],
+    fitCheck: [
+      { question: 'Does your child have a strong sense of public service and national duty?' },
+      { question: 'Are they academically consistent, with a wide-ranging curiosity?' },
+      { question: 'Do they possess extreme mental fortitude and perseverance for a long and arduous preparation journey?' },
+    ],
+  },
 ];
 
-const categories = ['All', 'Future Tech', 'Medical', 'Creative', 'Legal', 'Data Science', 'Finance', 'Management'];
+const categories = ['All', 'Future Tech', 'Medical', 'Creative Arts', 'Legal', 'Data Science', 'Finance', 'Management', 'Science & Research', 'Sports', 'Civil Services'];
 const categoryIcons: { [key: string]: React.ElementType } = {
   'Future Tech': Rocket,
   'Medical': Heart,
-  'Creative': Palette,
+  'Creative Arts': Palette,
   'Legal': Landmark,
   'Data Science': BrainCircuit,
   'Finance': DollarSign,
   'Management': Users,
+  'Science & Research': Atom,
+  'Sports': Trophy,
+  'Civil Services': Scale,
 };
 
 export default function ParentExplorer() {
@@ -455,3 +570,5 @@ export default function ParentExplorer() {
     </>
   );
 }
+
+    
