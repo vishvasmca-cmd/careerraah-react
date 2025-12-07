@@ -26,15 +26,15 @@ export default function Home() {
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 p-4">
             <h1 className="text-4xl md:text-6xl font-headline font-bold tracking-tighter text-white">
-              Your Personal AI Career Guide
+              Find Your Future Career, For Free.
             </h1>
             <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-primary-foreground/90">
-              Stop Guessing. Build Your Roadmap in &lt; 5 Minutes.
+              Our AI builds a personalized career roadmap based on your unique skills and interests—all in under 5 minutes.
             </p>
             <div className="mt-8 flex justify-center gap-4">
               <Button asChild size="lg">
                 <Link href="/assessment">
-                  Start Assessment <ArrowRight className="ml-2" />
+                  Create My Free Roadmap <ArrowRight className="ml-2" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
