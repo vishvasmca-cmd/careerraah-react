@@ -118,8 +118,8 @@ export default function Home() {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious className="left-[-50px] hidden sm:flex" />
-                <CarouselNext className="right-[-50px] hidden sm:flex" />
+                <CarouselPrevious className="left-2 sm:left-[-50px]" />
+                <CarouselNext className="right-2 sm:right-[-50px]" />
               </Carousel>
             </div>
           </div>
