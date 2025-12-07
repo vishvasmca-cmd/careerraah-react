@@ -82,6 +82,9 @@ export default function Home() {
                 <p className="mt-2 max-w-2xl mx-auto text-base text-primary-foreground/80">
                     {t('home_parent_subtitle')}
                 </p>
+                 <p className="mt-2 max-w-2xl mx-auto text-base font-semibold text-primary-foreground/90">
+                    {t('home_parent_tagline')}
+                </p>
                  <div className="mt-6 flex justify-center">
                     <Button asChild size="lg" variant="secondary">
                       <Link href="/parent-explorer">{t('home_parent_cta')}</Link>
