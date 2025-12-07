@@ -7,6 +7,34 @@ import Link from 'next/link';
 import { ArrowRight, BrainCircuit, Newspaper, PlayCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+
+const videos = [
+  {
+    title: 'Personalized Career Roadmaps',
+    description: 'See how our AI creates a unique path for every student.',
+    imageUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwbGFubmluZyUyMHNlc3Npb258ZW58MHx8fHwxNzY3Mjc0MTAxfDA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'planning session',
+  },
+  {
+    title: 'Parent & Student Alignment',
+    description: 'Discover careers together and get on the same page.',
+    imageUrl: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzdHVkZW50cyUyMHRhbGtpbmd8ZW58MHx8fHwxNzY3MDk2MDI4fDA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'students talking',
+  },
+  {
+    title: 'Exploring Modern Careers',
+    description: 'Learn about emerging fields beyond traditional choices.',
+    imageUrl: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0ZWNoJTIwdGVhbXxlbnwwfHx8fDE3NjcyNzQxMDF8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'tech team',
+  },
+];
 
 export default function Home() {
   const posts = getBlogPosts();
@@ -56,19 +84,37 @@ export default function Home() {
         <section className="py-12 md:py-20 bg-background text-center">
           <div className="container mx-auto px-4 md:px-6">
             <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">Why Choose CareerRaah?</h2>
-            <div className="mt-8 max-w-3xl mx-auto">
-              <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl group cursor-pointer">
-                <Image
-                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHxzdHVkZW50cyUyMGNsYXNzcm9vbSUyMGxhcHRvcHxlbnwwfHx8fDE3NjcyNzQxMDF8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Video thumbnail showing students in a classroom"
-                  data-ai-hint="students classroom"
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                  <PlayCircle className="w-20 h-20 text-white/80 transition-transform duration-300 group-hover:scale-110" />
-                </div>
-              </div>
+             <div className="mt-8 max-w-3xl mx-auto">
+              <Carousel
+                opts={{
+                  align: 'start',
+                  loop: true,
+                }}
+                className="w-full"
+              >
+                <CarouselContent>
+                  {videos.map((video, index) => (
+                    <CarouselItem key={index} className="md:basis-1/1 lg:basis-1/1">
+                       <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl group cursor-pointer">
+                        <Image
+                          src={video.imageUrl}
+                          alt={video.title}
+                          data-ai-hint={video.imageHint}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center p-4">
+                           <PlayCircle className="w-20 h-20 text-white/80 transition-transform duration-300 group-hover:scale-110" />
+                           <h3 className="mt-4 text-xl font-bold text-white">{video.title}</h3>
+                           <p className="text-sm text-white/90">{video.description}</p>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
             </div>
           </div>
         </section>
