@@ -1,5 +1,6 @@
 'use client';
 
+import { useContext } from 'react';
 import { BlogList } from '@/components/blog/BlogList';
 import { getBlogPosts } from '@/lib/data';
 import { Button } from '@/components/ui/button';
@@ -14,6 +15,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { useTranslation } from '@/hooks/use-translation';
+
 
 const videos = [
   {
@@ -44,6 +47,7 @@ const videos = [
 
 export default function Home() {
   const posts = getBlogPosts();
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col min-h-screen fade-in">
@@ -60,27 +64,27 @@ export default function Home() {
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 p-4">
             <h1 className="text-4xl md:text-6xl font-headline font-bold tracking-tighter text-white">
-              Find Your Future Career, For Free.
+              {t('home_hero_title')}
             </h1>
             <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-primary-foreground/90">
-              Our experts build a personalized career roadmap based on your unique skills and interests—all in under 5 minutes.
+              {t('home_hero_subtitle')}
             </p>
             <div className="mt-8 flex justify-center">
               <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
                 <Link href="/assessment">
-                  Create My Free Roadmap <ArrowRight className="ml-2" />
+                  {t('home_hero_cta')} <ArrowRight className="ml-2" />
                 </Link>
               </Button>
             </div>
 
             <div className="mt-12">
-                <h2 className="text-2xl font-headline font-bold tracking-tight text-white">The Right Time to Plan Their Career is Now.</h2>
+                <h2 className="text-2xl font-headline font-bold tracking-tight text-white">{t('home_parent_title')}</h2>
                 <p className="mt-2 max-w-2xl mx-auto text-base text-primary-foreground/80">
-                    As a parent, you can explore modern careers and understand their potential.
+                    {t('home_parent_subtitle')}
                 </p>
                  <div className="mt-6 flex justify-center">
                     <Button asChild size="lg" variant="secondary">
-                      <Link href="/parent-explorer">Explore Careers for Your Child</Link>
+                      <Link href="/parent-explorer">{t('home_parent_cta')}</Link>
                     </Button>
                 </div>
             </div>
@@ -89,7 +93,7 @@ export default function Home() {
 
         <section className="py-12 md:py-20 bg-background text-center">
           <div className="container mx-auto px-2 md:px-6">
-            <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">Why Choose CareerRaah?</h2>
+            <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">{t('home_why_title')}</h2>
              <div className="mt-8 max-w-5xl mx-auto">
               <Carousel
                 opts={{
@@ -128,9 +132,9 @@ export default function Home() {
         <section id="featured-posts" className="py-12 md:py-20 bg-secondary/50">
           <div className="container mx-auto px-4 md:px-6">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">Popular Guides for Parents</h2>
+              <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">{t('home_guides_title')}</h2>
               <p className="mt-3 max-w-2xl mx-auto text-muted-foreground md:text-xl">
-                Actionable insights for the most common questions from parents in Tier 2/3 India.
+                {t('home_guides_subtitle')}
               </p>
             </div>
             <BlogList posts={posts.slice(0, 3)} showSearch={false} />
@@ -139,14 +143,14 @@ export default function Home() {
 
         <section className="py-12 md:py-20 bg-background">
             <div className="container mx-auto px-4 md:px-6 text-center">
-                 <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">Ready to Dive In?</h2>
+                 <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">{t('home_plan_title')}</h2>
                 <p className="mt-3 max-w-2xl mx-auto text-muted-foreground md:text-xl">
-                    Start learning and exploring today.
+                    {t('home_plan_subtitle')}
                 </p>
                 <div className="mt-8">
                     <Button asChild size="lg">
                         <Link href="/blog">
-                            Explore All Guides <ArrowRight className="ml-2" />
+                            {t('home_plan_cta')} <ArrowRight className="ml-2" />
                         </Link>
                     </Button>
                 </div>

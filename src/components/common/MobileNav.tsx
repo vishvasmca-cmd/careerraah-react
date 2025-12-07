@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Link from 'next/link';
 import { Menu, Route, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -13,10 +13,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { LanguageContext } from '@/context/LanguageProvider';
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
-  const [language, setLanguage] = useState('English');
+  const { language, setLanguage } = useContext(LanguageContext);
+
+  const handleLanguageChange = (lang: 'en' | 'hi') => {
+    setLanguage(lang);
+    setIsOpen(false);
+  }
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -58,14 +64,14 @@ export function MobileNav() {
              <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline">
-                  <Globe className="mr-2 h-4 w-4" /> {language}
+                  <Globe className="mr-2 h-4 w-4" /> {language === 'en' ? 'English' : 'हिंदी'}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => {setLanguage('English'); setIsOpen(false)}}>
+                <DropdownMenuItem onClick={() => handleLanguageChange('en')}>
                   English
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => {setLanguage('Hindi'); setIsOpen(false)}}>
+                <DropdownMenuItem onClick={() => handleLanguageChange('hi')}>
                   हिंदी (Hindi)
                 </DropdownMenuItem>
               </DropdownMenuContent>

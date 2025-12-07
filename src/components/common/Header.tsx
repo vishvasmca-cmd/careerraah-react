@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useContext } from 'react';
 import Link from 'next/link';
 import { Globe, Route } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,9 +12,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { LanguageContext, Language } from '@/context/LanguageProvider';
+
 
 export function Header() {
-  const [language, setLanguage] = useState('English');
+  const { setLanguage } = useContext(LanguageContext);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -47,10 +49,10 @@ export function Header() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setLanguage('English')}>
+                <DropdownMenuItem onClick={() => setLanguage('en')}>
                   English
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLanguage('Hindi')}>
+                <DropdownMenuItem onClick={() => setLanguage('hi')}>
                   हिंदी (Hindi)
                 </DropdownMenuItem>
               </DropdownMenuContent>
