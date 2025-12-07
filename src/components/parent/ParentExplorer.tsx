@@ -17,6 +17,8 @@ import {
   Palette,
   Landmark,
   FileDown,
+  BrainCircuit,
+  Users,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -149,14 +151,92 @@ const CAREER_DB = [
         { question: 'Are they a self-learner, constantly updating their skills?' },
     ],
   },
+  {
+    id: 6,
+    name: 'Data Scientist',
+    category: 'Data Science',
+    icon: BrainCircuit,
+    salary: { low: 12, high: 60 },
+    risk: 'Medium',
+    trustScore: 9,
+    description: 'Analyze large, complex data sets to identify trends, develop predictive models, and provide actionable insights to businesses.',
+    roiChart: [
+        { name: 'Cost', value: 5, fill: 'hsl(var(--muted))' },
+        { name: 'Salary', value: 12, fill: 'hsl(var(--primary))' },
+    ],
+    roadmap: [
+        { step: 'Degree in CS/Stats/Math', desc: 'A quantitative background is key.' },
+        { step: 'Master Python/R', desc: 'Learn libraries like Pandas, Scikit-learn, TensorFlow.' },
+        { step: 'Build a Portfolio', desc: 'Work on Kaggle competitions or personal projects.' },
+        { step: 'First Job', desc: 'Data Analyst or Junior Data Scientist.' },
+    ],
+    fitCheck: [
+        { question: 'Does your child enjoy finding patterns in numbers and information?' },
+        { question: 'Are they skilled in statistics and logical reasoning?' },
+        { question: 'Do they have the persistence to clean and analyze messy data?' },
+    ],
+  },
+  {
+    id: 7,
+    name: 'Investment Banker',
+    category: 'Finance',
+    icon: DollarSign,
+    salary: { low: 15, high: 100 },
+    risk: 'High',
+    trustScore: 7,
+    description: 'Help companies and governments raise capital by issuing stocks and bonds, and provide advice on mergers and acquisitions (M&A).',
+    roiChart: [
+        { name: 'Cost', value: 25, fill: 'hsl(var(--muted))' },
+        { name: 'Salary', value: 15, fill: 'hsl(var(--primary))' },
+    ],
+    roadmap: [
+        { step: 'Tier-1 Degree', desc: 'B.Com(H)/Eco(H) from SRCC/LSR or B.Tech from IIT/BITS.' },
+        { step: 'MBA in Finance', desc: 'From an IIM A/B/C or equivalent top B-School.' },
+        { step: ' grueling Internships', desc: 'Secure internships in finance firms during college.' },
+        { step: 'Analyst Role', desc: 'Start as an analyst at an investment bank.' },
+    ],
+    fitCheck: [
+        { question: 'Can your child handle extremely long hours and high-pressure situations?' },
+        { question: 'Are they exceptionally good with numbers and financial modeling?' },
+        { question: 'Do they have strong networking and communication skills?' },
+    ],
+  },
+  {
+    id: 8,
+    name: 'Product Manager',
+    category: 'Management',
+    icon: Users,
+    salary: { low: 15, high: 80 },
+    risk: 'Medium',
+    trustScore: 8,
+    description: 'Act as the "CEO" of a product, guiding its success by defining strategy, roadmap, and features from conception to launch.',
+    roiChart: [
+        { name: 'Cost', value: 10, fill: 'hsl(var(--muted))' },
+        { name: 'Salary', value: 15, fill: 'hsl(var(--primary))' },
+    ],
+    roadmap: [
+        { step: 'Engg or Business Degree', desc: 'A B.Tech or BBA from a good college is a common start.' },
+        { step: 'Gain Experience', desc: 'Work for 2-4 years in a related field like engineering, design, or marketing.' },
+        { step: 'MBA (Optional but helpful)', desc: 'An MBA from a top school can fast-track the career.' },
+        { step: 'APM Role', desc: 'Join as an Associate Product Manager.' },
+    ],
+    fitCheck: [
+        { question: 'Is your child a natural leader who can influence without authority?' },
+        { question: 'Do they have a strong sense of empathy for users and their problems?' },
+        { question: 'Are they excellent communicators who can balance business and tech needs?' },
+    ],
+  },
 ];
 
-const categories = ['All', 'Future Tech', 'Medical', 'Creative', 'Legal'];
+const categories = ['All', 'Future Tech', 'Medical', 'Creative', 'Legal', 'Data Science', 'Finance', 'Management'];
 const categoryIcons: { [key: string]: React.ElementType } = {
   'Future Tech': Rocket,
   'Medical': Heart,
   'Creative': Palette,
   'Legal': Landmark,
+  'Data Science': BrainCircuit,
+  'Finance': DollarSign,
+  'Management': Users,
 };
 
 export default function ParentExplorer() {
@@ -188,21 +268,25 @@ export default function ParentExplorer() {
           </div>
           <ScrollArea className="w-full whitespace-nowrap">
             <div className="flex w-max space-x-2 pb-2">
-              {categories.map(category => (
-                <Button
-                  key={category}
-                  variant={selectedCategory === category ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setSelectedCategory(category)}
-                  className={`rounded-full transition-colors duration-200 ${
-                    selectedCategory === category
-                      ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-                      : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-100'
-                  }`}
-                >
-                  {category}
-                </Button>
-              ))}
+              {categories.map(category => {
+                const CategoryIcon = categoryIcons[category];
+                return (
+                  <Button
+                    key={category}
+                    variant={selectedCategory === category ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setSelectedCategory(category)}
+                    className={`rounded-full transition-colors duration-200 ${
+                      selectedCategory === category
+                        ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+                        : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-100'
+                    }`}
+                  >
+                    {CategoryIcon && <CategoryIcon className="mr-2 h-4 w-4" />}
+                    {category}
+                  </Button>
+                );
+              })}
             </div>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
