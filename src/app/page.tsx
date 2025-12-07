@@ -37,7 +37,7 @@ const videos = [
   {
     title: 'AI-Powered Assessments',
     description: 'Understand strengths and weaknesses with our expert AI.',
-    imageUrl: 'https://images.unsplash.com/photo-1677756119517-756a188d2d94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhcmRpZmljaWFsJTIwaW50ZWxsaWdlbmNlfGVufDB8fHx8MTc2NzA5NjExOXww&ixlib-rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1677756119517-756a188d2d94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhcmRpZmljaWFsJTIwaW50ZWxsaWdlbmNlfGVufDB8fHx8MTc2NzA5NjExOXww&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'artificial intelligence',
   },
 ];
@@ -66,7 +66,7 @@ export default function Home() {
               Our experts build a personalized career roadmap based on your unique skills and interests—all in under 5 minutes.
             </p>
             <div className="mt-8 flex justify-center">
-              <Button asChild size="lg">
+              <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
                 <Link href="/assessment">
                   Create My Free Roadmap <ArrowRight className="ml-2" />
                 </Link>
@@ -139,9 +139,9 @@ export default function Home() {
 
         <section className="py-12 md:py-20 bg-background">
             <div className="container mx-auto px-4 md:px-6 text-center">
-                <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">Start Your Journey Now.</h2>
+                 <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">Ready to Dive In?</h2>
                 <p className="mt-3 max-w-2xl mx-auto text-muted-foreground md:text-xl">
-                    Take the first step towards a confident future.
+                    Start learning and exploring today.
                 </p>
                 <div className="mt-8">
                     <Button asChild size="lg">
