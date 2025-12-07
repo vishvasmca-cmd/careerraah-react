@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "blog-1",
+      "description": "Abstract purple and blue waves",
+      "imageUrl": "https://images.unsplash.com/photo-1684503830683-108f3e0fd03f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YWJzdHJhY3QlMjB0ZWNobm9sb2d5fGVufDB8fHx8MTc2NTAzMjg2NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract technology"
+    },
+    {
+      "id": "blog-2",
+      "description": "A person writing in a notebook",
+      "imageUrl": "https://images.unsplash.com/photo-1761558794306-466448dab4bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3cml0aW5nJTIwZWR1Y2F0aW9ufGVufDB8fHx8MTc2NTA3ODkwMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "writing education"
+    },
+    {
+      "id": "blog-3",
+      "description": "A futuristic city skyline",
+      "imageUrl": "https://images.unsplash.com/photo-1535021131637-96f0c931f5d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxmdXR1cmUlMjBjaXR5fGVufDB8fHx8MTc2NTAyNDIwN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "future city"
+    },
+    {
+      "id": "blog-4",
+      "description": "AI robot brain illustration",
+      "imageUrl": "https://images.unsplash.com/photo-1694903110330-cc64b7e1d21d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlfGVufDB8fHx8MTc2NTAzNzk2NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "artificial intelligence"
+    },
+    {
+      "id": "blog-5",
+      "description": "Students collaborating in a classroom",
+      "imageUrl": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzdHVkZW50cyUyMGxlYXJuaW5nfGVufDB8fHx8MTc2NTA0MDQ3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "students learning"
+    },
+    {
+      "id": "blog-6",
+      "description": "A library with many books",
+      "imageUrl": "https://images.unsplash.com/photo-1602722053020-af31042989d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxsaWJyYXJ5JTIwYm9va3N8ZW58MHx8fHwxNzY1MDc4OTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "library books"
+    }
+  ]
 }
