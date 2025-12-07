@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -8,14 +9,13 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Slider } from '@/components/ui/slider';
 import { Skeleton } from '@/components/ui/skeleton';
-import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building } from 'lucide-react';
+import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 
-const steps = [
+const baseSteps = [
   { id: 'Step 1', name: 'Profile', fields: ['currentStage'] },
   { id: 'Step 2', name: 'Academics', fields: ['strongSubjects', 'academicScore'] },
   { id: 'Step 3', name: 'Interests', fields: ['interests', 'workStyle'] },
@@ -23,15 +23,33 @@ const steps = [
   { id: 'Step 5', name: 'Finish', fields: [] },
 ];
 
+const juniorSteps = [
+    { id: 'Step 1', name: 'Profile', fields: ['currentStage'] },
+    { id: 'Step 2', name: 'Exploration', fields: ['strongSubjects', 'interests'] },
+    { id: 'Step 3', name: 'Finish', fields: [] },
+];
+
+
 const slideVariants = {
   hidden: { x: '100%', opacity: 0 },
   visible: { x: 0, opacity: 1 },
   exit: { x: '-100%', opacity: 0 },
 };
 
-const subjects = ["Mathematics", "Physics", "Chemistry", "Biology", "Computer Science/IP", "Accounts", "Economics", "Business Studies", "History/Pol Sci", "Geography", "English/Literature", "Art/Design"];
+const subjects = ["Mathematics", "Science", "Social Studies", "English/Literature", "Art/Music", "Computers"];
 const entranceExams = ["No, focusing on Boards", "JEE (Main/Advanced)", "NEET (Medical)", "CUET (Central Universities)", "CLAT (Law)", "Design (NID/NIFT/UCEED)", "Other"];
 const interests = [
+  { name: "Building/Creating 🎨", icon: Palette },
+  { name: "Solving Puzzles 🧠", icon: Code },
+  { name: "Nature/Animals 🌳", icon: Beaker },
+  { name: "Reading/Stories 📖", icon: Book },
+  { name: "Sports/Games 🏃", icon: Gamepad2 },
+  { name: "Helping People ❤️", icon: Handshake },
+  { name: "Performing/Singing 🎤", icon: Mic2 },
+  { name: "Leading a team 🧑‍🤝‍🧑", icon: Briefcase },
+];
+
+const seniorInterests = [
   { name: "Coding / App Dev / AI 💻", icon: Code },
   { name: "Robotics / Electronics 🤖", icon: Beaker },
   { name: "Human Biology / Medicine ⚕️", icon: Handshake },
@@ -41,6 +59,7 @@ const interests = [
   { name: "Writing / Journalism ✍️", icon: Book },
   { name: "Law / Social Justice ⚖️", icon: Landmark },
 ];
+
 
 export function MultiStepAssessment() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -73,6 +92,9 @@ export function MultiStepAssessment() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
 
+  const isJunior = formData.currentStage === 'Class 1-5' || formData.currentStage === 'Class 6-7';
+  const steps = isJunior ? juniorSteps : baseSteps;
+  
   const handleNext = () => {
     if (currentStep < steps.length - 1) {
       if (currentStep === steps.length - 2) { // Submitting on the last real step
@@ -139,8 +161,8 @@ export function MultiStepAssessment() {
             {currentStep === 0 && (
               <div className="space-y-6">
                 <Label className="text-lg font-semibold">Which class/academic stage are you in?</Label>
-                <RadioGroup onValueChange={(value) => handleFormData('currentStage', value)} value={formData.currentStage} className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                   {(['Class 8-10', 'Class 11-12', 'College / Graduate', 'Post Graduate', 'Gap Year'] as const).map(stage => (
+                <RadioGroup onValueChange={(value) => handleFormData('currentStage', value)} value={formData.currentStage} className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                   {(['Class 1-5', 'Class 6-7', 'Class 8-10', 'Class 11-12', 'College / Graduate', 'Post Graduate', 'Gap Year'] as const).map(stage => (
                       <Label key={stage} htmlFor={stage} className={`flex items-center justify-center rounded-md border-2 p-4 cursor-pointer hover:border-primary ${formData.currentStage === stage ? 'border-primary bg-primary/10' : 'border-muted'}`}>
                         <RadioGroupItem value={stage} id={stage} className="sr-only"/>
                         <span className="font-semibold text-center text-sm">{stage}</span>
@@ -148,7 +170,7 @@ export function MultiStepAssessment() {
                    ))}
                 </RadioGroup>
 
-                {currentStage === 'Class 8-10' && (
+                {(currentStage === 'Class 8-10' || currentStage === 'Class 6-7' || currentStage === 'Class 1-5') && (
                   <Select onValueChange={(value) => handleFormData('board', value)} value={formData.board}>
                     <SelectTrigger><SelectValue placeholder="Select your Education Board" /></SelectTrigger>
                     <SelectContent><SelectItem value="CBSE">CBSE</SelectItem><SelectItem value="ICSE">ICSE</SelectItem><SelectItem value="State Board">State Board</SelectItem></SelectContent>
@@ -184,7 +206,7 @@ export function MultiStepAssessment() {
                 )}
               </div>
             )}
-            {currentStep === 1 && (
+            {currentStep === 1 && !isJunior && (
               <div className="space-y-6">
                 <div>
                   <Label className="text-lg font-semibold">Which subjects do you genuinely enjoy & score well in?</Label>
@@ -221,12 +243,39 @@ export function MultiStepAssessment() {
                 </div>
               </div>
             )}
-            {currentStep === 2 && (
+             {currentStep === 1 && isJunior && (
+              <div className='space-y-6'>
+                <div>
+                    <Label className="text-lg font-semibold">What subjects do you enjoy the most in school?</Label>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                        {subjects.map(subject => (
+                        <Button key={subject} variant={formData.strongSubjects.includes(subject) ? 'default' : 'outline'} onClick={() => handleMultiSelect('strongSubjects', subject)}>
+                            {subject}
+                        </Button>
+                        ))}
+                    </div>
+                </div>
+                <div>
+                    <Label className="text-lg font-semibold">What activities do you love doing after school?</Label>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
+                    {interests.map(interest => (
+                        <Button key={interest.name} variant={formData.interests.includes(interest.name) ? "default" : "outline"} className="h-24 flex-col gap-2"
+                        onClick={() => handleMultiSelect('interests', interest.name)}
+                        >
+                        <interest.icon size={24} />
+                        <span className="text-xs text-center">{interest.name}</span>
+                        </Button>
+                    ))}
+                    </div>
+                </div>
+              </div>
+            )}
+            {currentStep === 2 && !isJunior &&(
               <div className='space-y-6'>
                 <div>
                     <Label className="text-lg font-semibold">What topics excite you outside of textbooks?</Label>
                     <div className="grid grid-cols-2 md:grid-cols-2 gap-4 mt-2">
-                    {interests.map(interest => (
+                    {seniorInterests.map(interest => (
                         <Button key={interest.name} variant={formData.interests.includes(interest.name) ? "default" : "outline"} className="h-24 flex-col gap-2"
                         onClick={() => handleMultiSelect('interests', interest.name)}
                         >
@@ -249,7 +298,7 @@ export function MultiStepAssessment() {
                 </div>
               </div>
             )}
-             {currentStep === 3 && (
+             {currentStep === 3 && !isJunior && (
                 <div className="space-y-8">
                     <div>
                         <Label className="text-lg font-semibold">College Budget Expectation (Per Year)</Label>
@@ -281,7 +330,7 @@ export function MultiStepAssessment() {
                     </div>
                 </div>
             )}
-            {currentStep === 4 && (
+            {currentStep === steps.length - 1 && (
               <div className="flex flex-col items-center justify-center text-center h-[300px]">
                 {!isFinished ? (
                   <>
@@ -335,3 +384,5 @@ export function MultiStepAssessment() {
     </Card>
   );
 }
+
+    
