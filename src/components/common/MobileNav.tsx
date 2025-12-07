@@ -3,15 +3,20 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, Route } from 'lucide-react';
+import { Menu, Route, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState('English');
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -50,24 +55,21 @@ export function MobileNav() {
           
           <div className="flex flex-col gap-2">
             <p className="text-sm font-medium text-muted-foreground">Language</p>
-            <div className="flex items-center p-1 rounded-full bg-muted w-min">
-              <Button
-                size="sm"
-                variant={language === 'en' ? 'default' : 'ghost'}
-                className={cn("rounded-full", language === 'en' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground')}
-                onClick={() => setLanguage('en')}
-              >
-                English
-              </Button>
-              <Button
-                size="sm"
-                variant={language === 'hi' ? 'default' : 'ghost'}
-                className={cn("rounded-full", language === 'hi' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground')}
-                onClick={() => setLanguage('hi')}
-              >
-                हिंदी
-              </Button>
-            </div>
+             <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline">
+                  <Globe className="mr-2 h-4 w-4" /> {language}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => {setLanguage('English'); setIsOpen(false)}}>
+                  English
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => {setLanguage('Hindi'); setIsOpen(false)}}>
+                  हिंदी (Hindi)
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </SheetContent>

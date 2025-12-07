@@ -3,13 +3,18 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Route } from 'lucide-react';
+import { Globe, Route } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MobileNav } from './MobileNav';
-import { cn } from '@/lib/utils';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export function Header() {
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState('English');
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -22,26 +27,7 @@ export function Header() {
         </Link>
         
         <div className="flex items-center gap-4">
-          <div className="hidden md:flex items-center p-1 rounded-full bg-muted">
-            <Button
-              size="sm"
-              variant={language === 'en' ? 'default' : 'ghost'}
-              className={cn("rounded-full", language === 'en' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground')}
-              onClick={() => setLanguage('en')}
-            >
-              English
-            </Button>
-            <Button
-              size="sm"
-              variant={language === 'hi' ? 'default' : 'ghost'}
-              className={cn("rounded-full", language === 'hi' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground')}
-              onClick={() => setLanguage('hi')}
-            >
-              हिंदी
-            </Button>
-          </div>
-          
-          <nav className="hidden items-center gap-2 sm:gap-4 md:flex">
+           <nav className="hidden items-center gap-2 sm:gap-4 md:flex">
             <Button variant="ghost" asChild>
               <Link href="/assessment" className="text-sm font-medium">
                 Expert Assessment
@@ -53,6 +39,23 @@ export function Header() {
               </Link>
             </Button>
           </nav>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <Globe className="h-[1.2rem] w-[1.2rem]" />
+                  <span className="sr-only">Select language</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => setLanguage('English')}>
+                  English
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage('Hindi')}>
+                  हिंदी (Hindi)
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
         </div>
 
         <div className="md:hidden">
