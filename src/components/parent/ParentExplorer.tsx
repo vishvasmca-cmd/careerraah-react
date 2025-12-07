@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -453,7 +454,7 @@ export default function ParentExplorer() {
                     className="w-full mt-4 border-primary text-primary hover:bg-primary/10 hover:text-primary"
                     onClick={() => setSelectedCareer(career)}
                   >
-                    View Report
+                    View Details
                   </Button>
                 </CardContent>
               </Card>
