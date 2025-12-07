@@ -43,8 +43,8 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxEUk9ORSUyMGZseWluZ3xlbnwwfHx8fDE3NjY4MjE0NTh8MA&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'drone flying',
     roiChart: [
-      { name: 'Cost', value: 3, fill: 'hsl(var(--muted))' },
-      { name: 'Salary', value: 5, fill: 'hsl(var(--primary))' },
+      { name: 'Avg. Edu Cost', value: 3, fill: 'hsl(var(--muted))' },
+      { name: 'Starting Salary', value: 6, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
       { step: '10+2 (Any Stream)', desc: 'Focus on Physics and Math.' },
@@ -70,8 +70,8 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1579493934963-f145c3427b3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwc3ljaG9sb2d5JTIwdGhlcmFweXxlbnwwfHx8fDE3NjY4MjE4MDF8MA&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'psychology therapy',
     roiChart: [
-      { name: 'Cost', value: 8, fill: 'hsl(var(--muted))' },
-      { name: 'Salary', value: 4, fill: 'hsl(var(--primary))' },
+      { name: 'Avg. Edu Cost', value: 5, fill: 'hsl(var(--muted))' },
+      { name: 'Starting Salary', value: 4, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
       { step: '10+2 (Any Stream)', desc: 'Psychology preferred.' },
@@ -97,8 +97,8 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1587440871875-191322ee64b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxVSVVYJTIwZGVzaWdufGVufDB8fHx8MTc2NjgyMTg1Nnww&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'UIUX design',
     roiChart: [
-      { name: 'Cost', value: 4, fill: 'hsl(var(--muted))' },
-      { name: 'Salary', value: 6, fill: 'hsl(var(--primary))' },
+      { name: 'Avg. Edu Cost', value: 4, fill: 'hsl(var(--muted))' },
+      { name: 'Starting Salary', value: 6, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
       { step: 'Any Degree + Portfolio', desc: 'Degree is secondary to a strong portfolio.' },
@@ -124,8 +124,8 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1598257992949-8835a4623a8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb3Jwb3JhdGUlMjBsYXd8ZW58MHx8fHwxNzY2ODIxODk5fDA&ixlibrb-4.1.0&q=80&w=1080',
     imageHint: 'corporate law',
     roiChart: [
-      { name: 'Cost', value: 15, fill: 'hsl(var(--muted))' },
-      { name: 'Salary', value: 12, fill: 'hsl(var(--primary))' },
+      { name: 'Avg. Edu Cost', value: 15, fill: 'hsl(var(--muted))' },
+      { name: 'Starting Salary', value: 12, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
       { step: '10+2 (Any Stream)', desc: 'Commerce or Humanities is helpful.' },
@@ -151,8 +151,8 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1677756119517-756a188d2d94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhaSUyMGVuZ2luZWVyfGVufDB8fHx8MTc2NjgyMTk1NHww&ixlibrb-4.1.0&q=80&w=1080',
     imageHint: 'ai engineer',
     roiChart: [
-        { name: 'Cost', value: 16, fill: 'hsl(var(--muted))' },
-        { name: 'Salary', value: 12, fill: 'hsl(var(--primary))' },
+        { name: 'Avg. Edu Cost', value: 16, fill: 'hsl(var(--muted))' },
+        { name: 'Starting Salary', value: 12, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
         { step: '10+2 (Science)', desc: 'Strong foundation in Math and CS is a must.' },
@@ -178,8 +178,8 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkYXRhJTIwc2NpZW5jZXxlbnwwfHx8fDE3NjY4MjE5OTR8MA&ixlib.rb-4.1.0&q=80&w=1080',
     imageHint: 'data science',
     roiChart: [
-        { name: 'Cost', value: 10, fill: 'hsl(var(--muted))' },
-        { name: 'Salary', value: 9, fill: 'hsl(var(--primary))' },
+        { name: 'Avg. Edu Cost', value: 10, fill: 'hsl(var(--muted))' },
+        { name: 'Starting Salary', value: 9, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
         { step: 'Degree in CS/Stats/Math', desc: 'A quantitative background is key.' },
@@ -205,8 +205,8 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1664448039325-797c6241ab9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaW5hbmNlJTIwdHJhZGluZ3xlbnwwfHx8fDE3NjY4MjIwMzV8MA&ixlib.rb-4.1.0&q=80&w=1080',
     imageHint: 'finance trading',
     roiChart: [
-        { name: 'Cost', value: 30, fill: 'hsl(var(--muted))' },
-        { name: 'Salary', value: 20, fill: 'hsl(var(--primary))' },
+        { name: 'Avg. Edu Cost', value: 30, fill: 'hsl(var(--muted))' },
+        { name: 'Starting Salary', value: 20, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
         { step: 'Tier-1 Degree', desc: 'B.Com(H)/Eco(H) from SRCC/LSR or B.Tech from IIT/BITS.' },
@@ -232,8 +232,8 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9kdWN0JTIwbWFuYWdlbWVudHxlbnwwfHx8fDE3NjY4MjIwODJ8MA&ixlib.rb-4.1.0&q=80&w=1080',
     imageHint: 'product management',
     roiChart: [
-        { name: 'Cost', value: 25, fill: 'hsl(var(--muted))' },
-        { name: 'Salary', value: 18, fill: 'hsl(var(--primary))' },
+        { name: 'Avg. Edu Cost', value: 25, fill: 'hsl(var(--muted))' },
+        { name: 'Starting Salary', value: 18, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
         { step: 'Engg or Business Degree', desc: 'A B.Tech or BBA from a good college is a common start.' },
@@ -259,8 +259,8 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1614728263952-84ea256ec677?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJU1JPJTIwcm9ja2V0fGVufDB8fHx8MTc2NzEyNDQ2MHww&ixlib.rb-4.1.0&q=80&w=1080',
     imageHint: 'ISRO rocket',
     roiChart: [
-      { name: 'Cost', value: 6, fill: 'hsl(var(--muted))' },
-      { name: 'Salary', value: 8, fill: 'hsl(var(--primary))' },
+      { name: 'Avg. Edu Cost', value: 6, fill: 'hsl(var(--muted))' },
+      { name: 'Starting Salary', value: 8, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
       { step: '10+2 (Science, PCM)', desc: 'Excel in Physics, Chemistry, and Mathematics.' },
@@ -286,8 +286,8 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1574717024633-596a8376b0f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaWxtJTIwZGlyZWN0b3J8ZW58MHx8fHwxNzY3MTI0NTMxfDA&ixlib.rb-4.1.0&q=80&w=1080',
     imageHint: 'film director',
     roiChart: [
-      { name: 'Cost', value: 10, fill: 'hsl(var(--muted))' },
-      { name: 'Salary', value: 2, fill: 'hsl(var(--primary))' },
+      { name: 'Avg. Edu Cost', value: 10, fill: 'hsl(var(--muted))' },
+      { name: 'Starting Salary', value: 2, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
       { step: 'Any Stream, Focus on Arts', desc: 'Develop a strong foundation in storytelling, literature, and art.' },
@@ -313,8 +313,8 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1595435940989-798240980479?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmlja2V0JTIwYmF0dGluZ3xlbnwwfHx8fDE3NjcxMjQ2MTB8MA&ixlib.rb-4.1.0&q=80&w=1080',
     imageHint: 'cricket batting',
     roiChart: [
-      { name: 'Cost', value: 5, fill: 'hsl(var(--muted))' },
-      { name: 'Salary', value: 10, fill: 'hsl(var(--primary))' },
+      { name: 'Avg. Edu Cost', value: 5, fill: 'hsl(var(--muted))' },
+      { name: 'Starting Salary', value: 10, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
       { step: 'Start Early (Age 8-12)', desc: 'Join a reputable local cricket academy for professional coaching.' },
@@ -340,8 +340,8 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1608222351213-824141947273?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJbmRpYW4lMjBwb2xpY2V8ZW58MHx8fHwxNzY3MTI0NzExfDA&ixlib.rb-4.1.0&q=80&w=1080',
     imageHint: 'Indian police',
     roiChart: [
-      { name: 'Cost', value: 3, fill: 'hsl(var(--muted))' },
-      { name: 'Salary', value: 7, fill: 'hsl(var(--primary))' },
+      { name: 'Avg. Edu Cost', value: 3, fill: 'hsl(var(--muted))' },
+      { name: 'Starting Salary', value: 7, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
       { step: 'Graduate in Any Stream', desc: 'A simple graduation degree is the only eligibility criteria.' },
@@ -509,23 +509,41 @@ export default function ParentExplorer() {
                   
                   <div className="p-6">
                     <TabsContent value="roi">
-                      <h3 className="text-lg font-semibold mb-4">Cost vs. Salary Analysis (in Lakhs Per Annum)</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <Card className="p-4 bg-gray-50">
+                            <CardContent className="p-0">
+                                <p className="text-sm font-medium text-muted-foreground">Expected Salary Range (Per Annum)</p>
+                                <p className="text-2xl font-bold text-primary">₹{selectedCareer.salary.low}L - ₹{selectedCareer.salary.high}L+</p>
+                            </CardContent>
+                        </Card>
+                        <Card className="p-4 bg-gray-50">
+                             <CardContent className="p-0">
+                                <p className="text-sm font-medium text-muted-foreground">Financial Risk</p>
+                                <p className={`text-2xl font-bold ${selectedCareer.risk === 'High' || selectedCareer.risk === 'Very High' ? 'text-red-600' : 'text-green-600'}`}>
+                                    {selectedCareer.risk}
+                                </p>
+                            </CardContent>
+                        </Card>
+                      </div>
+
+                      <h3 className="text-lg font-semibold mb-2">Cost vs. Starting Salary</h3>
+                       <p className="text-sm text-muted-foreground mb-4">A visual comparison of average education cost vs. potential starting salary (in Lakhs Per Annum).</p>
                       <div className="h-40 w-full bg-gray-50 rounded-lg p-4 flex items-end gap-8">
                          {selectedCareer.roiChart.map(item => (
                              <div key={item.name} className="flex-1 flex flex-col items-center">
                                  <motion.div
                                     initial={{height: 0}}
-                                    animate={{height: `${item.value * 10}%`}}
+                                    animate={{height: `${item.value * 6}%`}}
                                     transition={{ duration: 0.5, delay: 0.2 }}
                                     className="w-full rounded-t-md"
                                     style={{backgroundColor: item.fill}}
                                  />
-                                 <p className="text-xs font-medium mt-1">{item.name}</p>
-                                 <p className="text-sm font-bold">₹{item.value}L</p>
+                                 <p className="text-xs font-medium mt-2 text-center">{item.name}</p>
+                                 <p className="text-sm font-bold">~₹{item.value}L</p>
                              </div>
                          ))}
                       </div>
-                       <p className="text-sm text-muted-foreground mt-4">This is a simplified illustration. Actual costs and salaries can vary based on college, location, and individual performance.</p>
+                       <p className="text-xs text-muted-foreground mt-3 text-center">Note: This is a simplified illustration. Actual figures can vary significantly.</p>
                     </TabsContent>
 
                     <TabsContent value="roadmap">
