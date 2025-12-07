@@ -27,19 +27,19 @@
     {
       "id": "blog-5",
       "description": "A teacher in a small classroom using a tablet to teach",
-      "imageUrl": "https://images.unsplash.com/photo-1543269865-cbf427effbad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsb2NhbCUyMHR1dG9yfGVufDB8fHx8MTc2ODI5NTU4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1543269865-cbf427effbad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsb2NhbCUyMHR1dG9yfGVufDB8fHx8MTc2ODI5NTU4N3ww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "local tutor"
     },
     {
       "id": "blog-6",
       "description": "A person learning a new language on a laptop",
-      "imageUrl": "https://images.unsplash.com/photo-1559661472-65f5a2a5dc2f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsZWFybiUyMGVuZ2xpc2h8ZW58MHx8fHwxNzY4Mjk1NjEwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1559661472-65f5a2a5dc2f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsZWFybiUyMGVuZ2xpc2h8ZW58MHx8fHwxNzY4Mjk1NjEwfDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "learn english"
     },
     {
       "id": "landing-hero",
       "description": "Students planning their career path on a sunny day.",
-      "imageUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGNhcmVlcnxlbnwwfHx8fDE3NjUxMjUwODl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGNhcmVlcnxlbnwwfHx8fDE3NjUxMjUwODl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "students career"
     }
   ]
