@@ -32,7 +32,7 @@ export default function Home() {
               Our experts build a personalized career roadmap based on your unique skills and interests—all in under 5 minutes.
             </p>
             <div className="mt-8 flex justify-center">
-              <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
+              <Button asChild size="lg">
                 <Link href="/assessment">
                   Create My Free Roadmap <ArrowRight className="ml-2" />
                 </Link>
@@ -58,7 +58,7 @@ export default function Home() {
             <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">Why Choose CareerRaah?</h2>
             <div className="mt-8 max-w-3xl mx-auto">
               <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl group cursor-pointer">
-                <Image 
+                <Image
                   src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGNsYXNzcm9vbSUyMGxhcHRvcHxlbnwwfHx8fDE3NjcyNzQxMDF8MA&ixlib=rb-4.1.0&q=80&w=1080"
                   alt="Video thumbnail showing students in a classroom"
                   data-ai-hint="students classroom"
