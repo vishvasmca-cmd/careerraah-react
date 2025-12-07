@@ -16,11 +16,11 @@ export default function Home() {
       <main className="flex-grow">
         <section className="relative h-[70vh] min-h-[550px] flex items-center justify-center text-center text-white">
           <Image
-            src="https://images.unsplash.com/photo-1576765625103-6a3c1b52a78f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwYXJlbnQlMjBjaGlsZCUyMGNhcmVlcnxlbnwwfHx8fDE3NzM3MjYxNTV8MA&ixlib=rb-4.1.0&q=80&w=1080"
-            alt="Parent and child discussing career options on a laptop"
+            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGNhcmVlcnxlbnwwfHx8fDE3NjUxMjUwODl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+            alt="Students collaborating on their future careers"
             fill
             className="object-cover"
-            data-ai-hint="parent child"
+            data-ai-hint="students career"
             priority
           />
           <div className="absolute inset-0 bg-black/60" />
