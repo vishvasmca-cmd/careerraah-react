@@ -31,15 +31,18 @@ export default function Home() {
             <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-primary-foreground/90">
               Our experts build a personalized career roadmap based on your unique skills and interests—all in under 5 minutes.
             </p>
-            <div className="mt-8 flex justify-center gap-4">
-              <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
+            <div className="mt-8 flex justify-center items-center flex-wrap gap-4">
+               <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
                 <Link href="/assessment">
                   Create My Free Roadmap <ArrowRight className="ml-2" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="secondary">
-                <Link href="/parent-explorer">Parent Explorer</Link>
-              </Button>
+              <div className="flex flex-col items-center gap-2">
+                <Button asChild size="lg" variant="secondary">
+                  <Link href="/parent-explorer">Career Explorer</Link>
+                </Button>
+                <p className="text-xs text-primary-foreground/70">For Parents: Explore modern careers & their potential</p>
+              </div>
             </div>
           </div>
         </section>
