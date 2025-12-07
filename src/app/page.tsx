@@ -32,7 +32,7 @@ export default function Home() {
               Our experts build a personalized career roadmap based on your unique skills and interests—all in under 5 minutes.
             </p>
             <div className="mt-8 flex justify-center gap-4">
-              <Button asChild size="lg">
+              <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
                 <Link href="/assessment">
                   Create My Free Roadmap <ArrowRight className="ml-2" />
                 </Link>
