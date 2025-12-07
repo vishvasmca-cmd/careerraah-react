@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen fade-in">
       <main className="flex-grow">
-        <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center text-center text-white">
+        <section className="relative h-[70vh] min-h-[550px] flex items-center justify-center text-center text-white">
           <Image
             src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGNhcmVlcnxlbnwwfHx8fDE3NjUxMjUwODl8MA&ixlib=rb-4.1.0&q=80&w=1080"
             alt="Students planning their career"
@@ -31,18 +31,24 @@ export default function Home() {
             <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-primary-foreground/90">
               Our experts build a personalized career roadmap based on your unique skills and interests—all in under 5 minutes.
             </p>
-            <div className="mt-8 flex justify-center items-center flex-wrap gap-4">
-               <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
+            <div className="mt-8 flex justify-center">
+              <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
                 <Link href="/assessment">
                   Create My Free Roadmap <ArrowRight className="ml-2" />
                 </Link>
               </Button>
-              <div className="flex flex-col items-center gap-2">
-                <Button asChild size="lg" variant="secondary">
-                  <Link href="/parent-explorer">Career Explorer</Link>
-                </Button>
-                <p className="text-xs text-primary-foreground/70">For Parents: Explore modern careers & their potential</p>
-              </div>
+            </div>
+
+            <div className="mt-12">
+                <h2 className="text-2xl font-headline font-bold tracking-tight text-white">The Right Time to Plan Their Career is Now.</h2>
+                <p className="mt-2 max-w-2xl mx-auto text-base text-primary-foreground/80">
+                    As a parent, you can explore modern careers and understand their potential.
+                </p>
+                 <div className="mt-6 flex justify-center">
+                    <Button asChild size="lg" variant="secondary">
+                      <Link href="/parent-explorer">Explore Careers for Your Child</Link>
+                    </Button>
+                </div>
             </div>
           </div>
         </section>
