@@ -320,7 +320,7 @@ const CAREER_DB = [
       { step: 'Start Early (Age 8-12)', desc: 'Join a reputable local cricket academy for professional coaching.' },
       { step: 'Play District/State U-14, U-16, U-19', desc: 'Perform consistently in age-group tournaments to get noticed.' },
       { step: 'Ranji Trophy / Domestic Circuit', desc: 'Break into the senior state team, the gateway to national selection.' },
-      { step 'IPL / National Team', desc: 'Perform in domestic cricket to get an IPL contract or a call-up to the Indian team.' },
+      { step: 'IPL / National Team', desc: 'Perform in domestic cricket to get an IPL contract or a call-up to the Indian team.' },
     ],
     fitCheck: [
       { question: 'Does your child have exceptional natural talent and athletic ability?' },
@@ -570,5 +570,3 @@ export default function ParentExplorer() {
     </>
   );
 }
-
-    
