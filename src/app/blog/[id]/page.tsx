@@ -1,8 +1,10 @@
 import { getBlogPost } from '@/lib/data';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Calendar, User } from 'lucide-react';
+import { Calendar, User, ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 type Props = {
   params: { id: string };
@@ -65,6 +67,19 @@ export default function BlogPostPage({ params }: Props) {
               {post.content}
             </div>
           </CardContent>
+          <CardFooter className="p-6 pt-6 bg-primary/5 rounded-b-lg flex-col items-center text-center">
+            <h3 className="text-xl font-bold font-headline text-foreground">Ready to Discover Your Path?</h3>
+            <p className="mt-2 text-muted-foreground">
+              Our AI can build a personalized career roadmap for you in minutes.
+            </p>
+            <div className="mt-6">
+              <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
+                <Link href="/assessment">
+                  Create My Free Roadmap <ArrowRight className="ml-2" />
+                </Link>
+              </Button>
+            </div>
+          </CardFooter>
         </Card>
       </article>
     </div>
@@ -75,3 +90,4 @@ export default function BlogPostPage({ params }: Props) {
 const Card = ({ className, children }: { className?: string, children: React.ReactNode }) => <div className={className}>{children}</div>;
 const CardHeader = ({ className, children }: { className?: string, children: React.ReactNode }) => <div className={className}>{children}</div>;
 const CardContent = ({ className, children }: { className?: string, children: React.ReactNode }) => <div className={className}>{children}</div>;
+const CardFooter = ({ className, children }: { className?: string, children: React.ReactNode }) => <div className={className}>{children}</div>;
