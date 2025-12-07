@@ -16,7 +16,7 @@ export default function Home() {
       <main className="flex-grow">
         <section className="relative h-[70vh] min-h-[550px] flex items-center justify-center text-center text-white">
           <Image
-            src="https://images.unsplash.com/photo-1541339907198-e08756ded66c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhc2lhbiUyMHN0dWRlbnRzJTIwY2xhc3Nyb29tfGVufDB8fHx8MTc2NzA3NjAzNHww&ixlib=rb-4.1.0&q=80&w=1080"
+            src="https://images.unsplash.com/photo-1541339907198-e08756ded66c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwYXJlbnQlMjBjaGlsZCUyMGxhcHRvcCUyMGNhcmVlcnxlbnwwfHx8fDE3NjcyNzQwMDB8MA&ixlib=rb-4.1.0&q=80&w=1080"
             alt="Supportive parent helping their child with career planning on a laptop"
             fill
             className="object-cover"
@@ -59,7 +59,7 @@ export default function Home() {
             <div className="mt-8 max-w-3xl mx-auto">
               <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl group cursor-pointer">
                 <Image 
-                  src="https://images.unsplash.com/photo-1541339907198-e08756ded66c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhc2lhbiUyMHN0dWRlbnRzJTIwY2xhc3Nyb29tfGVufDB8fHx8MTc2NzA3NjAzNHww&ixlib=rb-4.1.0&q=80&w=1080"
+                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGNsYXNzcm9vbSUyMGxhcHRvcHxlbnwwfHx8fDE3NjcyNzQxMDF8MA&ixlib=rb-4.1.0&q=80&w=1080"
                   alt="Video thumbnail showing students in a classroom"
                   data-ai-hint="students classroom"
                   fill
