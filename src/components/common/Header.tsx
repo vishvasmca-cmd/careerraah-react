@@ -20,7 +20,7 @@ export function Header() {
           </Button>
           <Button variant="ghost" asChild>
             <Link href="/assessment" className="text-sm font-medium">
-              AI Assessment
+              Expert Assessment
             </Link>
           </Button>
           <Button variant="ghost" asChild>

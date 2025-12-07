@@ -82,7 +82,7 @@ export function BlogPostCard({ post, index }: BlogPostCardProps) {
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 font-headline text-2xl">
-                <Sparkles className="text-primary"/> AI Summary
+                <Sparkles className="text-primary"/> Expert Summary
             </DialogTitle>
             <DialogDescription className="pt-2 text-left">
               A quick summary of "{post.title}"

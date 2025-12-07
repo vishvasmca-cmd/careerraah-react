@@ -29,7 +29,7 @@ export default function Home() {
               Find Your Future Career, For Free.
             </h1>
             <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-primary-foreground/90">
-              Our AI builds a personalized career roadmap based on your unique skills and interests—all in under 5 minutes.
+              Our experts build a personalized career roadmap based on your unique skills and interests—all in under 5 minutes.
             </p>
             <div className="mt-8 flex justify-center gap-4">
               <Button asChild size="lg">
@@ -50,7 +50,7 @@ export default function Home() {
               <div className="space-y-4">
                 <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">Why Choose CareerRaah?</h2>
                 <p className="text-muted-foreground md:text-lg">
-                  We combine curated content with cutting-edge AI to provide a unique learning experience.
+                  We combine curated content with cutting-edge guidance to provide a unique learning experience.
                 </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -67,12 +67,12 @@ export default function Home() {
                   </Card>
                   <Card>
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
-                      <CardTitle className="text-lg font-medium font-headline">AI-Powered Tools</CardTitle>
+                      <CardTitle className="text-lg font-medium font-headline">Expert-Led Tools</CardTitle>
                       <BrainCircuit className="w-6 h-6 text-primary" />
                     </CardHeader>
                     <CardContent>
                       <p className="text-sm text-muted-foreground">
-                        Use our AI to summarize articles and assess your knowledge on any subject.
+                        Use our tools to summarize articles and assess your knowledge on any subject.
                       </p>
                     </CardContent>
                   </Card>
