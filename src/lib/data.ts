@@ -17,57 +17,45 @@ const getImage = (id: string) => {
 const posts: Omit<BlogPost, 'imageUrl' | 'imageHint'>[] = [
   {
     id: '1',
-    title: 'The Future of Reactive Frameworks',
-    author: 'Jane Doe',
+    title: 'Beyond IIT/NEET: Top 5 New-Age Careers for Your Child',
+    author: 'CareerRaah Research Wing',
     date: 'October 26, 2023',
-    content: `The landscape of web development is in constant flux, with new frameworks and libraries emerging at a dizzying pace. At the heart of modern web applications lies the concept of reactivity, a paradigm that allows UIs to automatically update in response to changes in the underlying data. Early pioneers like Knockout and AngularJS introduced data binding, but it was React that popularized the virtual DOM and a one-way data flow, making UI updates more predictable and performant.
-
-As we look to the future, several trends are shaping the next generation of reactive frameworks. Fine-grained reactivity, as seen in libraries like SolidJS and Svelte, is moving away from the virtual DOM entirely. Instead of re-rendering entire components, these frameworks surgically update only the parts of the DOM that have changed. This approach promises even better performance and a more intuitive developer experience, as the code you write more closely maps to the execution model.
-
-Another significant development is the rise of server components, championed by React and Next.js. By allowing components to render on the server and stream HTML to the client, applications can achieve faster initial load times and reduce the amount of JavaScript shipped to the browser. This "zero-bundle-size" approach for static content is a game-changer for content-heavy sites and applications where performance is critical. The combination of server-side rendering and client-side hydration is becoming more sophisticated, blurring the lines between server and client and enabling developers to build complex, interactive experiences that are also highly optimized. The future is not just reactive, but selectively and intelligently so.`
+    content: `Is the relentless pressure of IIT/NEET coaching causing sleepless nights? You're not alone. While engineering and medicine are respected paths, the intense competition and low success rates (less than 1%) are forcing smart parents to look for Plan B. The good news? The digital economy has created high-paying, respected careers that didn't exist a decade ago. This guide explores the top 5 "New-Age" careers like Data Science, UI/UX Design, and AI Engineering, detailing the skills required, salary potential, and a clear roadmap for your child to succeed.`
   },
   {
     id: '2',
-    title: 'A Deep Dive into Educational AI',
-    author: 'John Smith',
+    title: 'The Real Cost of Studying Abroad: A Guide for Tier 2/3 Families',
+    author: 'CareerRaah Research Wing',
     date: 'October 22, 2023',
-    content: `Artificial Intelligence is no longer a futuristic concept in education; it's a present-day reality transforming how students learn and teachers instruct. AI-powered tools are creating personalized learning paths, adapting to each student's pace and style. For instance, adaptive learning platforms can identify a student's strengths and weaknesses in real-time, offering targeted exercises and resources to fill knowledge gaps. This moves away from the one-size-fits-all model of traditional classrooms, fostering a more effective and engaging learning environment.
-
-Moreover, AI is revolutionizing assessment. Instead of relying solely on traditional exams, AI can provide continuous, low-stakes feedback on a student's work. Natural Language Processing (NLP) models can analyze essays for grammar, structure, and argumentation, giving students instant feedback that was once only possible through a teacher's time-intensive review. This not only helps students improve their writing but also frees up educators to focus on higher-level concepts and more personalized instruction. Tools that allow parents and students to get an instant AI-driven assessment on a question provide a powerful new way to support learning outside the classroom.
-
-However, the integration of AI in education is not without its challenges. Ensuring equity of access to these technologies, addressing data privacy concerns, and preventing algorithmic bias are critical hurdles that must be overcome. The goal is not to replace teachers but to empower them with powerful tools that enhance their ability to meet the diverse needs of all learners. The future of education will be a collaborative one, where human educators and artificial intelligence work in tandem to unlock every student's full potential.`
+    content: `Seeing your child graduate from a foreign university is the ultimate dream for many parents. But the journey is filled with hidden costs and complex procedures. A staggering 57% of Indian students studying abroad now come from non-metro cities. This guide breaks down the real costs—beyond just tuition fees—for popular destinations like Canada, the UK, and Germany. We provide a step-by-step checklist, from building the right profile in Class 9 to navigating visa applications, helping you make an informed financial decision for this life-changing investment.`
   },
   {
     id: '3',
-    title: 'Building Resilient Urban Centers',
-    author: 'Emily White',
+    title: 'Sports Is a Real Career: How to Turn Your Child\'s Talent into a Profession',
+    author: 'CareerRaah Research Wing',
     date: 'October 18, 2023',
-    content: `As the world's population becomes increasingly urbanized, the resilience of our cities is more important than ever. A resilient city is one that can withstand, adapt, and recover from shocks and stresses, whether they be natural disasters like floods and earthquakes, or chronic pressures like social inequality and aging infrastructure. The foundation of a resilient urban center is integrated planning. This involves breaking down silos between departments—transportation, housing, energy, and water—to create a holistic strategy that considers the interconnectedness of urban systems.
-
-Smart technology plays a crucial role in modern urban resilience. IoT sensors can monitor everything from air quality to traffic flow, providing real-time data that allows city managers to make informed decisions and respond quickly to emergencies. For example, smart grids can reroute power during an outage, and intelligent traffic management systems can evacuate citizens more efficiently during a crisis. These technologies are not just about response; they are also about proactive planning. By simulating the impact of different scenarios, cities can identify vulnerabilities and invest in infrastructure improvements before a disaster strikes.
-
-Ultimately, resilience is about people. Community engagement is the bedrock of any successful resilience strategy. When residents are involved in the planning process, the solutions are more likely to be equitable and effective. Social cohesion—the trust and connectedness between neighbors—is one of the most powerful assets a city can have during a crisis. Building resilient urban centers requires a multi-faceted approach that combines robust infrastructure, smart technology, and, most importantly, empowered and engaged communities. It is a long-term investment in a safer, more sustainable future for all urban dwellers.`
+    content: `Did Neeraj Chopra's Olympic gold make you wonder about your own child's athletic talent? The perception of sports is shifting from a "hobby" to a viable, high-earning profession. Today, 71% of parents are willing to support a career in sports beyond cricket. This guide details the pathways in rising sports like Badminton and Football. Learn about the role of private academies, the importance of the Khelo India scheme, and how a disciplined sports career can lead to government jobs, professional leagues, and a secure future for your child.`
   },
   {
     id: '4',
-    title: 'The Power of Machine Learning',
-    author: 'Michael Brown',
+    title: 'Coding vs. Robotics: Which "Future-Proof" Skill Is Right for Your Child?',
+    author: 'CareerRaah Research Wing',
     date: 'October 15, 2023',
-    content: 'Machine learning (ML) has evolved from a niche academic field to a driving force of technological innovation. At its core, ML is about creating algorithms that allow computers to learn from data without being explicitly programmed. This simple concept has profound implications. From recommending your next movie on Netflix to powering the facial recognition on your phone, ML is already deeply integrated into our daily lives. The two main paradigms are supervised learning, where the algorithm learns from labeled data (e.g., images of cats labeled "cat"), and unsupervised learning, where it finds patterns in unlabeled data.'
+    content: 'In the age of AI, parents are terrified of their children being left behind. You know tech skills are the new guarantee of employability, but where do you start? Should your child learn Python, or build a robot they can touch? This guide explains the difference between coding, robotics, and other STEM fields. We analyze which skills are in demand, the investment required for each, and how to choose the right path based on your child’s learning style and interests, ensuring your investment in "future-proofing" them pays off.'
   },
   {
     id: '5',
-    title: 'Collaborative Learning in the Digital Age',
-    author: 'Sarah Green',
+    title: 'The "Phygital" Advantage: Why Your Local Tuition Teacher is Still Your Best Bet',
+    author: 'CareerRaah Research Wing',
     date: 'October 11, 2023',
-    content: 'The digital age has opened up new frontiers for collaborative learning. Online platforms and tools now enable students from different geographical locations to work together on projects, share ideas, and build knowledge collectively. This shift from individualistic to group-oriented learning reflects the demands of the modern workplace, where teamwork and communication are paramount. Video conferencing, shared documents, and virtual whiteboards are just a few of the technologies that facilitate this new mode of education, making learning more interactive and dynamic than ever before.'
+    content: 'Post-pandemic, parents have realized that pure online learning apps have limitations. The "Trust Deficit" is real. You want the accountability of a physical center combined with the quality of digital tools. This is the "Phygital" model. This article explains why your local tuition center, when empowered with the right technology, can be the most effective learning environment. We show how CareerRaah partners with these trusted local teachers to provide world-class guidance, blending personal trust with scientific career mapping.'
   },
   {
     id: '6',
-    title: 'Why Every Developer Needs to Understand Data Structures',
-    author: 'David Black',
+    title: 'The English Fluency Myth: Speaking vs. Learning',
+    author: 'CareerRaah Research Wing',
     date: 'October 5, 2023',
-    content: 'Data structures are the fundamental building blocks of computer science. While high-level languages and frameworks can sometimes obscure their importance, a deep understanding of data structures is what separates a good programmer from a great one. Knowing when to use a hash map versus an array, or a linked list versus a queue, can have a dramatic impact on the performance and efficiency of your code. It’s not just about theoretical knowledge; it’s about making practical, informed decisions that lead to better, faster, and more scalable software. Mastering them is a crucial step in any developer’s journey.'
+    content: 'Every parent wants their child to be fluent in English. But does that mean they must learn complex subjects like Physics or Chemistry only in English? Research shows that students learn best in their mother tongue. This guide explores the "Vernacular is the Gateway" strategy used by top educational platforms. Learn how to prioritize "Spoken English" as a separate, premium skill while allowing your child to master core subjects in the language they understand best. This balanced approach builds both confidence and competence.'
   },
 ];
 

@@ -88,7 +88,7 @@ export default function Home() {
         </section>
 
         <section className="py-12 md:py-20 bg-background text-center">
-          <div className="container mx-auto px-4 md:px-6">
+          <div className="container mx-auto px-2 md:px-6">
             <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">Why Choose CareerRaah?</h2>
              <div className="mt-8 max-w-5xl mx-auto">
               <Carousel
@@ -128,9 +128,9 @@ export default function Home() {
         <section id="featured-posts" className="py-12 md:py-20 bg-secondary/50">
           <div className="container mx-auto px-4 md:px-6">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">Featured Posts</h2>
+              <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">Popular Guides for Parents</h2>
               <p className="mt-3 max-w-2xl mx-auto text-muted-foreground md:text-xl">
-                Check out some of our most popular articles.
+                Actionable insights for the most common questions from parents in Tier 2/3 India.
               </p>
             </div>
             <BlogList posts={posts.slice(0, 3)} showSearch={false} />
@@ -146,7 +146,7 @@ export default function Home() {
                 <div className="mt-8">
                     <Button asChild size="lg">
                         <Link href="/blog">
-                            Explore Blog <ArrowRight className="ml-2" />
+                            Explore All Guides <ArrowRight className="ml-2" />
                         </Link>
                     </Button>
                 </div>

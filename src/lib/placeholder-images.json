@@ -2,39 +2,39 @@
   "placeholderImages": [
     {
       "id": "blog-1",
-      "description": "Abstract purple and blue waves",
-      "imageUrl": "https://images.unsplash.com/photo-1684503830683-108f3e0fd03f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8YWJzdHJhY3QlMjB0ZWNobm9sb2d5fGVufDB8fHx8MTc2NTAzMjg2NHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "abstract technology"
+      "description": "A person looking at a crossroads sign with different career paths",
+      "imageUrl": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJlZXIlMjBjaG9pY2VzfGVufDB8fHx8MTc2ODI5NTU0NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "career choices"
     },
     {
       "id": "blog-2",
-      "description": "A person writing in a notebook",
-      "imageUrl": "https://images.unsplash.com/photo-1761558794306-466448dab4bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3cml0aW5nJTIwZWR1Y2F0aW9ufGVufDB8fHx8MTc2NTA3ODkwMHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "writing education"
+      "description": "A student with a backpack looking at an airport departure board",
+      "imageUrl": "https://images.unsplash.com/photo-1544093937-234a61363654?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50JTIwc3R1ZHklMjBhYnJvYWR8ZW58MHx8fHwxNzY4Mjk1NTQ0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "student study abroad"
     },
     {
       "id": "blog-3",
-      "description": "A futuristic city skyline",
-      "imageUrl": "https://images.unsplash.com/photo-1535021131637-96f0c931f5d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxmdXR1cmUlMjBjaXR5fGVufDB8fHx8MTc2NTAyNDIwN3ww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "future city"
+      "description": "A young athlete running on a track, showing determination",
+      "imageUrl": "https://images.unsplash.com/photo-1517649763984-336356df1157?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzcG9ydHMlMjBjYXJlZXJ8ZW58MHx8fHwxNzY4Mjk1NTQ0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sports career"
     },
     {
       "id": "blog-4",
-      "description": "AI robot brain illustration",
-      "imageUrl": "https://images.unsplash.com/photo-1694903110330-cc64b7e1d21d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlfGVufDB8fHx8MTc2NTAzNzk2NHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "artificial intelligence"
+      "description": "A child programming a small robot on a table",
+      "imageUrl": "https://images.unsplash.com/photo-1641977057262-b9cac52c0839?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyb2JvdGljcyUyMGtpfGVufDB8fHx8MTc2ODI5NTU4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "robotics kit"
     },
     {
       "id": "blog-5",
-      "description": "Students collaborating in a classroom",
-      "imageUrl": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzdHVkZW50cyUyMGxlYXJuaW5nfGVufDB8fHx8MTc2NTA0MDQ3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "students learning"
+      "description": "A teacher in a small classroom using a tablet to teach",
+      "imageUrl": "https://images.unsplash.com/photo-1543269865-cbf427effbad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsb2NhbCUyMHR1dG9yfGVufDB8fHx8MTc2ODI5NTU4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "local tutor"
     },
     {
       "id": "blog-6",
-      "description": "A library with many books",
-      "imageUrl": "https://images.unsplash.com/photo-1602722053020-af31042989d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxsaWJyYXJ5JTIwYm9va3N8ZW58MHx8fHwxNzY1MDc4OTAwfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "library books"
+      "description": "A person learning a new language on a laptop",
+      "imageUrl": "https://images.unsplash.com/photo-1559661472-65f5a2a5dc2f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsZWFybiUyMGVuZ2xpc2h8ZW58MHx8fHwxNzY4Mjk1NjEwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "learn english"
     },
     {
       "id": "landing-hero",
