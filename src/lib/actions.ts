@@ -5,6 +5,7 @@ import { assessUser } from '@/ai/flows/assess-user';
 import { summarizeBlogPost } from '@/ai/flows/summarize-blog-posts';
 import { generateCareerReport } from '@/ai/flows/generate-career-report';
 import type { GenerateCareerReportInput } from '@/ai/schemas/career-report';
+import { answerCareerQuestion } from '@/ai/flows/answer-career-question';
 
 
 export async function getSummaryAction(content: string) {
@@ -40,5 +41,18 @@ export async function getCareerReportAction(data: GenerateCareerReportInput) {
   } catch (error) {
     console.error(error);
     return { error: 'Failed to generate career report. Please try again later.' };
+  }
+}
+
+export async function getCareerQuestionAnswerAction(
+  assessmentData: GenerateCareerReportInput,
+  question: string
+) {
+  try {
+    const result = await answerCareerQuestion({ assessmentData, question });
+    return { answer: result.answer };
+  } catch (error) {
+    console.error(error);
+    return { error: 'Failed to get an answer. Please try again later.' };
   }
 }

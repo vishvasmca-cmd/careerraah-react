@@ -15,9 +15,11 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { getCareerReportAction } from '@/lib/actions';
-import type { GenerateCareerReportOutput } from '@/ai/schemas/career-report';
+import type { GenerateCareerReportInput, GenerateCareerReportOutput } from '@/ai/schemas/career-report';
 import Link from 'next/link';
 import { Slider } from '@/components/ui/slider';
+import { InteractiveChat } from '@/components/assessment/InteractiveChat';
+
 
 const baseSteps = [
   { id: 'Step 1', name: 'Profile', fields: ['currentStage'] },
@@ -78,7 +80,7 @@ const workStyles = [
 
 export function MultiStepAssessment({ userRole = 'student' }: { userRole: string }) {
   const [currentStep, setCurrentStep] = useState(0);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<GenerateCareerReportInput>({
     // Step 1
     currentStage: '',
     board: '',
@@ -87,26 +89,29 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
     collegeStream: '',
     currentGoal: '',
     industryPreference: '',
-    goalTimeline: '',
     gapDegree: '',
-    gapYearCompleted: '',
-    gapDuration: 1,
     gapAspiration: '',
     // Step 2
-    strongSubjects: [] as string[],
-    academicScore: 70, // Default numeric value
-    examStatus: [] as string[],
+    strongSubjects: [],
+    academicScore: "75% - 85%", // Default text bucket
+    examStatus: [],
     // Step 3
-    interests: [] as string[],
+    interests: [],
     workStyle: '',
     // Step 4
-    budget: 200000, // Default numeric value
+    budget: "Medium (₹1L - ₹4L)", // Default text bucket
     parentPressure: false,
     location: '',
     // Junior Flow Specific
     parentQuestion: '',
     userRole: userRole,
   });
+
+  const [formNumericData, setFormNumericData] = useState({
+      academicScore: 70,
+      budget: 200000,
+  });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [report, setReport] = useState<GenerateCareerReportOutput | null>(null);
@@ -121,28 +126,7 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
         setIsSubmitting(true);
         setError(null);
         
-        // Convert numeric slider values to text buckets for AI
-        const getAcademicBucket = (score: number) => {
-            if (score < 60) return "< 60%";
-            if (score < 75) return "60% - 75%";
-            if (score < 85) return "75% - 85%";
-            if (score < 95) return "85% - 95%";
-            return "95%+";
-        }
-
-        const getBudgetBucket = (budget: number) => {
-            if (budget <= 100000) return "Low (< ₹1L)";
-            if (budget <= 400000) return "Medium (₹1L - ₹4L)";
-            if (budget <= 1000000) return "High (₹4L - ₹10L)";
-            return "Premium (> ₹10L)";
-        }
-
-        const payload = {
-            ...formData,
-            academicScore: getAcademicBucket(formData.academicScore),
-            budget: getBudgetBucket(formData.budget),
-            userRole,
-        };
+        const payload = { ...formData, userRole };
 
         const result = await getCareerReportAction(payload);
 
@@ -168,9 +152,34 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
     }
   };
   
-  const handleFormData = (field: string, value: any) => {
+  const handleFormData = (field: keyof GenerateCareerReportInput, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
+
+  const handleNumericData = (field: 'academicScore' | 'budget', value: number) => {
+      setFormNumericData(prev => ({ ...prev, [field]: value }));
+
+      if (field === 'academicScore') {
+          const getAcademicBucket = (score: number) => {
+            if (score < 60) return "< 60%";
+            if (score < 75) return "60% - 75%";
+            if (score < 85) return "75% - 85%";
+            if (score < 95) return "85% - 95%";
+            return "95%+";
+          }
+          handleFormData('academicScore', getAcademicBucket(value));
+      }
+
+      if (field === 'budget') {
+            const getBudgetBucket = (budget: number) => {
+                if (budget <= 100000) return "Low (< ₹1L)";
+                if (budget <= 400000) return "Medium (₹1L - ₹4L)";
+                if (budget <= 1000000) return "High (₹4L - ₹10L)";
+                return "Premium (> ₹10L)";
+            }
+            handleFormData('budget', getBudgetBucket(value));
+      }
+  }
   
   const handleMultiSelect = (field: 'strongSubjects' | 'examStatus' | 'interests', value: string) => {
     const currentValues = formData[field] as string[];
@@ -283,7 +292,6 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
                 { currentStage === 'Gap Year' && (
                     <div className="space-y-4">
                         <Input placeholder="Degree completed before gap" value={formData.gapDegree} onChange={e => handleFormData('gapDegree', e.target.value)} />
-                        <Input placeholder="Year of completion" type="number" value={formData.gapYearCompleted} onChange={e => handleFormData('gapYearCompleted', e.target.value)} />
                         <Textarea placeholder="What is your main aspiration now? (e.g., prepare for an exam, explore a new field)" value={formData.gapAspiration} onChange={e => handleFormData('gapAspiration', e.target.value)} />
                     </div>
                 )}
@@ -305,8 +313,8 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
                 <div>
                     <Label className="text-lg font-semibold">What is your average aggregate percentage?</Label>
                     <div className="flex items-center gap-4 mt-2">
-                      <Slider value={[formData.academicScore]} onValueChange={(value) => handleFormData('academicScore', value[0])} max={99} min={40} step={1} className="w-full" />
-                      <span className="font-bold text-lg text-primary w-20 text-center">{formData.academicScore}%</span>
+                      <Slider value={[formNumericData.academicScore]} onValueChange={(value) => handleNumericData('academicScore', value[0])} max={99} min={40} step={1} className="w-full" />
+                      <span className="font-bold text-lg text-primary w-20 text-center">{formNumericData.academicScore}%</span>
                     </div>
                 </div>
                  <div>
@@ -394,8 +402,8 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
                         <Label className="text-lg font-semibold">College Budget Expectation (Per Year)</Label>
                         <p className="text-sm text-muted-foreground">This helps us suggest Pvt vs Govt colleges.</p>
                         <div className="flex items-center gap-4 mt-2">
-                           <Slider value={[formData.budget]} onValueChange={(value) => handleFormData('budget', value[0])} max={1500000} min={50000} step={50000} className="w-full" />
-                           <span className="font-bold text-lg text-primary w-32 text-center">₹{new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(formData.budget)}</span>
+                           <Slider value={[formNumericData.budget]} onValueChange={(value) => handleNumericData('budget', value[0])} max={1500000} min={50000} step={50000} className="w-full" />
+                           <span className="font-bold text-lg text-primary w-32 text-center">₹{new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(formNumericData.budget)}</span>
                         </div>
                     </div>
                     <div>
@@ -457,6 +465,7 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
                                     ))}
                                 </ul>
                             </div>
+                            <InteractiveChat assessmentData={formData} />
                         </div>
                     )}
                   </>
