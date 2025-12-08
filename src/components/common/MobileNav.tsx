@@ -5,7 +5,7 @@ import { useState, useContext } from 'react';
 import Link from 'next/link';
 import { Menu, Route, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from '@/components/ui/sheet';
 import { Separator } from '@/components/ui/separator';
 import {
   DropdownMenu,
@@ -35,6 +35,12 @@ export function MobileNav() {
         </Button>
       </SheetTrigger>
       <SheetContent side="right">
+        <SheetHeader className="sr-only">
+          <SheetTitle>Mobile Navigation</SheetTitle>
+          <SheetDescription>
+            Main navigation links for CareerRaah.
+          </SheetDescription>
+        </SheetHeader>
         <div className="flex flex-col gap-6">
           <Link href="/" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
             <Route className="h-7 w-7 text-primary" />
