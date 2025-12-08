@@ -70,6 +70,7 @@ const generateCareerReportPrompt = ai.definePrompt({
 
     1.  **Introduction:**
         - Write a concise, personalized introduction (2 sentences). Acknowledge their current stage and a key data point (e.g., "As a {{currentStage}} student with strong scores in {{academicScore}}, you have several strong paths available.").
+        - Recommend 1-2 primary career clusters that fit their profile.
 
     2.  **Top Suggestions (Career Paths):**
         - Provide 2-3 specific, actionable career paths.
