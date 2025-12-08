@@ -27,7 +27,7 @@
     {
       "id": "blog-5",
       "description": "A local tuition teacher using a tablet to teach a student in a small classroom setting.",
-      "imageUrl": "https://images.unsplash.com/photo-1543269865-cbf427effbad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50JTIwdHV0b3J8ZW58MHx8fHwxNzY5Mjc4NjY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1543269865-cbf427effbad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50JTIwdHV0b3J8ZW58MHx8fHwxNzY5Mjc4NjY0fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "student tutor"
     },
     {
@@ -35,6 +35,12 @@
       "description": "A person learning a new language on their laptop, with digital flashcards visible on the screen.",
       "imageUrl": "https://images.unsplash.com/photo-1559139873-1f93f6696d55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsYW5ndWFnZSUyMGxlYXJuaW5nJTIwb25saW5lfGVufDB8fHx8MTc2OTI3ODcwOXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "language learning"
+    },
+    {
+      "id": "blog-7",
+      "description": "A split image showing a complex math formula on one side and computer code on the other.",
+      "imageUrl": "https://images.unsplash.com/photo-1581093450021-4a7360b9a6b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjbyUyMGxlYXJuaW5nJTIwb25saW5lfGVufDB8fHx8MTc2OTI3ODcwOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "code formula"
     }
   ]
 }
