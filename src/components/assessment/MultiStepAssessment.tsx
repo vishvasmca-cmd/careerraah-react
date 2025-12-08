@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState } from 'react';
@@ -294,7 +295,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
             <div className="text-center space-y-4">
                 <Loader2 className="w-16 h-16 text-primary mx-auto animate-spin" />
-                <h2 className="text-2xl font-bold font-headline text-foreground">Generating Your Report...</h2>
+                <h2 className="text-2xl font-bold font-headline text-foreground">Generating your Career Plan powered by CareerRaah..</h2>
                 <p className="text-muted-foreground">Analyzing your profile against millions of data points.</p>
             </div>
         </div>
@@ -304,7 +305,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
         <Progress value={progressValue} className="w-full h-2 mb-4" />
         <CardTitle className="text-2xl font-headline text-foreground">{steps[currentStep].name}</CardTitle>
         {currentStep < steps.length -1 && (
-            <CardDescription className="text-foreground/80">Step {currentStep + 1} of {steps.length -1} {userRole === 'parent' ? `for your child, ${userName}` : ""}</CardDescription>
+            <CardDescription className="text-foreground/80">Step {currentStep + 1} of {steps.length -1} {userRole === 'parent' ? "for your child" : ""}</CardDescription>
         )}
       </CardHeader>
       <CardContent className="overflow-hidden relative min-h-[450px]">
@@ -520,7 +521,9 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                        <div className="w-full text-left animate-fade-in space-y-6">
                             <div className="text-center">
                                 <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                                <h2 className="text-3xl font-bold font-headline text-foreground">Your Career Strategy Report for {userName} is Ready!</h2>
+                                <h2 className="text-3xl font-bold font-headline text-foreground">
+                                  {userRole === 'parent' ? `Your Career Strategy Report for your child is Ready!` : `Your Career Strategy Report for ${userName} is Ready!`}
+                                </h2>
                             </div>
 
                             <div className="prose prose-sm max-w-none text-foreground/90">
