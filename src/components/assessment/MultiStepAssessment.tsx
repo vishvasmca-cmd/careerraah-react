@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2, Sparkles, ArrowRight, Film, Atom, Trophy, Scale, BrainCircuit, Users, Rocket, DollarSign, Loader2, Mail, FileDown } from 'lucide-react';
+import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2, Sparkles, ArrowRight, Film, Atom, Trophy, Scale, BrainCircuit, Users, Rocket, DollarSign, Loader2, Mail, FileDown, Lock } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -118,13 +118,11 @@ const workStyles = [
 ]
 
 const formatReportForShare = (name: string, report: GenerateCareerReportOutput): string => {
-  // Extract a summary from the full report for sharing
   const summaryRegex = /### 1. 📝 Executive Summary([\s\S]*?)### 2./;
   const summaryMatch = report.reportContent.match(summaryRegex);
-  const summary = summaryMatch ? summaryMatch[1].trim() : "Here is my career report summary.";
+  const summary = summaryMatch ? summaryMatch[1].trim().replace(/<br \/>/g, '\n').replace(/<[^>]+>/g, '') : "Here is my career report summary.";
 
-  return `
-*My Personalized Career Report from CareerRaah for ${name}*
+  return `*My Personalized Career Report from CareerRaah for ${name}*
 
 ${summary}
 
@@ -148,7 +146,6 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   }, []);
 
   const [formData, setFormData] = useState<GenerateCareerReportInput>({
-    // Step 1
     currentStage: '',
     board: '',
     stream: '',
@@ -158,18 +155,14 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     industryPreference: '',
     gapDegree: '',
     gapAspiration: '',
-    // Step 2
     strongSubjects: [],
-    academicScore: "75% - 85%", // Default text bucket
+    academicScore: "75% - 85%",
     examStatus: [],
-    // Step 3
     interests: [],
     workStyle: '',
-    // Step 4
-    budget: "Medium (₹1L - ₹4L)", // Default text bucket
+    budget: "Medium (₹1L - ₹4L)",
     parentPressure: false,
     location: '',
-    // Junior Flow Specific
     parentQuestion: '',
     userRole: userRole,
     userName: userName,
@@ -185,6 +178,16 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   const [isFinished, setIsFinished] = useState(false);
   const [report, setReport] = useState<GenerateCareerReportOutput | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isUnlocked, setIsUnlocked] = useState(false);
+
+
+  const reportPreview = useMemo(() => {
+    if (!report) return "";
+    const summaryRegex = /(### 1. 📝 Executive Summary[\s\S]*?)(?=### 2.|$)/;
+    const match = report.reportContent.match(summaryRegex);
+    return match ? match[0] : "Your report is ready!";
+  }, [report]);
+
 
   const isJunior = ['Class 1-5', 'Class 6-7', 'Class 8-10'].includes(formData.currentStage);
   const steps = isJunior ? juniorSteps : baseSteps;
@@ -205,7 +208,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
           setCurrentStep(currentStep + 1);
         } else {
           setError(result.error || 'An unknown error occurred.');
-          setIsFinished(true); // Still go to final step to show error
+          setIsFinished(true);
           setCurrentStep(currentStep + 1);
         }
 
@@ -283,10 +286,8 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   };
 
   const handleShare = (platform: 'whatsapp' | 'email') => {
-    if (!report) return;
-
+    if (!report || !isUnlocked) return;
     const reportText = formatReportForShare(userName, report);
-    
     if (platform === 'whatsapp') {
       const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(reportText)}`;
       window.open(whatsappUrl, '_blank');
@@ -298,17 +299,28 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   };
 
   const handleDownload = () => {
-    const element = document.getElementById('report-content');
-    if (!element) return;
+    if (!report || !isUnlocked) return;
+
+    const content = document.getElementById('report-content');
+    if (!content) return;
+
+    const header = `
+      <div style="padding: 20px; text-align: center;">
+        <h1 style="font-size: 2.5rem; font-family: Belleza, sans-serif; color: #4F46E5;">CareerRaah</h1>
+        <p style="font-size: 1rem; font-family: Alegreya, serif; color: #555;">https://careerraah.com</p>
+      </div>
+    `;
+
+    const fullHtml = header + content.innerHTML;
 
     const opt = {
-      margin:       0.5,
-      filename:     `CareerRaah_Report_${userName.replace(' ', '_')}.pdf`,
+      margin:       [0.5, 0.5, 0.5, 0.5],
+      filename:     `${userName.replace(/ /g, '_')}_careerreport_generated_by_CareerRaah.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true },
+      html2canvas:  { scale: 2, useCORS: true, logging: false },
       jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
     };
-    html2pdf().from(element).set(opt).save();
+    html2pdf().from(fullHtml).set(opt).save();
   };
 
   const progressValue = ((currentStep) / (steps.length - 1)) * 100;
@@ -541,7 +553,6 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
             )}
             {currentStep === steps.length - 1 && (
               <div className="flex flex-col items-center justify-center text-left min-h-[450px]">
-                
                 {isFinished && (
                   <>
                     {error && <div className="text-red-500 text-center">Error: {error}</div>}
@@ -550,33 +561,43 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                             <div className="text-center">
                                 <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
                                 <h2 className="text-3xl font-bold font-headline text-foreground">
-                                  {userRole === 'parent' ? `Your Career Strategy Report for your child is Ready!` : `Your Career Strategy Report for ${userName} is Ready!`}
+                                  {userRole === 'parent' ? `Your Career Strategy Report for ${userName} is Ready!` : `Your Career Strategy Report is Ready, ${userName}!`}
                                 </h2>
                             </div>
 
-                            <div className="prose prose-sm max-w-none text-foreground/90">
-                                <MarkdownRenderer id="report-content" content={report.reportContent} />
+                             <div id="report-content-wrapper">
+                                <div className="prose prose-sm max-w-none text-foreground/90">
+                                   <MarkdownRenderer id="report-content" content={isUnlocked ? report.reportContent : reportPreview} />
+                                </div>
                             </div>
-
-                            <div className="pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4">
-                                <div>
-                                    <h3 className="text-xl font-bold font-headline text-foreground">Share Your Report</h3>
-                                    <div className="flex gap-2 mt-2">
-                                      <Button onClick={() => handleShare('whatsapp')} variant="outline">
-                                        <WhatsAppIcon /> Share on WhatsApp
-                                      </Button>
-                                      <Button onClick={() => handleShare('email')} variant="outline">
-                                        <Mail /> Share via Email
-                                      </Button>
+                            
+                            {!isUnlocked && (
+                                <div className="relative text-center p-8 border-dashed border-2 rounded-lg mt-4 bg-secondary/20">
+                                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background to-transparent" />
+                                    <div className="relative z-10">
+                                        <Lock className="w-10 h-10 text-primary mx-auto mb-4" />
+                                        <h3 className="text-xl font-bold font-headline text-foreground">Unlock Your Full Potential</h3>
+                                        <p className="text-muted-foreground mt-1">Pay a one-time fee to unlock the complete detailed report.</p>
+                                        <Button size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }} onClick={() => setIsUnlocked(true)} className="mt-4">
+                                            Pay ₹49 and Unlock Full Report
+                                        </Button>
                                     </div>
                                 </div>
-                                <Button size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }} onClick={handleDownload}>
+                            )}
+
+                            <div className="pt-6 border-t flex flex-col sm:flex-row items-center justify-center gap-4">
+                               <Button onClick={() => handleShare('whatsapp')} variant="outline" disabled={!isUnlocked} className="w-full sm:w-auto">
+                                    <WhatsAppIcon /> Share on WhatsApp
+                                </Button>
+                                <Button onClick={() => handleShare('email')} variant="outline" disabled={!isUnlocked} className="w-full sm:w-auto">
+                                    <Mail /> Share via Email
+                                </Button>
+                                <Button size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }} onClick={handleDownload} disabled={!isUnlocked} className="w-full sm:w-auto">
                                     <FileDown className="mr-2" />
                                     Download as PDF
                                 </Button>
                             </div>
-
-                            <InteractiveChat assessmentData={formData} />
+                            {isUnlocked && <InteractiveChat assessmentData={formData} />}
                         </div>
                     )}
                   </>
