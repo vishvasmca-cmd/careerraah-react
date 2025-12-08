@@ -33,14 +33,26 @@
     {
       "id": "blog-6",
       "description": "A person learning a new language on their laptop, with digital flashcards visible on the screen.",
-      "imageUrl": "https://images.unsplash.com/photo-1559139873-1f93f6696d55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsYW5ndWFnZSUyMGxlYXJuaW5nJTIwb25saW5lfGVufDB8fHx8MTc2OTI3ODcwOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1559139873-1f93f6696d55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsYW5ndWFnZSUyMGxlYXJuaW5nJTIwb25saW5lfGVufDB8fHx8MTc2OTI3ODcwOXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "language learning"
     },
     {
       "id": "blog-7",
       "description": "A split image showing a complex math formula on one side and computer code on the other.",
-      "imageUrl": "https://images.unsplash.com/photo-1581093450021-4a7360b9a6b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjbyUyMGxlYXJuaW5nJTIwb25saW5lfGVufDB8fHx8MTc2OTI3ODcwOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1581093450021-4a7360b9a6b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjbyUyMGxlYXJuaW5nJTIwb25saW5lfGVufDB8fHx8MTc2OTI3ODcwOXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "code formula"
+    },
+    {
+      "id": "blog-8",
+      "description": "A view from inside a cockpit of a plane, showing the controls and the runway ahead.",
+      "imageUrl": "https://images.unsplash.com/photo-1484412028608-72b647729813?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwaWxvdCUyMGNvY2twaXR8ZW58MHx8fHwxNzY5MzE1MDQyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pilot cockpit"
+    },
+    {
+      "id": "blog-9",
+      "description": "A split image with a student looking confused between two signs, one for 'Science' and one for 'Commerce'.",
+      "imageUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJlZXIlMjBjb25mdXNpb258ZW58MHx8fHwxNzY5MzE1MTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "career confusion"
     }
   ]
 }
