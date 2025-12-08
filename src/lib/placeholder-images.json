@@ -2,68 +2,68 @@
   "placeholderImages": [
     {
       "id": "blog-1",
-      "description": "A person looking at a crossroads sign with different career paths",
-      "imageUrl": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJlZXIlMjBjaG9pY2VzfGVufDB8fHx8MTc2ODI5NTU0NHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "career choices"
+      "description": "A person operating a professional drone in an open field.",
+      "imageUrl": "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxEUk9ORSUyMGZseWluZ3xlbnwwfHx8fDE3NjY4MjE0NTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "drone flying"
     },
     {
       "id": "blog-2",
-      "description": "Aspirational students in graduation gowns at a foreign university.",
-      "imageUrl": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50JTIwZ3JhZHVhdGlvbnxlbnwwfHx8fDE3Njg5MjU4Mjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "student graduation"
+      "description": "A calm therapy session with a psychologist and a patient.",
+      "imageUrl": "https://images.unsplash.com/photo-1579493934963-f145c3427b3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwc3ljaG9sb2d5JTIwdGhlcmFweXxlbnwwfHx8fDE3NjY4MjE4MDF8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "psychology therapy"
     },
     {
       "id": "blog-3",
-      "description": "A young cricketer during a practice session, focused and determined.",
-      "imageUrl": "https://media.licdn.com/dms/image/v2/D5612AQEqdyEYYPW4fg/article-cover_image-shrink_720_1280/B56ZW8ImGdHoAI-/0/1742618133916?e=2147483647&v=beta&t=4S_15XKTC0JSfVa4iMIJAljtz_yYubKMumduYmjUAVY",
-      "imageHint": "cricket practice"
+      "description": "A designer's desk with UI/UX wireframes on a screen and sticky notes on a board.",
+      "imageUrl": "https://images.unsplash.com/photo-1587440871875-191322ee64b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxVSVVYJTIwZGVzaWdufGVufDB8fHx8MTc2NjgyMTg1Nnww&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "UIUX design"
     },
     {
       "id": "blog-4",
-      "description": "A child programming a small robot on a table",
-      "imageUrl": "https://images.unsplash.com/photo-1535223289827-42f1e9919769?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyb2JvdGljcyUyMGxlYXJuaW5nfGVufDB8fHx8fDE3NzAwNTkyNTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "robotics learning"
+      "description": "A modern law office library with books and a gavel.",
+      "imageUrl": "https://images.unsplash.com/photo-1598257992949-8835a4623a8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb3Jwb3JhdGUlMjBsYXd8ZW58MHx8fHwxNzY2ODIxODk5fDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "corporate law"
     },
     {
       "id": "blog-5",
-      "description": "A local tuition teacher using a tablet to teach a student in a small classroom setting.",
-      "imageUrl": "https://images.unsplash.com/photo-1543269865-cbf427effbad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50JTIwdHV0b3J8ZW58MHx8fHwxNzY5Mjc4NjY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "student tutor"
+      "description": "An abstract visualization of a neural network or AI brain.",
+      "imageUrl": "https://images.unsplash.com/photo-1677756119517-756a188d2d94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhaSUyMGVuZ2luZWVyfGVufDB8fHx8MTc2NjgyMTk1NHww&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "ai engineer"
     },
     {
       "id": "blog-6",
-      "description": "A person learning a new language on their laptop, with digital flashcards visible on the screen.",
-      "imageUrl": "https://images.unsplash.com/photo-1534643969194-c089b0d24f0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsYW5ndWFnZSUyMGxlYXJuaW5nJTIwbGFwdG9wfGVufDB8fHx8fDE3NzAwNTkzNDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "language learning"
+      "description": "A team of data scientists collaborating around a screen with charts and graphs.",
+      "imageUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkYXRhJTIwc2NpZW5jZXxlbnwwfHx8fDE3NjY4MjE5OTR8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "data science"
     },
     {
       "id": "blog-7",
-      "description": "A split image showing a complex math formula on one side and computer code on the other.",
-      "imageUrl": "https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiY2ElMjB2cyUyMGJ0ZWNoJTIwc3R1ZGVudHxlbnwwfHx8fDE3NzAwNTk0MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "tech education"
+      "description": "A fast-paced stock market trading floor with multiple screens.",
+      "imageUrl": "https://images.unsplash.com/photo-1664448039325-797c6241ab9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaW5hbmNlJTIwdHJhZGluZ3xlbnwwfHx8fDE3NjY4MjIwMzV8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "finance trading"
     },
     {
       "id": "blog-8",
-      "description": "A view from inside a cockpit of a plane, showing the controls and the runway ahead.",
-      "imageUrl": "https://images.unsplash.com/photo-1484412028608-72b647729813?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwaWxvdCUyMGNvY2twaXR8ZW58MHx8fHwxNzY5MzE1MDQyfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "pilot cockpit"
+      "description": "A product team brainstorming with sticky notes on a glass wall.",
+      "imageUrl": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9kdWN0JTIwbWFuYWdlbWVudHxlbnwwfHx8fDE3NjY4MjIwODJ8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "product management"
     },
     {
       "id": "blog-9",
-      "description": "A split image with a student looking confused between two signs, one for 'Science' and one for 'Commerce'.",
-      "imageUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJlZXIlMjBjb25mdXNpb258ZW58MHx8fHwxNzY5MzE1MTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "description": "A student looking confused between two signs, one for 'Science' and one for 'Commerce'.",
+      "imageUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJlZXIlMjBjb25mdXNpb258ZW58MHx8fHwxNzY5MzE1MTM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "career confusion"
     },
     {
       "id": "blog-10",
       "description": "An ISRO rocket (like PSLV or GSLV) during a launch sequence with smoke and fire.",
-      "imageUrl": "https://images.unsplash.com/photo-1614728263952-84ea256ec677?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJU1JPJTIwcm9ja2V0fGVufDB8fHx8MTc2NzEyNDQ2MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1614728263952-84ea256ec677?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJU1JPJTIwcm9ja2V0fGVufDB8fHx8MTc2NzEyNDQ2MHww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "ISRO rocket"
     },
     {
       "id": "blog-11",
       "description": "A professional cricket stadium with a batsman playing a shot under the floodlights.",
-      "imageUrl": "https://images.unsplash.com/photo-1595435940989-798240980479?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmlja2V0JTIwYmF0dGluZ3xlbnwwfHx8fDE3NjcxMjQ2MTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1595435940989-.jpg",
       "imageHint": "cricket batting"
     },
     {

@@ -17,60 +17,60 @@ const getImage = (id: string) => {
 
 const posts: Omit<BlogPost, 'imageUrl' | 'imageHint'>[] = [
   {
-    id: '1',
-    title: 'Beyond IIT/NEET: Top 5 New-Age Careers for Your Child',
-    author: 'CareerRaah Research Wing',
-    date: 'October 26, 2023',
-    content: `Is the relentless pressure of IIT/NEET coaching causing sleepless nights? You're not alone. While engineering and medicine are respected paths, the intense competition and low success rates (less than 1%) are forcing smart parents to look for Plan B. The good news? The digital economy has created high-paying, respected careers that didn't exist a decade ago. This guide explores the top 5 "New-Age" careers like Data Science, UI/UX Design, and AI Engineering, detailing the skills required, salary potential, and a clear roadmap for your child to succeed.`
-  },
-  {
-    id: '2',
-    title: 'The Real Cost of Studying Abroad: A Guide for Tier 2/3 Families',
-    author: 'CareerRaah Research Wing',
-    date: 'October 22, 2023',
-    content: `Seeing your child graduate from a foreign university is the ultimate dream for many parents. But the journey is filled with hidden costs and complex procedures. A staggering 57% of Indian students studying abroad now come from non-metro cities. This guide breaks down the real costs—beyond just tuition fees—for popular destinations like Canada, the UK, and Germany. We provide a step-by-step checklist, from building the right profile in Class 9 to navigating visa applications, helping you make an informed financial decision for this life-changing investment.`
-  },
-  {
-    id: '3',
-    title: 'Sports Is a Real Career: How to Turn Your Child\'s Talent into a Profession',
-    author: 'CareerRaah Research Wing',
-    date: 'October 18, 2023',
-    content: `Did Neeraj Chopra's Olympic gold make you wonder about your own child's athletic talent? The perception of sports is shifting from a "hobby" to a viable, high-earning profession. Today, 71% of parents are willing to support a career in sports beyond cricket. This guide details the pathways in rising sports like Badminton and Football. Learn about the role of private academies, the importance of the Khelo India scheme, and how a disciplined sports career can lead to government jobs, professional leagues, and a secure future for your child.`
-  },
-  {
-    id: '4',
-    title: 'Coding vs. Robotics: Which "Future-Proof" Skill Is Right for Your Child?',
-    author: 'CareerRaah Research Wing',
-    date: 'October 15, 2023',
-    content: 'In the age of AI, parents are terrified of their children being left behind. You know tech skills are the new guarantee of employability, but where do you start? Should your child learn Python, or build a robot they can touch? This guide explains the difference between coding, robotics, and other STEM fields. We analyze which skills are in demand, the investment required for each, and how to choose the right path based on your child’s learning style and interests, ensuring your investment in "future-proofing" them pays off.'
-  },
-  {
     id: '5',
-    title: 'The "Phygital" Advantage: Why Your Local Tuition Teacher is Still Your Best Bet',
+    title: 'AI & ML Engineer: The Hottest Job of the Decade',
     author: 'CareerRaah Research Wing',
-    date: 'October 11, 2023',
-    content: 'Post-pandemic, parents have realized that pure online learning apps have limitations. The "Trust Deficit" is real. You want the accountability of a physical center combined with the quality of digital tools. This is the "Phygital" model. This article explains why your local tuition center, when empowered with the right technology, can be the most effective learning environment. We show how CareerRaah partners with these trusted local teachers to provide world-class guidance, blending personal trust with scientific career mapping.'
+    date: 'November 20, 2023',
+    content: 'Artificial Intelligence and Machine Learning are no longer science fiction; they are powering everything from your social media feed to medical diagnoses. An AI/ML Engineer is at the heart of this revolution, developing intelligent algorithms that can learn and make decisions. This guide breaks down the skills you need (hint: strong math and Python are non-negotiable), the kind of projects that get you noticed, and why a B.Tech in Computer Science from a top institute is the preferred launchpad. We also explore the staggering salary potential, which makes it one of the most lucrative careers today.'
   },
   {
     id: '6',
-    title: 'The English Fluency Myth: Speaking vs. Learning',
+    title: 'How to Become a Data Scientist in India',
     author: 'CareerRaah Research Wing',
-    date: 'October 5, 2023',
-    content: 'Every parent wants their child to be fluent in English. But does that mean they must learn complex subjects like Physics or Chemistry only in English? Research shows that students learn best in their mother tongue. This guide explores the "Vernacular is the Gateway" strategy used by top educational platforms. Learn how to prioritize "Spoken English" as a separate, premium skill while allowing your child to master core subjects in the language they understand best. This balanced approach builds both confidence and competence.'
-  },
-  {
-    id: '7',
-    title: 'B.Tech vs BCA vs B.Sc (Computer Science): The Ultimate Comparison',
-    author: 'CareerRaah Research Wing',
-    date: 'October 1, 2023',
-    content: `It's the most confusing choice for any student interested in a tech career. Do you go for the engineering prestige of a B.Tech, the application-focused approach of a BCA, or the theoretical foundation of a B.Sc? Each path leads to a different career outcome. This definitive guide breaks down the curriculum, job opportunities, salary expectations, and ideal student profiles for each degree. We provide a clear framework to help you and your child choose the right path based on their marks, interests, and long-term goals, saving you from making a costly mistake.`
+    date: 'November 18, 2023',
+    content: 'Data is the new oil, and a Data Scientist is the one who refines it. These professionals analyze vast amounts of data to find trends, create predictive models, and provide crucial insights that drive business decisions. It\'s a career that blends statistics, computer science, and business acumen. This guide explains the essential skills, including Python, R, and SQL, and the importance of building a strong portfolio through platforms like Kaggle. Find out the different entry paths, from a B.Tech in CS to a degree in Statistics or Economics, and what to expect in your first job.'
   },
   {
     id: '8',
-    title: 'How to Become a Pilot in India After 12th: A Step-by-Step Guide',
+    title: 'Product Manager: The Mini-CEO of a Tech Product',
     author: 'CareerRaah Research Wing',
-    date: 'September 28, 2023',
-    content: `The dream of flying is a powerful one. For many students, becoming a commercial pilot is the ultimate career aspiration. But the path is expensive and demanding. This guide provides a realistic, step-by-step roadmap for Indian students. We cover everything from the required subjects in Class 12, the medical fitness tests, the costs of flight school (in India vs. abroad), and the type of exams you need to clear to get your Commercial Pilot License (CPL). We also look at the job market and salary expectations for new pilots.`
+    date: 'November 16, 2023',
+    content: 'Ever wondered who decides what new feature comes to Instagram or how a food delivery app works? That\'s the Product Manager. This role requires a unique blend of technical understanding, business strategy, and user empathy. A PM guides a product from an idea to a successful launch and beyond. It\'s a high-impact, high-growth career path. This guide explains why prior experience is often crucial, how an MBA can fast-track your journey, and what it takes to become a successful Associate Product Manager (APM) right after college.'
+  },
+  {
+    id: '1',
+    title: 'Drone Pilot & Operator: A Career Taking Flight',
+    author: 'CareerRaah Research Wing',
+    date: 'November 14, 2023',
+    content: 'Drones are no longer just for hobbyists. They are transforming industries like agriculture, logistics, media, and infrastructure. A certified Drone Pilot and Operator is a skilled professional who can legally operate these unmanned aerial vehicles for tasks like aerial photography, land surveying, and even emergency response. This guide covers the DGCA certification process in India, the essential skills required (like spatial awareness and technical know-how), and the exciting, high-growth industries where you can build a career. It\'s a field where practical skill trumps a traditional degree.'
+  },
+  {
+    id: '2',
+    title: 'Clinical Psychologist: Healing Minds in Modern India',
+    author: 'CareerRaah Research Wing',
+    date: 'November 12, 2023',
+    content: 'As mental health awareness grows in India, the demand for qualified Clinical Psychologists is rising rapidly. This is a deeply rewarding career for those who are empathetic, patient, and have a strong desire to help others. However, it requires a long and specific educational commitment. This guide lays out the complete roadmap: from a Bachelor\'s in Psychology to the crucial M.Phil from an RCI-recognized institution, which is mandatory for a license to practice. Understand the difference between a counselor and a clinical psychologist and the realities of this challenging but fulfilling profession.'
+  },
+  {
+    id: '3',
+    title: 'UI/UX Designer: Crafting Digital Experiences',
+    author: 'CareerRaah Research Wing',
+    date: 'November 10, 2023',
+    content: 'Every app and website you love is the work of a great UI/UX Designer. This creative and analytical field focuses on making technology easy and enjoyable to use. UI (User Interface) is about the look and feel, while UX (User Experience) is about the overall journey. This guide explains why a strong portfolio of projects is more important than a specific degree. Learn about the essential tools like Figma and Adobe XD, the kind of problems you\'ll solve, and how to start your journey with internships that lead to high-paying jobs in the tech industry.'
+  },
+  {
+    id: '4',
+    title: 'Corporate Lawyer: The Architect of Business Deals',
+    author: 'CareerRaah Research Wing',
+    date: 'November 8, 2023',
+    content: 'Behind every merger, acquisition, and major business decision is a team of sharp Corporate Lawyers. This is a high-stakes, high-reward legal field where you advise companies on their rights and obligations. It demands strong analytical skills, meticulous attention to detail, and the ability to handle intense negotiations. The premier path is to crack the CLAT or AILET exam to get into a top National Law University (NLU) for a 5-year integrated law degree. This guide explains the pathway, the importance of corporate internships, and the lucrative career that awaits at top law firms.'
+  },
+  {
+    id: '7',
+    title: 'Investment Banker: The World of High Finance',
+    author: 'CareerRaah Research Wing',
+    date: 'November 6, 2023',
+    content: 'Investment Banking is one of the most demanding but also one of the highest-paying careers in the world. Bankers help companies raise money and advise on large financial deals like mergers. This career is for those who are exceptional with numbers, can work grueling hours, and thrive under pressure. The entry barriers are extremely high, typically requiring a degree from a Tier-1 institution (like an IIT or SRCC) followed by an MBA from a top IIM. This guide provides a realistic look at the demanding lifestyle, the required pedigree, and the path to becoming an analyst at a top firm.'
   },
   {
     id: '9',
@@ -116,3 +116,5 @@ export const getBlogPosts = (): BlogPost[] => {
 export const getBlogPost = (id: string): BlogPost | undefined => {
   return getBlogPosts().find(post => post.id === id);
 };
+
+    
