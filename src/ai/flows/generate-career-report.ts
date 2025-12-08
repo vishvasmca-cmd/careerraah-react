@@ -53,9 +53,16 @@ const generateCareerReportPrompt = ai.definePrompt({
         * **Why these fit:** Briefly explain the connection in one simple sentence. (e.g., "Their love for building things and curious nature are perfect for these innovative fields.")
 
         ### 2. 🏆 Top 3 Best-Fit Career Paths (for the Future)
-        1.  **AI/Robotics Engineer:** Because they love creating and solving logical problems.
-        2.  **Product Designer (UI/UX):** Because it combines creativity with understanding how people think.
-        3.  **Space Scientist:** Because it requires deep curiosity and a passion for how the world works.
+        (For each path, you must include a 'Why it fits' and a 'Reality Check'.)
+        1.  **AI/Robotics Engineer:**
+            *   **Why it fits:** Because they love creating and solving logical problems.
+            *   **Reality Check:** This is a highly competitive field requiring a strong aptitude for math from an early age.
+        2.  **Product Designer (UI/UX):**
+            *   **Why it fits:** Because it combines creativity with understanding how people think.
+            *   **Reality Check:** This path requires a good balance of artistic talent and analytical skills.
+        3.  **Space Scientist:**
+            *   **Why it fits:** Because it requires deep curiosity and a passion for how the world works.
+            *   **Reality Check:** This requires a very long and demanding academic journey, often through a Ph.D.
 
         ### 3. 🗺️ Foundational Roadmap (The Long-Term Plan)
         *   **Primary School (Now):** Focus on building strong **Logical Thinking** and **Creativity**. Encourage curiosity.
@@ -114,6 +121,7 @@ const generateCareerReportPrompt = ai.definePrompt({
         (For each path, provide in one line):
         * **Path:** (Degree -> Job Role) | **Starting Salary:** (Approx. in LPA). Ensure the path is logical (e.g., B.Tech CS -> AI Engineer).
         * **Justification:** A single line explaining why this path is a good match.
+        * **Reality Check:** You MUST include a concise reality check about the competition or difficulty. (e.g., "High competition for top colleges" or "Requires significant portfolio development").
 
         ### 3. 🗺️ Detailed Roadmap
         * **Immediate (Next 3-6 Months):** List 2-3 specific skills or subjects to focus on that are foundational for the recommended paths (e.g., "Master Calculus", "Learn Python basics").
@@ -168,6 +176,7 @@ const generateCareerReportPrompt = ai.definePrompt({
         (For each path, provide in one line):
         * **Path:** (Degree -> Job Role) | **Starting Salary:** (Approx. in LPA). Ensure the path is logical.
         * **Justification:** A single line explaining why this path is a great match for you.
+        * **Reality Check:** You MUST include a concise reality check about the competition or difficulty. (e.g., "High competition for top colleges" or "Requires significant portfolio development").
 
         ### 3. 🗺️ Detailed Roadmap
         * **Immediate (Next 3-6 Months):** List 2-3 specific skills or subjects to focus on right now (e.g., "Master trigonometry", "Start a basic Python course on YouTube").
