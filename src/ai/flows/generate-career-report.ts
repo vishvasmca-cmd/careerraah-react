@@ -105,7 +105,10 @@ const generateCareerReportPrompt = ai.definePrompt({
         ### 1. 📝 Executive Summary
         * **Recommended Career Cluster:** Suggest one Primary career cluster that aligns with the student's interests (e.g., 'Creative Arts', 'Future Tech').
         * **Why it fits:** Justify this in 1-2 sentences, connecting it to a specific interest or strong subject (e.g., "This fits their interest in 'Sketching / UI Design' and 'Art', suggesting a field where creativity meets technology.").
-        * **Reality Check:** You MUST perform a reality check. If there are contradictions (e.g., budget is 'Low' but location preference is 'Abroad', or interest is 'Art' but parent wants IIT), you must gently but directly point it out. For example: "While going abroad is a great ambition, the current budget may make it challenging. A better strategy could be to pursue a top Indian degree first and then aim for a Master's abroad."
+        * **Reality Check:** You MUST perform a reality check. If there are clear contradictions, you must gently but directly point them out. For example:
+            * **If location is 'Abroad' and budget is 'Low (< ₹1L)',** you must state: "While going abroad is a great ambition, the current budget may make it challenging. A better strategy could be to pursue a top Indian degree first and then aim for a Master's abroad."
+            * **If stream is 'Commerce' or 'Humanities' and parent question mentions 'IIT' or 'Engineering',** you must state: "IITs are focused on engineering, which requires a Science stream in high school. With a Commerce/Humanities background, a more aligned path would be top colleges for Economics, Business, or Law, which offer equally fantastic careers."
+            * **If parentPressure is true and it conflicts with student's interests,** you must state: "It's important to balance parental aspirations with the child's natural interests. A career where the child is genuinely motivated often leads to greater success. Let's explore how their interest in [Student's Interest] can lead to a secure and fulfilling career."
 
         ### 2. 🏆 Top 2 Best-Fit Career Paths
         (For each path, provide in one line):
@@ -127,7 +130,7 @@ const generateCareerReportPrompt = ai.definePrompt({
         * **Safety Option:** A safe government/local option or a more accessible entrance exam as a backup.
 
         ### 6. ✅ Final Action Checklist
-        * [ ] A simple, actionable task for the child to do this week to explore the recommendation (e.g., "Watch a 'day in the life' video of a Product Manager on YouTube").
+        * [ ] A simple, actionable task for the child to do this week to explore the recommendation (e.g., "Watch a 'day in the life' of a Product Manager on YouTube").
         * [ ] A conversation starter for you and your child (e.g., "Let's look at some of the projects built by students at IIT Bombay.").
 
         END WITH:
@@ -156,7 +159,10 @@ const generateCareerReportPrompt = ai.definePrompt({
         ### 1. 📝 Executive Summary
         * **Recommended Career Cluster:** Suggest one Primary career cluster that aligns with your interests (e.g., 'Creative Arts', 'Future Tech').
         * **Why it fits:** Justify this in 1-2 sentences, connecting it to your interests or strong subjects (e.g., "This fits your love for 'Solving Puzzles' and strength in 'Mathematics', pointing to a career in tech.").
-        * **Reality Check:** You MUST perform a reality check. If there are contradictions (e.g., your budget is 'Low' but you want to go 'Abroad', or your stream is 'Commerce' but you want to go to 'IIT'), you must gently but directly point it out. For example: "Wanting to study abroad is a fantastic goal! However, with the current budget, it might be tough right away. A powerful strategy could be to ace your degree in India and then apply for a Master's scholarship abroad."
+        * **Reality Check:** You MUST perform a reality check. If there are clear contradictions, you must gently but directly point them out. For example:
+            * **If your location preference is 'Abroad' and your budget is 'Low (< ₹1L)',** you must state: "Wanting to study abroad is a fantastic goal! However, with the current budget, it might be tough right away. A powerful strategy could be to ace your degree in India and then apply for a Master's scholarship abroad."
+            * **If your stream is 'Commerce' or 'Humanities' and your question mentions 'IIT' or 'Engineering',** you must state: "It's great that you're interested in top institutes like IITs! It's important to know they are focused on engineering, which requires the Science stream. With your background, you can aim for the 'IITs' of Commerce/Arts, like SRCC for Commerce or Ashoka/Jindal for Humanities, which lead to amazing, high-paying careers."
+            * **If parentPressure is true and it conflicts with your interests,** you must state: "It sounds like there's a difference between your parents' preference for Engineering/Medical and your interest in [Your Interest]. Let's explore how your passion can also lead to a secure and successful career. Often, excelling in a field you love is the surest path to success."
 
         ### 2. 🏆 Top 2 Best-Fit Career Paths
         (For each path, provide in one line):
@@ -210,5 +216,9 @@ const generateCareerReportFlow = ai.defineFlow(
     return output;
   }
 );
+
+    
+
+    
 
     
