@@ -7,6 +7,7 @@ import { generateCareerReport } from '@/ai/flows/generate-career-report';
 import type { GenerateCareerReportInput } from '@/ai/schemas/career-report';
 import { answerCareerQuestion } from '@/ai/flows/answer-career-question';
 
+const friendlyError = "We are facing a technical issue, please try again. If you still see issues, contact our team.";
 
 export async function getSummaryAction(content: string) {
   if (!content) {
@@ -17,7 +18,7 @@ export async function getSummaryAction(content: string) {
     return { summary: result.summary };
   } catch (error) {
     console.error(error);
-    return { error: 'Failed to generate summary. Please try again later.' };
+    return { error: friendlyError };
   }
 }
 
@@ -30,7 +31,7 @@ export async function getAssessmentAction(question: string, answer: string) {
     return { assessment: result.assessment };
   } catch (error) {
     console.error(error);
-    return { error: 'Failed to generate assessment. Please try again later.' };
+    return { error: friendlyError };
   }
 }
 
@@ -40,7 +41,7 @@ export async function getCareerReportAction(data: GenerateCareerReportInput) {
     return { report: result };
   } catch (error) {
     console.error("Action Error:", error);
-    return { error: 'Failed to generate career report from the AI model. Please try again later.' };
+    return { error: friendlyError };
   }
 }
 
@@ -54,6 +55,6 @@ export async function getCareerQuestionAnswerAction(
     return { answer: result.answer };
   } catch (error) {
     console.error(error);
-    return { error: 'Failed to get an answer. Please try again later.' };
+    return { error: friendlyError };
   }
 }
