@@ -6,7 +6,6 @@ import { summarizeBlogPost } from '@/ai/flows/summarize-blog-posts';
 import { generateCareerReport } from '@/ai/flows/generate-career-report';
 import type { GenerateCareerReportInput } from '@/ai/schemas/career-report';
 import { answerCareerQuestion } from '@/ai/flows/answer-career-question';
-import { generateVideo } from '@/ai/flows/generate-video';
 
 
 export async function getSummaryAction(content: string) {
@@ -56,22 +55,5 @@ export async function getCareerQuestionAnswerAction(
   } catch (error) {
     console.error(error);
     return { error: 'Failed to get an answer. Please try again later.' };
-  }
-}
-
-export async function getVideoAction(prompt: string) {
-  if (!prompt) {
-    return { error: 'Prompt is required.' };
-  }
-  try {
-    const result = await generateVideo({ prompt });
-    return { videoUrl: result.videoUrl };
-  } catch (error: any) {
-    console.error('Error in getVideoAction:', error);
-    // Provide a more user-friendly error message
-    const message = error.message.includes('GEMINI_API_KEY')
-      ? 'The API key is missing. Please check the server configuration.'
-      : 'Failed to generate video. The model may be busy or the request could not be processed. Please try again later.';
-    return { error: message };
   }
 }
