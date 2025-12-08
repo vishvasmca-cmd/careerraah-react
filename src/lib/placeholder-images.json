@@ -51,13 +51,13 @@
     {
       "id": "blog-9",
       "description": "A student looking confused between two signs, one for 'Science' and one for 'Commerce'.",
-      "imageUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJlZXIlMjBjb25mdXNpb258ZW58MHx8fHwxNzY5MzE1MTM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
-      "imageHint": "career confusion"
+      "imageUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50JTIwY29uZnVzZWR8ZW58MHx8fHwxNzE2NDk2ODUxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "student confused"
     },
     {
       "id": "blog-10",
       "description": "An ISRO rocket (like PSLV or GSLV) during a launch sequence with smoke and fire.",
-      "imageUrl": "https://images.unsplash.com/photo-1614728263952-84ea256ec677?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJU1JPJTIwcm9ja2V0fGVufDB8fHx8MTc2NzEyNDQ2MHww&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1614728263952-84ea256ec677?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJU1JPJTIwcm9ja2V0fGVufDB8fHx8MTc2NzEyNDQ2MHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "ISRO rocket"
     },
     {
@@ -69,7 +69,7 @@
     {
       "id": "blog-12",
       "description": "A person in an IPS officer's uniform looking determined, with the Indian flag in the background.",
-      "imageUrl": "https://scilindia.org/wp-content/uploads/2021/04/Indian-Police-Service.jpg",
+      "imageUrl": "https://images.unsplash.com/photo-1608222351213-824141947273?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJbmRpYW4lMjBwb2xpY2V8ZW58MHx8fHwxNzY3MTI0NzExfDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "Indian police"
     },
     {
