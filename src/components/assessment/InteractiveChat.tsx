@@ -69,7 +69,7 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
     <div className="mt-8 pt-6 border-t">
       <h3 className="text-xl font-bold font-headline flex items-center gap-2">
         <Wand2 className="text-primary"/>
-        Talk to our career expert
+        Talk to Raah, your Career Expert
       </h3>
       
       <div className="mt-4 flex flex-wrap gap-2">
@@ -112,7 +112,7 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
                 </div>
               ) : (
                 <div
-                  className="prose prose-sm max-w-none text-inherit"
+                  className="prose prose-sm max-w-none text-inherit prose-p:my-2"
                   dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />') }}
                 />
               )}
@@ -129,7 +129,7 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
         ))}
         {chatHistory.length === 0 && (
           <div className="text-center text-muted-foreground py-8">
-            <p>Ask a question or select one above to start the conversation.</p>
+            <p>Hi {assessmentData.userName}, do you have any questions about your report? Ask me anything!</p>
           </div>
         )}
       </div>
