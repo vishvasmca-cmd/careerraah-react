@@ -27,7 +27,7 @@ const generateCareerReportPrompt = ai.definePrompt({
         {{/if}}
 
         USER PROFILE:
-        - Report For: {{{userName}}} ({{userRole}})
+        - Report For: {{{userName}}} ({{#if (eq userRole "parent")}}child of parent filling form{{else}}{{userRole}}{{/if}})
         - Language: {{{language}}}
         - Academic Stage: {{{currentStage}}}
         - Board: {{{board}}}
@@ -57,7 +57,7 @@ const generateCareerReportPrompt = ai.definePrompt({
         THE REPORT MUST INCLUDE:
 
         ### 1. 📝 Executive Summary
-        * **Profile Snapshot:** A brief summary of {{#if (eq userRole "parent")}}your child{{else}}the user{{/if}}.
+        * **Profile Snapshot:** A brief summary of {{#if (eq userRole "parent")}}your child{{else}}you{{/if}}.
         * **{{#if (eq userRole "parent")}}Your Child's{{else}}Your{{/if}} Core Strengths:** Identify 2-3 key strengths based on their profile.
         * **Recommended Career Clusters:** Suggest a Primary and a Secondary career cluster.
 
