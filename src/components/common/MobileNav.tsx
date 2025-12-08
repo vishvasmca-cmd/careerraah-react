@@ -63,6 +63,13 @@ export function MobileNav() {
               >
                 Career Explorer
             </Link>
+            <Link
+                href="/blog"
+                onClick={() => setIsOpen(false)}
+                className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+              >
+                Blog
+            </Link>
           </nav>
 
           <Separator />

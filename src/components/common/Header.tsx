@@ -40,6 +40,11 @@ export function Header() {
                 Career Explorer
               </Link>
             </Button>
+            <Button variant="ghost" asChild>
+              <Link href="/blog" className="text-sm font-medium">
+                Blog
+              </Link>
+            </Button>
           </nav>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
