@@ -29,12 +29,12 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 const MarkdownRenderer = ({ content, id }: { content: string; id: string }) => {
   const processLine = (line: string) => {
     // Headings
-    if (line.startsWith('### ')) return `<h3 class="text-xl font-bold font-headline text-foreground mt-6 mb-2">${line.substring(4)}</h3>`;
-    if (line.startsWith('## ')) return `<h2 class="text-2xl font-bold font-headline text-primary mt-8 mb-4">${line.substring(3)}</h2>`;
-    if (line.startsWith('# ')) return `<h1 class="text-3xl font-bold font-headline text-primary mt-8 mb-4">${line.substring(2)}</h1>`;
+    if (line.startsWith('### ')) return `<h3 class="text-xl font-bold font-headline mt-6 mb-2">${line.substring(4)}</h3>`;
+    if (line.startsWith('## ')) return `<h2 class="text-2xl font-bold font-headline mt-8 mb-4">${line.substring(3)}</h2>`;
+    if (line.startsWith('# ')) return `<h1 class="text-3xl font-bold font-headline mt-8 mb-4">${line.substring(2)}</h1>`;
 
     // Bold and Italic
-    line = line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground/90">$1</strong>');
+    line = line.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold">$1</strong>');
     line = line.replace(/\*(.*?)\*/g, '<em>$1</em>');
     
     // Checkboxes
@@ -157,10 +157,30 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   const { language } = useTranslation();
   const [isClient, setIsClient] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  
+  // Session-based report storage
+  const [report, setReportState] = useState<GenerateCareerReportOutput | null>(null);
 
   useEffect(() => {
     setIsClient(true);
+    // Check session storage on initial load
+    const savedReport = sessionStorage.getItem('careerReport');
+    if (savedReport) {
+      setReportState(JSON.parse(savedReport));
+      setIsFinished(true);
+      setCurrentStep(steps.length - 1); // Go to final step
+    }
   }, []);
+
+  const setReport = (newReport: GenerateCareerReportOutput | null) => {
+    setReportState(newReport);
+    if (newReport) {
+      sessionStorage.setItem('careerReport', JSON.stringify(newReport));
+    } else {
+      sessionStorage.removeItem('careerReport');
+    }
+  };
+
 
   const [formData, setFormData] = useState<GenerateCareerReportInput>({
     currentStage: '',
@@ -196,7 +216,6 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
-  const [report, setReport] = useState<GenerateCareerReportOutput | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [planLevel, setPlanLevel] = useState<'none' | 'basic' | 'premium'>('none');
   
@@ -323,9 +342,8 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   const handleDownload = () => {
     if (!report || !isUnlocked) return;
 
-    // Use the hidden div with the full report for PDF generation
-    const content = document.getElementById('full-report-for-pdf');
-    if (!content) {
+    const contentElement = document.getElementById('full-report-for-pdf');
+    if (!contentElement) {
         console.error("PDF generation failed: full report content not found.");
         return;
     };
@@ -333,11 +351,22 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     const header = `
       <div style="padding: 20px; text-align: center; border-bottom: 1px solid #eee;">
         <h1 style="font-size: 2.5rem; font-family: 'Belleza', sans-serif; color: #4F46E5; margin: 0;">CareerRaah</h1>
-        <p style="font-size: 1rem; font-family: 'Alegreya', serif; color: #555; margin: 0;">https://careerraah.com</p>
+        <p style="font-size: 1rem; font-family: 'Alegreya', serif; color: #333; margin: 0;">https://careerraah.com</p>
       </div>
     `;
 
-    const fullHtml = `<div style="font-family: 'Alegreya', serif;">${header}${content.innerHTML}</div>`;
+    const reportBody = `
+      <div style="padding: 20px 40px; font-family: 'Alegreya', serif; color: #000; background-color: #fff;">
+        ${contentElement.innerHTML}
+      </div>
+    `;
+
+    const fullHtml = `
+      <div style="font-family: 'Alegreya', serif; background-color: #fff;">
+        ${header}
+        ${reportBody}
+      </div>
+    `;
 
     const opt = {
       margin:       [0.5, 0.5, 0.5, 0.5],
@@ -366,7 +395,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     )}
     <Card className="shadow-2xl bg-card" ref={cardRef}>
       <CardHeader>
-        <Progress value={progressValue} className="w-full h-2 mb-4" />
+        {!isFinished && <Progress value={progressValue} className="w-full h-2 mb-4" /> }
         <CardTitle className="text-2xl font-headline text-foreground">{steps[currentStep].name}</CardTitle>
         {currentStep < steps.length -1 && (
             <CardDescription className="text-foreground/80">
@@ -767,7 +796,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
           )}
         </div>
         <div>
-          {currentStep < steps.length - 2 && (
+          {isClient && !isFinished && currentStep < steps.length - 2 && (
             <Button
               onClick={handleNext}
               disabled={!validateStep()}
@@ -777,7 +806,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
               Next
             </Button>
           )}
-          {currentStep === steps.length - 2 && (
+          {isClient && !isFinished && currentStep === steps.length - 2 && (
             <Button
               onClick={handleNext}
               disabled={!validateStep() || isSubmitting}
