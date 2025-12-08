@@ -40,7 +40,7 @@ const generateCareerReportPrompt = ai.definePrompt({
     - College Budget: {{{budget}}} (This is a CRITICAL constraint)
     - Location Preference: {{{location}}}
     - Parent Pressure (Eng/Med): {{#if parentPressure}}Yes{{else}}No{{/if}}
-    - Parent's Question: {{{parentQuestion}}}
+    - User's Question: {{{parentQuestion}}}
     - Current Goal (if applicable): {{{currentGoal}}}
     - Industry Preference (if applicable): {{{industryPreference}}}
 

@@ -52,7 +52,7 @@ const prompt = ai.definePrompt({
     - College Budget: {{{assessmentData.budget}}}
     - Location Preference: {{{assessmentData.location}}}
     - Parent Pressure (Eng/Med): {{#if assessmentData.parentPressure}}Yes{{else}}No{{/if}}
-    - Parent's Question: {{{assessmentData.parentQuestion}}}
+    - User's Question: {{{assessmentData.parentQuestion}}}
     - Current Goal (if applicable): {{{assessmentData.currentGoal}}}
     - Industry Preference (if applicable): {{{assessmentData.industryPreference}}}
 

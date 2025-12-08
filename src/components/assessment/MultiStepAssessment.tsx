@@ -360,10 +360,10 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                     </div>
                 </div>
                  <div>
-                    <Label className="text-lg font-semibold" htmlFor="parentQuestion">Any specific questions about your child? (Optional)</Label>
+                    <Label className="text-lg font-semibold" htmlFor="parentQuestion">Any specific questions you have for us? (Optional)</Label>
                     <Textarea 
                       id="parentQuestion"
-                      placeholder="e.g., 'My child loves drawing but I'm worried about career stability.'"
+                      placeholder="e.g., 'I love drawing but I'm worried about career stability.' or 'How can my child balance studies and sports?'"
                       value={formData.parentQuestion}
                       onChange={(e) => handleFormData('parentQuestion', e.target.value)}
                       className="mt-2"
