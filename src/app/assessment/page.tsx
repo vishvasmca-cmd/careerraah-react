@@ -1,8 +1,8 @@
 import { MultiStepAssessment } from '@/components/assessment/MultiStepAssessment';
 
 export default function AssessmentPage({ searchParams }: { searchParams?: { role?: string, name?: string } }) {
-  const role = searchParams?.role || 'student';
-  const name = searchParams?.name || (role === 'student' ? 'Student' : 'Parent');
+  const role = searchParams?.role ?? 'student';
+  const name = searchParams?.name ?? (role === 'student' ? 'Student' : 'Parent');
   
   return (
     <div className="relative isolate min-h-full">
