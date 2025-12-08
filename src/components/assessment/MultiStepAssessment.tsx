@@ -88,6 +88,8 @@ export function MultiStepAssessment() {
     budget: '',
     parentPressure: false,
     location: '',
+    // Junior Flow Specific
+    parentQuestion: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
@@ -129,7 +131,17 @@ export function MultiStepAssessment() {
 
   const validateStep = () => {
     const currentFields = steps[currentStep].fields;
-    if (!currentFields) return true;
+    if (!currentFields || currentFields.length === 0) return true;
+    
+    // For junior flow, step 2 (exploration), parentQuestion is optional.
+    if (isJunior && currentStep === 1) {
+      return currentFields.every(field => {
+        const value = formData[field as keyof typeof formData];
+        if (Array.isArray(value)) return value.length > 0;
+        return value !== '' && value !== null && value !== undefined;
+      });
+    }
+
     return currentFields.every(field => {
         const value = formData[field as keyof typeof formData];
         if (Array.isArray(value)) return value.length > 0;
@@ -179,6 +191,7 @@ export function MultiStepAssessment() {
                         <SelectItem value="ICSE/CISCE">ICSE/CISCE</SelectItem>
                         <SelectItem value="State Board">State Board</SelectItem>
                         <SelectItem value="IB">IB (International Baccalaureate)</SelectItem>
+                        <SelectItem value="Cambridge">Cambridge (IGCSE, A-Levels)</SelectItem>
                         <SelectItem value="NIOS">NIOS</SelectItem>
                         <SelectItem value="Other">Other</SelectItem>
                     </SelectContent>
@@ -271,6 +284,15 @@ export function MultiStepAssessment() {
                         </Button>
                     ))}
                     </div>
+                </div>
+                 <div>
+                    <Label className="text-lg font-semibold">Any specific questions about your child? (Optional)</Label>
+                    <Textarea 
+                      placeholder="e.g., 'My child loves drawing but I'm worried about career stability.'"
+                      value={formData.parentQuestion}
+                      onChange={(e) => handleFormData('parentQuestion', e.target.value)}
+                      className="mt-2"
+                    />
                 </div>
               </div>
             )}
