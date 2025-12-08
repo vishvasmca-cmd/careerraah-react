@@ -132,7 +132,13 @@ const posts: Omit<BlogPost, 'imageUrl' | 'imageHint'>[] = [
 
 export const getBlogPosts = (): BlogPost[] => {
   return posts.map(post => {
-    const img = getImage(`blog-${post.id}`);
+    let img;
+    if (post.id === '7') {
+      // Use the image from post '10' as a reliable fallback for post '7'
+      img = getImage('blog-10');
+    } else {
+      img = getImage(`blog-${post.id}`);
+    }
     return {
       ...post,
       imageUrl: img.imageUrl,
@@ -150,5 +156,6 @@ export const getBlogPost = (id: string): BlogPost | undefined => {
     
 
     
+
 
 
