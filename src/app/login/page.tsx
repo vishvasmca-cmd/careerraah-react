@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { User, UserPlus, LogIn, ArrowRight } from 'lucide-react';
+import { User, Users, UserPlus, LogIn, ArrowRight } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 const GoogleIcon = () => (
