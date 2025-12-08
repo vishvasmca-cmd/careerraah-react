@@ -187,7 +187,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
 
   const handleBack = () => {
     if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
+      setCurrentStep(currentStep + 1);
     }
   };
   
@@ -281,9 +281,9 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     <Card className="shadow-2xl">
       <CardHeader>
         <Progress value={progressValue} className="w-full h-2 mb-4" />
-        <CardTitle className="text-2xl font-headline">{steps[currentStep].name}</CardTitle>
+        <CardTitle className="text-2xl font-headline text-foreground">{steps[currentStep].name}</CardTitle>
         {currentStep < steps.length -1 && (
-            <CardDescription>Step {currentStep + 1} of {steps.length -1} {userRole === 'parent' ? "for your child" : ""}</CardDescription>
+            <CardDescription className="text-foreground/80">Step {currentStep + 1} of {steps.length -1} {userRole === 'parent' ? "for your child" : ""}</CardDescription>
         )}
       </CardHeader>
       <CardContent className="overflow-hidden relative min-h-[450px]">
@@ -591,3 +591,4 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     
 
     
+
