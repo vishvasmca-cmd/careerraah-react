@@ -9,6 +9,7 @@ import { z } from 'zod';
 
 // Zod schema for the input, mirroring the expanded form data
 export const GenerateCareerReportInputSchema = z.object({
+  userName: z.string().optional().describe("The name of the user."),
   userRole: z.string().describe("The person viewing the report, e.g., 'student' or 'parent'."),
   language: z.string().describe("The ISO 639-1 code for the language the response should be in (e.g., 'en', 'hi')."),
   currentStage: z.string().describe("The user's current academic stage (e.g., 'Class 8-10', 'Class 11-12', 'College / Graduate')."),

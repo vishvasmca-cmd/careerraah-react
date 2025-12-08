@@ -28,14 +28,16 @@ export default function LoginPage() {
   const { auth, user, isUserLoading } = useFirebase();
 
   const [role, setRole] = useState('student');
+  const [name, setName] = useState('');
   const [isSigningIn, setIsSigningIn] = useState(false);
 
 
   useEffect(() => {
     if (!isUserLoading && user) {
-      router.push('/assessment');
+      const userName = user.displayName?.split(' ')[0] || 'User';
+      router.push(`/assessment?role=${role}&name=${encodeURIComponent(userName)}`);
     }
-  }, [user, isUserLoading, router]);
+  }, [user, isUserLoading, router, role]);
 
 
   const handleGoogleSignIn = async () => {
@@ -48,7 +50,7 @@ export default function LoginPage() {
         title: "Signed In!",
         description: "Redirecting to your assessment...",
       });
-      router.push('/assessment');
+      // The useEffect will handle the redirection
     } catch (error: any) {
       console.error(error);
        toast({
@@ -60,6 +62,18 @@ export default function LoginPage() {
         setIsSigningIn(false);
     }
   };
+
+  const handleContinue = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!name) {
+      e.preventDefault();
+      toast({
+        variant: 'destructive',
+        title: 'Please enter your name',
+        description: 'We need your name to personalize your experience.',
+      });
+    }
+  };
+
 
   if (isUserLoading || (!isUserLoading && user)) {
      return (
@@ -94,7 +108,7 @@ export default function LoginPage() {
             <form className="space-y-6">
                 <div className="space-y-2">
                     <Label htmlFor="name">Full Name</Label>
-                    <Input id="name" placeholder="Rani Sharma" required type="text" />
+                    <Input id="name" placeholder="Rani Sharma" required type="text" value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="mobile">Mobile Number</Label>
@@ -126,7 +140,7 @@ export default function LoginPage() {
                     </RadioGroup>
                 </div>
                  <Button asChild className="w-full" size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
-                    <Link href={`/assessment?role=${role}`}>
+                    <Link href={`/assessment?role=${role}&name=${encodeURIComponent(name.split(' ')[0] || 'User')}`} onClick={handleContinue}>
                         Continue <ArrowRight className="ml-2" />
                     </Link>
                 </Button>

@@ -79,7 +79,7 @@ const workStyles = [
 ]
 
 
-export function MultiStepAssessment({ userRole = 'student' }: { userRole: string }) {
+export function MultiStepAssessment({ userRole = 'student', userName = 'Student' }: { userRole: string, userName: string }) {
   const [currentStep, setCurrentStep] = useState(0);
   const { language } = useTranslation();
   const [formData, setFormData] = useState<GenerateCareerReportInput>({
@@ -107,6 +107,7 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
     // Junior Flow Specific
     parentQuestion: '',
     userRole: userRole,
+    userName: userName,
     language: language,
   });
 
@@ -129,7 +130,7 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
         setIsSubmitting(true);
         setError(null);
         
-        const payload = { ...formData, userRole: userRole, language: language };
+        const payload = { ...formData, userRole: userRole, language: language, userName: userName };
 
         const result = await getCareerReportAction(payload);
 
@@ -498,7 +499,12 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
               disabled={!validateStep() || isSubmitting}
               style={{ backgroundColor: '#FF6B00', color: 'white' }}
             >
-              {isSubmitting ? 'Analyzing...' : 'Generate Report'}
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Analyzing...
+                </>
+              ) : 'Generate Report'}
             </Button>
           )}
           {isFinished && (
