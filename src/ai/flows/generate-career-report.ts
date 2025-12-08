@@ -46,7 +46,8 @@ const generateCareerReportPrompt = ai.definePrompt({
         - A short and precise summary (not more than 100 words) of the 2-3 broad career fields that are a good fit for the user, linking to their interests and subjects.
 
     2.  **Top 3 Best-Fit Career Paths:**
-        - For each of the 3 paths, you must provide:
+        - An array of 3 objects in a field named 'topCareerPaths'.
+        - For each object in the array, you must provide:
             - **name:** The career title (e.g., "Product Manager").
             - **reason:** A sharp, single sentence linking their profile to the career. (e.g., "Your blend of business interest, leadership qualities, and strong academics makes this a great fit.").
             - **path:** The typical path. (e.g., "B.Tech -> MBA -> APM Role").
@@ -70,4 +71,3 @@ const generateCareerReportFlow = ai.defineFlow(
     return output;
   }
 );
-

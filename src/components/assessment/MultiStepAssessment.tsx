@@ -148,7 +148,7 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
 
   const handleBack = () => {
     if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
+      setCurrentStep(currentStep + 1);
     }
   };
   
@@ -454,7 +454,7 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
                             <div>
                                 <h3 className="text-xl font-bold font-headline flex items-center gap-2"><Rocket className="text-primary"/> Top 3 Career Paths</h3>
                                 <ul className="mt-4 space-y-4">
-                                    {report.topSuggestions.map(suggestion => (
+                                    {report.topCareerPaths.map(suggestion => (
                                         <li key={suggestion.name} className="p-4 border rounded-lg bg-secondary/30">
                                             <p className="font-semibold text-primary text-lg">{suggestion.name}</p>
                                             <p className="text-muted-foreground mt-1"><b>Why it fits:</b> {suggestion.reason}</p>

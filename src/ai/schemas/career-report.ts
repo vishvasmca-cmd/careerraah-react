@@ -43,6 +43,6 @@ const CareerSuggestionSchema = z.object({
 
 export const GenerateCareerReportOutputSchema = z.object({
   recommendedClusters: z.string().describe("A short summary (under 100 words) of the recommended career clusters for the user."),
-  topSuggestions: z.array(CareerSuggestionSchema).describe("The top 3 specific and actionable career suggestions for the user."),
+  topCareerPaths: z.array(CareerSuggestionSchema).describe("The top 3 specific and actionable career suggestions for the user."),
 });
 export type GenerateCareerReportOutput = z.infer<typeof GenerateCareerReportOutputSchema>;
