@@ -117,20 +117,8 @@ const workStyles = [
     { value: "Uniform/Discipline", label: "I want Uniform/Discipline (Defense, Pilot, Merchant Navy)"}
 ]
 
-const formatReportForShare = (name: string, report: GenerateCareerReportOutput): string => {
-  const summaryRegex = /### 1. 📝 Executive Summary([\s\S]*?)### 2./;
-  const summaryMatch = report.reportContent.match(summaryRegex);
-  const summary = summaryMatch ? summaryMatch[1].trim().replace(/<br \/>/g, '\n').replace(/<[^>]+>/g, '') : "Here is my career report summary.";
-
-  return `*Check out this AI-generated Career Report for ${name} from CareerRaah!*
-
-${summary}
-
-This is just a summary! You can create your own free, detailed report and explore hundreds of modern careers.
-
-*CareerRaah - Your Personal AI Career Guide*
-Discover your path today: https://careerraah.com
-  `.trim();
+const formatReportForShare = (name: string): string => {
+  return `Check out this amazing AI-generated Career Report I created for ${name} on CareerRaah! You can create one too. Discover your path today: https://careerraah.com`;
 };
 
 
@@ -287,13 +275,13 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   };
 
   const handleShare = (platform: 'whatsapp' | 'email') => {
-    if (!report || !isUnlocked) return;
-    const reportText = formatReportForShare(userName, report);
+    if (!isUnlocked) return;
+    const reportText = formatReportForShare(userName);
     if (platform === 'whatsapp') {
       const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(reportText)}`;
       window.open(whatsappUrl, '_blank');
     } else if (platform === 'email') {
-      const subject = `My CareerRaah Report for ${userName}`;
+      const subject = `Check out this AI Career Report from CareerRaah!`;
       const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(reportText)}`;
       window.location.href = mailtoUrl;
     }
@@ -316,7 +304,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
 
     const opt = {
       margin:       [0.5, 0.5, 0.5, 0.5],
-      filename:     `${userName.replace(/ /g, '_')}_CareerReport_by_CareerRaah.pdf`,
+      filename:     `${userName.replace(/ /g, '_')}_CareerReport_Generated_by_CareerRaah.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true, logging: false },
       jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
