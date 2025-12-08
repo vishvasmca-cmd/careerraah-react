@@ -87,6 +87,13 @@ const posts: Omit<BlogPost, 'imageUrl' | 'imageHint'>[] = [
     content: `For students passionate about computers, the choice between a B.Tech, BCA, or B.Sc in Computer Science is often confusing. Which degree offers the best job prospects? Which is more theoretical vs. practical? This article provides a head-to-head comparison to help you decide. We analyze the syllabus, the focus of each program (Engineering vs. Application vs. Science), entrance exams, typical college fees, and the long-term career growth associated with each degree. Whether you want to be a software architect, a web developer, or a research scientist, this guide will help you choose the right path.`
   },
   {
+    id: '15',
+    title: 'How to Become a Doctor or Nurse in India: The NEET & Beyond',
+    author: 'CareerRaah Research Wing',
+    date: 'October 5, 2023',
+    content: 'A career in healthcare is one of the most respected and rewarding paths one can choose. For aspiring doctors, the journey is long and arduous, starting with the hyper-competitive NEET exam after Class 12 (Science with Biology). This guide breaks down the NEET preparation strategy, the 5.5-year MBBS course, and the specializations beyond. We also shed light on the equally vital career of Nursing. Learn about the B.Sc. Nursing course, the entrance exams, and the diverse opportunities in hospitals, public health, and even abroad. This is a career of service, empathy, and lifelong learning.'
+  },
+  {
     id: '9',
     title: 'Which is Better After 12th: Commerce or Science?',
     author: 'CareerRaah Research Wing',
