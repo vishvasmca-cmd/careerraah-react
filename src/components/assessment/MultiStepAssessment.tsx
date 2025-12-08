@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -21,9 +21,10 @@ import { Slider } from '@/components/ui/slider';
 import { InteractiveChat } from '@/components/assessment/InteractiveChat';
 import { useTranslation } from '@/hooks/use-translation';
 import { useRouter } from 'next/navigation';
+import html2pdf from 'html2pdf.js';
 
 // A simple markdown-to-html renderer
-const MarkdownRenderer = ({ content }: { content: string }) => {
+const MarkdownRenderer = ({ content, id }: { content: string, id: string }) => {
     const htmlContent = content
       .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold font-headline text-foreground mt-6 mb-2">$1</h3>')
       .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold font-headline text-primary mt-8 mb-4">$1</h2>')
@@ -44,7 +45,7 @@ const MarkdownRenderer = ({ content }: { content: string }) => {
       .replace(/<\/ul>\s*<ul>/g, '')
       .replace(/\n/g, '<br />'); // New lines
 
-    return <div className="prose prose-sm max-w-none text-foreground/90" dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+    return <div id={id} className="prose prose-sm max-w-none text-foreground/90" dangerouslySetInnerHTML={{ __html: htmlContent }} />;
 };
 
 
@@ -140,6 +141,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   const [currentStep, setCurrentStep] = useState(0);
   const { language } = useTranslation();
   const [isClient, setIsClient] = useState(false);
+  const reportContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -295,18 +297,18 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     }
   };
 
-    const handleDownload = () => {
-    if (!report) return;
+  const handleDownload = () => {
+    const element = document.getElementById('report-content');
+    if (!element) return;
 
-    const blob = new Blob([report.reportContent], { type: 'text/markdown;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `CareerRaah_Report_${userName.replace(' ', '_')}.md`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    const opt = {
+      margin:       0.5,
+      filename:     `CareerRaah_Report_${userName.replace(' ', '_')}.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true },
+      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().from(element).set(opt).save();
   };
 
   const progressValue = ((currentStep) / (steps.length - 1)) * 100;
@@ -553,7 +555,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                             </div>
 
                             <div className="prose prose-sm max-w-none text-foreground/90">
-                                <MarkdownRenderer content={report.reportContent} />
+                                <MarkdownRenderer id="report-content" content={report.reportContent} />
                             </div>
 
                             <div className="pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -570,7 +572,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                                 </div>
                                 <Button size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }} onClick={handleDownload}>
                                     <FileDown className="mr-2" />
-                                    Download Full Report (₹49)
+                                    Download as PDF
                                 </Button>
                             </div>
 
@@ -629,4 +631,3 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     </>
   );
 }
-
