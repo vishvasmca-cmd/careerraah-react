@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useTransition } from 'react';
@@ -22,6 +23,7 @@ export function BlogPostCard({ post, index }: BlogPostCardProps) {
   const [summary, setSummary] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
+  const [imgError, setImgError] = useState(false);
 
   const handleSummarize = () => {
     setIsDialogOpen(true);
@@ -47,14 +49,19 @@ export function BlogPostCard({ post, index }: BlogPostCardProps) {
     <>
       <Card className="flex flex-col h-full overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl">
         <div className="relative h-48 w-full">
-          <Image
-            src={post.imageUrl}
-            alt={post.title}
-            data-ai-hint={post.imageHint}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+          {imgError ? (
+            <div className="absolute inset-0 bg-black" />
+          ) : (
+            <Image
+              src={post.imageUrl}
+              alt={post.title}
+              data-ai-hint={post.imageHint}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              onError={() => setImgError(true)}
+            />
+          )}
         </div>
         <CardHeader>
           <CardTitle className="font-headline text-xl h-14 line-clamp-2">

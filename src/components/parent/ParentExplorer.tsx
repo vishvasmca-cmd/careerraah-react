@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, FC } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -567,10 +567,52 @@ const categoryIcons: { [key: string]: React.ElementType } = {
   'Civil Services': Scale,
 };
 
+type Career = typeof CAREER_DB[number];
+
+const CareerCard: FC<{ career: Career, onSelect: (career: Career) => void }> = ({ career, onSelect }) => {
+    const [imgError, setImgError] = useState(false);
+    const CategoryIcon = career.icon;
+
+    return (
+        <Card className="overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 group flex flex-col bg-card">
+            <div className="relative h-40 w-full">
+                {imgError ? (
+                    <div className="absolute inset-0 bg-black" />
+                ) : (
+                    <Image
+                        src={career.imageUrl}
+                        alt={career.name}
+                        data-ai-hint={career.imageHint}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        onError={() => setImgError(true)}
+                    />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-4 left-4">
+                    <CategoryIcon className="w-8 h-8 mb-2 text-white" />
+                    <h3 className="font-bold text-lg text-white shadow-md">{career.name}</h3>
+                </div>
+            </div>
+            <CardContent className="p-5 flex flex-col flex-grow">
+                <p className="text-sm text-muted-foreground line-clamp-3 flex-grow">{career.description}</p>
+                <Button
+                    variant="outline"
+                    className="w-full mt-4 border-primary text-primary hover:bg-primary/10 hover:text-primary"
+                    onClick={() => onSelect(career)}
+                >
+                    View Details
+                </Button>
+            </CardContent>
+        </Card>
+    );
+};
+
 export default function ParentExplorer() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedCareer, setSelectedCareer] = useState<typeof CAREER_DB[0] | null>(null);
+  const [selectedCareer, setSelectedCareer] = useState<Career | null>(null);
 
   const filteredCareers = useMemo(() => {
     return CAREER_DB.filter(career => {
@@ -623,38 +665,9 @@ export default function ParentExplorer() {
 
       <main className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredCareers.map(career => {
-            const CategoryIcon = career.icon;
-            return (
-              <Card key={career.id} className="overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 group flex flex-col bg-card">
-                <div className="relative h-40 w-full">
-                    <Image 
-                        src={career.imageUrl} 
-                        alt={career.name} 
-                        data-ai-hint={career.imageHint}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-4 left-4">
-                        <CategoryIcon className="w-8 h-8 mb-2 text-white" />
-                        <h3 className="font-bold text-lg text-white shadow-md">{career.name}</h3>
-                    </div>
-                </div>
-                <CardContent className="p-5 flex flex-col flex-grow">
-                  <p className="text-sm text-muted-foreground line-clamp-3 flex-grow">{career.description}</p>
-                  <Button
-                    variant="outline"
-                    className="w-full mt-4 border-primary text-primary hover:bg-primary/10 hover:text-primary"
-                    onClick={() => setSelectedCareer(career)}
-                  >
-                    View Details
-                  </Button>
-                </CardContent>
-              </Card>
-            );
-          })}
+          {filteredCareers.map(career => (
+            <CareerCard key={career.id} career={career} onSelect={setSelectedCareer} />
+          ))}
         </div>
       </main>
 
