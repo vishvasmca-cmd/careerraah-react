@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -149,6 +149,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   const [currentStep, setCurrentStep] = useState(0);
   const { language } = useTranslation();
   const [isClient, setIsClient] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -197,6 +198,12 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     const summaryRegex = /(### 1. 📝 Executive Summary[\s\S]*?)(?=### 2.|$)/;
     const match = report.reportContent.match(summaryRegex);
     return match ? match[0] : "Your report is ready!";
+  }, [report]);
+
+  useEffect(() => {
+    if (report && cardRef.current) {
+        cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }, [report]);
 
 
@@ -349,7 +356,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
             </div>
         </div>
     )}
-    <Card className="shadow-2xl bg-card">
+    <Card className="shadow-2xl bg-card" ref={cardRef}>
       <CardHeader>
         <Progress value={progressValue} className="w-full h-2 mb-4" />
         <CardTitle className="text-2xl font-headline text-foreground">{steps[currentStep].name}</CardTitle>
