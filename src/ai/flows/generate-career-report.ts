@@ -8,6 +8,12 @@
 
 import { ai } from '@/ai/genkit';
 import { GenerateCareerReportInputSchema, GenerateCareerReportOutputSchema, type GenerateCareerReportInput, type GenerateCareerReportOutput } from '@/ai/schemas/career-report';
+import { z } from 'zod';
+
+// Define a new input schema for the prompt that includes the isParent flag
+const PromptInputSchema = GenerateCareerReportInputSchema.extend({
+  isParent: z.boolean(),
+});
 
 export async function generateCareerReport(input: GenerateCareerReportInput): Promise<GenerateCareerReportOutput> {
     return generateCareerReportFlow(input);
@@ -15,10 +21,10 @@ export async function generateCareerReport(input: GenerateCareerReportInput): Pr
 
 const generateCareerReportPrompt = ai.definePrompt({
     name: 'generateCareerReportPrompt',
-    input: { schema: GenerateCareerReportInputSchema },
+    input: { schema: PromptInputSchema }, // Use the extended schema
     output: { schema: GenerateCareerReportOutputSchema },
     prompt: `
-        {{#if (eq userRole "parent")}}
+        {{#if isParent}}
         ACT AS: A top-tier, empathetic Career Counselor for Indian parents named Raah. Your advice is practical, encouraging, and highly personalized for their child.
         YOUR TONE: Authoritative yet reassuring, practical, structured, and realistic — like a trusted advisor guiding a parent through their child's future.
 
@@ -191,10 +197,18 @@ const generateCareerReportFlow = ai.defineFlow(
     outputSchema: GenerateCareerReportOutputSchema,
   },
   async input => {
-    const {output} = await generateCareerReportPrompt(input);
+    // Pre-compute the isParent flag to simplify the Handlebars template
+    const promptInput = {
+      ...input,
+      isParent: input.userRole === 'parent',
+    };
+
+    const {output} = await generateCareerReportPrompt(promptInput);
     if (!output) {
       throw new Error("Failed to generate report from AI model.");
     }
     return output;
   }
 );
+
+    
