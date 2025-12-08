@@ -27,10 +27,10 @@ const generateCareerReportPrompt = ai.definePrompt({
     output: { schema: GenerateCareerReportOutputSchema },
     prompt: `
         {{#if isYoungest}}
-        ACT AS: A warm and insightful child development expert providing guidance to a parent.
-        YOUR TONE: Encouraging, positive, and focused on long-term development. You are a world-class expert in child psychology and your advice is deeply rooted in established frameworks.
+        ACT AS: A warm and insightful child development expert providing guidance to a parent. You are a world-class expert in child psychology and your advice is deeply rooted in established frameworks, inspired by global best practices.
+        YOUR TONE: Encouraging, positive, and focused on long-term development. Start with an inspiring sentence about the child's bright and shiny future.
 
-        YOUR TASK is to create a nurturing and insightful report for a parent about their young child. Your analysis should synthesize the parent's observations into a long-term strategic guide.
+        YOUR TASK is to create a nurturing and insightful report for a parent about their young child. Your analysis should synthesize the parent's observations into a long-term strategic guide, emphasizing skills over mere degrees.
 
         USER PROFILE (Parent of a young child):
         - Child's Name: {{{userName}}}
@@ -44,43 +44,43 @@ const generateCareerReportPrompt = ai.definePrompt({
         - Primary Intelligence Type: {{{childIntelligenceType}}}
 
         REPORT GENERATION LOGIC:
-        Generate a very brief and concise **Early Development & Career Insights Report** in Markdown for the parent about their child, {{{userName}}}. The entire response should be less than 1000 characters. Use bullet points and short, easy-to-understand sentences.
+        Generate a very brief and concise **Early Development & Career Insights Report** in Markdown for the parent about their child, {{{userName}}}. The entire response should be less than 1000 characters. Use bullet points and short, easy-to-understand sentences. Start with a very positive opening line about the child's potential.
 
         THE REPORT MUST INCLUDE:
 
         ### 1. 🌱 Core Personality & Top 3 Career Clusters
-        * Based on their profile ({{{childThinkingStyle}}}, {{{childIntelligenceType}}}), your child shows early signs of strength in areas leading to careers in **Technology, Design, and Research**.
-        * **Why these fit:** Briefly explain the connection in one simple sentence. (e.g., "Their love for building and curious nature are perfect for these fields.")
+        * Based on their profile ({{{childThinkingStyle}}}, {{{childIntelligenceType}}}), your child shows early signs of strength in areas leading to future-proof careers in **Technology, Design, and Research**.
+        * **Why these fit:** Briefly explain the connection in one simple sentence. (e.g., "Their love for building things and curious nature are perfect for these innovative fields.")
 
         ### 2. 🏆 Top 3 Best-Fit Career Paths (for the Future)
         1.  **AI/Robotics Engineer:** Because they love creating and solving logical problems.
         2.  **Product Designer (UI/UX):** Because it combines creativity with understanding how people think.
-        3.  **Space Scientist:** Because it requires deep curiosity and a passion for science.
+        3.  **Space Scientist:** Because it requires deep curiosity and a passion for how the world works.
 
         ### 3. 🗺️ Foundational Roadmap (The Long-Term Plan)
         *   **Primary School (Now):** Focus on building strong **Logical Thinking** and **Creativity**. Encourage curiosity.
-        *   **Middle School:** Introduce basic coding (like Scratch) and science projects.
+        *   **Middle School:** Introduce basic coding (like Scratch) and hands-on science projects.
         *   **High School:** Choose the Science stream with Math and Computer Science.
         *   **College:** Aim for a B.Tech in a specialized field from a top university.
 
-        ### 4. 🛠️ Skill to Build Right Now
+        ### 4. 🛠️ Skill to Build Right Now (Focus on Skills, Not Just Degrees)
         *   **Key Skill:** Logical Thinking.
-        *   **How:** Encourage puzzle-solving, LEGOs, and asking "why" questions about how things work.
+        *   **How:** Encourage puzzle-solving, LEGOs, and asking "why" questions about how things work. This is more important than marks.
 
         ### 5. 📚 Top Learning Resources
         *   **Book to Read:** "Rosie Revere, Engineer" by Andrea Beaty.
         *   **YouTube Channel:** "Mark Rober" for fun science and engineering videos.
 
-        ### 6. 📝 Note for You, Parent
-        *   **Encourage Play:** Prioritize unstructured, outdoor play. It's crucial for problem-solving.
-        *   **Choose Toys Wisely:** Opt for open-ended toys like LEGOs, science kits, or art supplies.
-        *   **Limit Screens:** Keep mobile and TV time limited. Real-world interaction is far more valuable.
+        ### 6. 📝 Note for You, Parent (Global Best Practices)
+        *   **Encourage Unstructured Play:** Prioritize outdoor and unstructured play. It's scientifically proven to be crucial for problem-solving and social skills.
+        *   **Choose Toys Wisely:** Opt for open-ended toys like LEGOs, science kits, or art supplies over passive, single-purpose toys.
+        *   **Limit Screen Time:** Keep mobile and TV time strictly limited. Real-world interaction is far more valuable for a young developing brain.
 
         ### 7. ⭐ A Little Story of Inspiration
-        *   **To spark their spirit:** Tell them how A.P.J. Abdul Kalam, as a young boy, was fascinated by how birds fly. His immense curiosity led him to study physics and aerospace engineering, and he eventually became India's beloved "Missile Man" and President.
+        *   **To spark their spirit:** Tell them how A.P.J. Abdul Kalam, as a young boy, was fascinated by how birds fly. His immense curiosity, a skill in itself, led him to study physics and aerospace engineering, and he eventually became India's beloved "Missile Man" and President.
 
         END WITH:
-        A short, encouraging quote about nurturing a child's curiosity.
+        A short, encouraging quote about nurturing a child's natural curiosity.
 
         {{else if isParent}}
         ACT AS: An empathetic, modern, and data-driven AI Career Counselor for Indian parents, named Raah.
@@ -200,5 +200,3 @@ const generateCareerReportFlow = ai.defineFlow(
     return output;
   }
 );
-
-    
