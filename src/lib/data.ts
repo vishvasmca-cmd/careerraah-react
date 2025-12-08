@@ -120,6 +120,13 @@ const posts: Omit<BlogPost, 'imageUrl' | 'imageHint'>[] = [
     author: 'CareerRaah Research Wing',
     date: 'September 10, 2023',
     content: 'The UPSC Civil Services Exam is more than just a test; it\'s a national obsession. But what does it really take to become an IAS or IPS officer? This guide demystifies the process. We break down the three stages of the exam (Prelims, Mains, Interview), the syllabus, the importance of choosing the right optional subject, and the timeline for preparation. We also offer a realistic look at the dedication required, the high competition, and why having a backup plan is essential for every aspirant.'
+  },
+  {
+    id: '16',
+    title: 'How to Join the NDA After Class 12th: A Complete Guide',
+    author: 'CareerRaah Research Wing',
+    date: 'July 25, 2024',
+    content: 'Joining the National Defence Academy (NDA) is a dream for many who wish to serve the country in the Army, Navy, or Air Force. This guide provides a complete roadmap for Class 12 students. We cover the eligibility criteria (age, education, physical standards), the two-stage UPSC written exam, and the exhaustive 5-day Services Selection Board (SSB) interview process. Learn about the intense training at Khadakwasla and the life of a cadet. This is your first step towards a prestigious and honorable career as an officer in the Indian Armed Forces.'
   }
 ];
 
@@ -143,4 +150,5 @@ export const getBlogPost = (id: string): BlogPost | undefined => {
     
 
     
+
 
