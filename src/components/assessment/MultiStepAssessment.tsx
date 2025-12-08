@@ -108,8 +108,8 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
   });
 
   const [formNumericData, setFormNumericData] = useState({
-      academicScore: 70,
-      budget: 200000,
+      academicScore: 80,
+      budget: 250000,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -148,7 +148,7 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
 
   const handleBack = () => {
     if (currentStep > 0) {
-      setCurrentStep(currentStep + 1);
+      setCurrentStep(currentStep - 1);
     }
   };
   
@@ -403,7 +403,7 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
                         <p className="text-sm text-muted-foreground">This helps us suggest Pvt vs Govt colleges.</p>
                         <div className="flex items-center gap-4 mt-2">
                            <Slider value={[formNumericData.budget]} onValueChange={(value) => handleNumericData('budget', value[0])} max={1500000} min={50000} step={50000} className="w-full" />
-                           <span className="font-bold text-lg text-primary w-32 text-center">₹{new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(formNumericData.budget)}</span>
+                           <span className="font-bold text-lg text-primary w-32 text-center">₹{new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3, notation: 'compact' }).format(formNumericData.budget)}</span>
                         </div>
                     </div>
                     <div>
@@ -412,7 +412,7 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
                            {(['Home Town', 'Metro City', 'Abroad'] as const).map(location => (
                                <Label key={location} htmlFor={location} className={`flex items-center justify-center rounded-md border-2 p-4 h-20 cursor-pointer hover:border-primary ${formData.location === location ? 'border-primary bg-primary/10' : 'border-muted'}`}>
                                 <RadioGroupItem value={location} id={location} className="sr-only"/>
-                                {location === 'Home Town' ? <Building className="mr-2"/> : <Briefcase className="mr-2"/>} {location}
+                                {location === 'Home Town' ? <Building className="mr-2"/> : location === 'Metro City' ? <Briefcase className="mr-2"/> : <Rocket className="mr-2"/>} {location}
                                </Label>
                            ))}
                         </RadioGroup>
