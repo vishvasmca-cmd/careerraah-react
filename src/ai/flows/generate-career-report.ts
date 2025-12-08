@@ -14,6 +14,7 @@ import { z } from 'zod';
 const PromptInputSchema = GenerateCareerReportInputSchema.extend({
   isParent: z.boolean(),
   isYoungest: z.boolean(),
+  isCurious: z.boolean(),
 });
 
 export async function generateCareerReport(input: GenerateCareerReportInput): Promise<GenerateCareerReportOutput> {
@@ -48,7 +49,7 @@ const generateCareerReportPrompt = ai.definePrompt({
         THE REPORT MUST INCLUDE:
 
         ### 1. 🌱 Core Personality Trait
-        * Based on their reaction to new things ({{{childNewSituation}}}), your child's core trait appears to be **{{#if (eq childNewSituation "curious")}}Openness{{else}}Conscientiousness{{/if}}**.
+        * Based on their reaction to new things ({{{childNewSituation}}}), your child's core trait appears to be **{{#if isCurious}}Openness{{else}}Conscientiousness{{/if}}**.
         * **What this means:** Briefly explain this trait in one simple sentence. For 'Openness', focus on curiosity and imagination. For 'Conscientiousness', focus on being organized and thoughtful.
 
         ### 2. 🧠 Natural Thinking Style
@@ -176,6 +177,7 @@ const generateCareerReportFlow = ai.defineFlow(
       ...input,
       isParent: input.userRole === 'parent',
       isYoungest: input.currentStage === 'Class 1-5',
+      isCurious: input.childNewSituation === 'curious',
     };
 
     const {output} = await generateCareerReportPrompt(promptInput);
@@ -185,3 +187,5 @@ const generateCareerReportFlow = ai.defineFlow(
     return output;
   }
 );
+
+    
