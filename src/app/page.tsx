@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useContext } from 'react';
@@ -52,9 +53,9 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen fade-in">
       <main className="flex-grow">
-        <section className="relative h-[70vh] min-h-[550px] flex items-center justify-center text-center text-white">
+        <section className="relative h-auto min-h-[600px] flex items-center justify-center text-center text-white py-16">
           <Image
-            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGxlYXJuaW5nfGVufDB8fHx8MTc2NzA5NjAyOHww&ixlib-rb-4.1.0&q=80&w=1080"
+            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGxlYXJuaW5nfGVufDB8fHx8MTc2NzA5NjAyOHww&ixlib=rb-4.1.0&q=80&w=1080"
             alt="Supportive parent helping their child with career planning on a laptop"
             fill
             className="object-cover"
@@ -62,27 +63,27 @@ export default function Home() {
             priority
           />
           <div className="absolute inset-0 bg-black/60" />
-          <div className="relative z-10 p-4">
-            <h1 className="text-4xl md:text-6xl font-headline font-bold tracking-tighter text-white">
-              {t('home_hero_title')}
-            </h1>
-            <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-primary-foreground/90">
-              {t('home_hero_subtitle')}
-            </p>
-            <div className="mt-8 flex justify-center">
-              <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
-                <Link href="/login">
-                  {t('home_hero_cta')} <ArrowRight className="ml-2" />
-                </Link>
-              </Button>
+          <div className="relative z-10 p-4 space-y-12">
+
+            <div>
+              <h1 className="text-4xl md:text-6xl font-headline font-bold tracking-tighter text-white">
+                {t('home_hero_title')}
+              </h1>
+              <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-primary-foreground/90">
+                {t('home_hero_subtitle')}
+              </p>
+              <div className="mt-8 flex justify-center">
+                <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
+                  <Link href="/login">
+                    {t('home_hero_cta')} <ArrowRight className="ml-2" />
+                  </Link>
+                </Button>
+              </div>
             </div>
 
-            <div className="mt-12">
+            <div className="bg-black/20 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
                 <h2 className="text-2xl font-headline font-bold tracking-tight text-white">{t('home_parent_title')}</h2>
-                <p className="mt-2 max-w-2xl mx-auto text-base text-primary-foreground/80">
-                    {t('home_parent_subtitle')}
-                </p>
-                 <p className="mt-2 max-w-2xl mx-auto text-base font-semibold text-primary-foreground/90">
+                <p className="mt-2 max-w-2xl mx-auto text-base text-primary-foreground/90 font-semibold">
                     {t('home_parent_tagline')}
                 </p>
                  <div className="mt-6 flex justify-center">
