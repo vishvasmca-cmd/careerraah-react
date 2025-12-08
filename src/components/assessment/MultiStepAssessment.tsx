@@ -44,7 +44,7 @@ const MarkdownRenderer = ({ content }: { content: string }) => {
       .replace(/<\/ul>\s*<ul>/g, '')
       .replace(/\n/g, '<br />'); // New lines
 
-    return <div className="prose prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+    return <div className="prose prose-sm max-w-none text-foreground/90" dangerouslySetInnerHTML={{ __html: htmlContent }} />;
 };
 
 
@@ -289,6 +289,20 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     }
   };
 
+    const handleDownload = () => {
+    if (!report) return;
+
+    const blob = new Blob([report.reportContent], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `CareerRaah_Report_${userName.replace(' ', '_')}.md`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   const progressValue = ((currentStep) / (steps.length - 1)) * 100;
   const currentStage = formData.currentStage;
   const isSchoolStage = ['Class 1-5', 'Class 6-7', 'Class 8-10', 'Class 11-12'].includes(currentStage);
@@ -304,7 +318,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
             </div>
         </div>
     )}
-    <Card className="shadow-2xl">
+    <Card className="shadow-2xl bg-card">
       <CardHeader>
         <Progress value={progressValue} className="w-full h-2 mb-4" />
         <CardTitle className="text-2xl font-headline text-foreground">{steps[currentStep].name}</CardTitle>
@@ -548,7 +562,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                                       </Button>
                                     </div>
                                 </div>
-                                <Button size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
+                                <Button size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }} onClick={handleDownload}>
                                     <FileDown className="mr-2" />
                                     Download Full Report (₹49)
                                 </Button>
