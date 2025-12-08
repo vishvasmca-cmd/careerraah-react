@@ -52,15 +52,19 @@ export default function LoginPage() {
     setIsSigningIn(true);
     const provider = new GoogleAuthProvider();
     try {
-      // We don't await here because the useEffect will handle the redirect
-      signInWithPopup(auth, provider);
+      await signInWithPopup(auth, provider);
+      // The useEffect will handle the redirect on successful login.
+      // If the user closes the popup, an error is thrown, which is caught below.
     } catch (error: any) {
-      console.error("Google Sign-In Error:", error);
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: error.message || "Could not sign in with Google.",
-      });
+      // Don't show a toast for user-cancelled sign-in
+      if (error.code !== 'auth/popup-closed-by-user') {
+        console.error("Google Sign-In Error:", error);
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: error.message || "Could not sign in with Google.",
+        });
+      }
       setIsSigningIn(false);
     }
   };
