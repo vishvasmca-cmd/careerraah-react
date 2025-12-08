@@ -20,6 +20,7 @@ import Link from 'next/link';
 import { Slider } from '@/components/ui/slider';
 import { InteractiveChat } from '@/components/assessment/InteractiveChat';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRouter } from 'next/navigation';
 
 // A simple markdown-to-html renderer
 const MarkdownRenderer = ({ content }: { content: string }) => {
@@ -135,6 +136,7 @@ Discover your path today: https://careerraah.com
 
 
 export function MultiStepAssessment({ userRole = 'student', userName = 'Student' }: { userRole:string, userName: string }) {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const { language } = useTranslation();
   const [formData, setFormData] = useState<GenerateCareerReportInput>({
@@ -210,6 +212,8 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   const handleBack = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
+    } else {
+      router.back();
     }
   };
   
@@ -305,7 +309,9 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
         <Progress value={progressValue} className="w-full h-2 mb-4" />
         <CardTitle className="text-2xl font-headline text-foreground">{steps[currentStep].name}</CardTitle>
         {currentStep < steps.length -1 && (
-            <CardDescription className="text-foreground/80">Step {currentStep + 1} of {steps.length -1} {userRole === 'parent' ? "for your child" : ""}</CardDescription>
+            <CardDescription className="text-foreground/80">
+              Step {currentStep + 1} of {steps.length - 1} {userRole === 'parent' ? "for your child" : ""}
+            </CardDescription>
         )}
       </CardHeader>
       <CardContent className="overflow-hidden relative min-h-[450px]">
@@ -322,11 +328,11 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
             {currentStep === 0 && (
               <div className="space-y-6">
                 <Label className="text-lg font-semibold text-foreground">Which class/academic stage are you in?</Label>
-                <RadioGroup onValueChange={(value) => handleFormData('currentStage', value)} value={formData.currentStage} className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                <RadioGroup onValueChange={(value) => handleFormData('currentStage', value)} value={formData.currentStage} className="grid grid-cols-2 md:grid-cols-3 gap-3">
                    {(['Class 1-5', 'Class 6-7', 'Class 8-10', 'Class 11-12', 'College / Graduate', 'Post Graduate', 'Gap Year'] as const).map(stage => (
-                      <Label key={stage} htmlFor={stage} className={`flex items-center justify-center rounded-md border-2 p-4 cursor-pointer hover:border-primary ${formData.currentStage === stage ? 'border-primary bg-primary/10' : 'border-muted'}`}>
+                      <Label key={stage} htmlFor={stage} className={`flex items-center justify-center rounded-md border-2 p-4 cursor-pointer hover:border-primary h-20 ${formData.currentStage === stage ? 'border-primary bg-primary/10' : 'border-muted'}`}>
                         <RadioGroupItem value={stage} id={stage} className="sr-only"/>
-                        <span className="font-semibold text-center text-sm text-foreground">{stage}</span>
+                        <span className="font-semibold text-center text-base text-foreground">{stage}</span>
                       </Label>
                    ))}
                 </RadioGroup>
@@ -560,9 +566,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
       </CardContent>
       <CardFooter className="pt-0 flex justify-between items-center">
         <div>
-          {currentStep > 0 && currentStep < steps.length - 1 && (
             <Button variant="ghost" onClick={handleBack}><ArrowLeft className="mr-2" /> Back</Button>
-          )}
         </div>
         <div>
           {currentStep < steps.length - 2 && (
@@ -570,6 +574,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
               onClick={handleNext}
               disabled={!validateStep()}
               style={{ backgroundColor: '#FF6B00', color: 'white' }}
+              size="lg"
             >
               Next
             </Button>
@@ -579,6 +584,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
               onClick={handleNext}
               disabled={!validateStep() || isSubmitting}
               style={{ backgroundColor: '#FF6B00', color: 'white' }}
+              size="lg"
             >
               {isSubmitting ? (
                 <>
@@ -589,7 +595,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
             </Button>
           )}
           {isFinished && (
-             <Button asChild style={{ backgroundColor: '#FF6B00', color: 'white' }}>
+             <Button asChild style={{ backgroundColor: '#FF6B00', color: 'white' }} size="lg">
                  <Link href="/parent-explorer">
                      Explore More Careers <ArrowRight className="ml-2"/>
                  </Link>
@@ -601,3 +607,4 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     </>
   );
 }
+
