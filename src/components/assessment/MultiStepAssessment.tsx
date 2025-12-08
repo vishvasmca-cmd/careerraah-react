@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2, Star, Video, ArrowRight, Film, Atom, Trophy, Scale, BrainCircuit, Users, Rocket, DollarSign, Loader2, Mail, FileDown, Lock } from 'lucide-react';
+import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2, Star, Video, ArrowRight, Film, Atom, Trophy, Scale, BrainCircuit, Users, Rocket, DollarSign, Loader2, Mail, FileDown, Lock, Info } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -22,6 +22,8 @@ import { InteractiveChat } from '@/components/assessment/InteractiveChat';
 import { useTranslation } from '@/hooks/use-translation';
 import { useRouter } from 'next/navigation';
 import html2pdf from 'html2pdf.js';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
 
 // A simple markdown-to-html renderer
 const MarkdownRenderer = ({ content, id }: { content: string; id: string }) => {
@@ -573,6 +575,14 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                                   {userRole === 'parent' ? `Your Career Strategy Report for ${userName} is Ready!` : `Your Career Strategy Report is Ready, ${userName}!`}
                                 </h2>
                             </div>
+                            
+                            <Alert>
+                              <Info className="h-4 w-4" />
+                              <AlertTitle>Important Note</AlertTitle>
+                              <AlertDescription>
+                                For your privacy, CareerRaah does not store your report. Please download a copy to your device for future reference.
+                              </AlertDescription>
+                            </Alert>
 
                              <div id="report-content-wrapper">
                                 <MarkdownRenderer id="report-content" content={isUnlocked ? report.reportContent : reportPreview} />
