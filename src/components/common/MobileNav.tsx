@@ -44,7 +44,7 @@ export function MobileNav() {
           </Link>
           <nav className="flex flex-col gap-4">
              <Link
-                href="/assessment"
+                href="/login"
                 onClick={() => setIsOpen(false)}
                 className="text-lg font-medium text-foreground hover:text-primary transition-colors"
               >

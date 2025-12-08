@@ -31,7 +31,7 @@ export function Header() {
         <div className="flex items-center gap-4">
            <nav className="hidden items-center gap-2 sm:gap-4 md:flex">
             <Button variant="ghost" asChild>
-              <Link href="/assessment" className="text-sm font-medium">
+              <Link href="/login" className="text-sm font-medium">
                 Expert Assessment
               </Link>
             </Button>

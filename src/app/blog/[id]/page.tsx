@@ -74,7 +74,7 @@ export default function BlogPostPage({ params }: Props) {
             </p>
             <div className="mt-6">
               <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
-                <Link href="/assessment">
+                <Link href="/login">
                   Create My Free Roadmap <ArrowRight className="ml-2" />
                 </Link>
               </Button>

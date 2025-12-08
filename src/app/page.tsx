@@ -54,7 +54,7 @@ export default function Home() {
       <main className="flex-grow">
         <section className="relative h-[70vh] min-h-[550px] flex items-center justify-center text-center text-white">
           <Image
-            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGxlYXJuaW5nfGVufDB8fHx8MTc2NzA5NjAyOHww&ixlib=rb-4.1.0&q=80&w=1080"
+            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGxlYXJuaW5nfGVufDB8fHx8MTc2NzA5NjAyOHww&ixlib-rb-4.1.0&q=80&w=1080"
             alt="Supportive parent helping their child with career planning on a laptop"
             fill
             className="object-cover"
@@ -71,7 +71,7 @@ export default function Home() {
             </p>
             <div className="mt-8 flex justify-center">
               <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
-                <Link href="/assessment">
+                <Link href="/login">
                   {t('home_hero_cta')} <ArrowRight className="ml-2" />
                 </Link>
               </Button>

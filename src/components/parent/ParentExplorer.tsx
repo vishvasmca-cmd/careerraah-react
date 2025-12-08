@@ -340,7 +340,7 @@ const CAREER_DB = [
     risk: 'Very High',
     trustScore: 10,
     description: 'Serve the nation as a top-level administrator or police officer by cracking the highly competitive UPSC Civil Services Examination.',
-    imageUrl: 'https://images.unsplash.com/photo-1608222351213-824141947273?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJbmRpYW4lMjBwb2xpY2V8ZW58MHx8fHwxNzY3MTI0NzExfDA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1608222351213-824141947273?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJbmRpYW4lMjBwb2xpY2V8ZW58MHx8fHwxNzY3MTI0NzExfDA&ixlib-rb-4.1.0&q=80&w=1080',
     imageHint: 'Indian police',
     roiChart: [
       { name: 'Avg. Edu Cost', value: 3, fill: 'hsl(var(--muted))' },
@@ -581,7 +581,7 @@ export default function ParentExplorer() {
 
               <footer className="p-6 border-t border-gray-200 bg-gray-50/50">
                 <Button size="lg" className="w-full" asChild style={{ backgroundColor: '#FF6B00', color: 'white' }}>
-                  <Link href="/assessment">
+                  <Link href="/login">
                     Create Roadmap for my child
                     <ArrowRight className="ml-2" />
                   </Link>
