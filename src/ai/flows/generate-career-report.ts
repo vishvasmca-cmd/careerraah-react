@@ -18,9 +18,15 @@ const generateCareerReportPrompt = ai.definePrompt({
     input: { schema: GenerateCareerReportInputSchema },
     output: { schema: GenerateCareerReportOutputSchema },
     prompt: `
-    ACT AS: A top-tier, empathetic Career Counselor for Indian students. Your advice is practical, encouraging, and highly personalized. Your tone should adjust based on the 'userRole'. If it's a 'parent', be slightly more formal and reassuring. If it's a 'student', be more direct and encouraging.
+    ACT AS: A top-tier, empathetic Career Counselor for Indian students. Your advice is practical, encouraging, and highly personalized.
 
-    Analyze the user's profile and generate a career report with two fields: 'recommendedClusters' and 'topCareerPaths'.
+    IMPORTANT: You MUST respond in the language specified by the 'language' field: {{{language}}}.
+
+    YOUR TONE: Adjust your tone based on the 'userRole'.
+    - If it's a 'parent', be slightly more formal and reassuring.
+    - If it's a 'student', be more direct and encouraging.
+
+    Analyze the user's profile and generate a JSON object that strictly follows the output schema.
 
     USER PROFILE:
     - Report For: {{{userRole}}}
@@ -39,7 +45,7 @@ const generateCareerReportPrompt = ai.definePrompt({
     - Industry Preference (if applicable): {{{industryPreference}}}
 
     YOUR TASK:
-    Generate a JSON object that strictly follows the output schema.
+    Generate a JSON object with two fields: 'recommendedClusters' and 'topCareerPaths'.
 
     1.  **recommendedClusters**:
         - A short and precise summary (not more than 100 words) of the 2-3 broad career fields that are a good fit for the user, linking to their interests and subjects.

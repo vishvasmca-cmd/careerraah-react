@@ -46,10 +46,11 @@ export async function getCareerReportAction(data: GenerateCareerReportInput) {
 
 export async function getCareerQuestionAnswerAction(
   assessmentData: GenerateCareerReportInput,
-  question: string
+  question: string,
+  language: string,
 ) {
   try {
-    const result = await answerCareerQuestion({ assessmentData, question });
+    const result = await answerCareerQuestion({ assessmentData, question, language });
     return { answer: result.answer };
   } catch (error) {
     console.error(error);

@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview A flow that answers a specific follow-up question about a career path,
@@ -11,6 +12,7 @@ import { GenerateCareerReportInputSchema } from '@/ai/schemas/career-report';
 const AnswerCareerQuestionInputSchema = z.object({
   assessmentData: GenerateCareerReportInputSchema.describe("The user's original assessment data."),
   question: z.string().describe("The specific follow-up question the user is asking."),
+  language: z.string().describe("The ISO 639-1 code for the language the response should be in (e.g., 'en', 'hi')."),
 });
 export type AnswerCareerQuestionInput = z.infer<typeof AnswerCareerQuestionInputSchema>;
 
@@ -29,6 +31,8 @@ const prompt = ai.definePrompt({
   output: { schema: AnswerCareerQuestionOutputSchema },
   prompt: `
     ACT AS: A helpful and concise career counselor chatbot. Your job is to answer a user's follow-up question based on their profile.
+
+    IMPORTANT: You MUST respond in the language specified by the 'language' field: {{{language}}}.
 
     CONTEXT: The user has already received an initial career summary. Now, they are asking a specific question.
 

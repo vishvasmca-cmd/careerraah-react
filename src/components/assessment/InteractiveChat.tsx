@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useTransition } from 'react';
@@ -6,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Loader2, Wand2 } from 'lucide-react';
 import { getCareerQuestionAnswerAction } from '@/lib/actions';
 import type { GenerateCareerReportInput } from '@/ai/schemas/career-report';
+import { useTranslation } from '@/hooks/use-translation';
 
 const predefinedQuestions = [
   'Create a Year-by-Year Roadmap to my first job.',
@@ -26,6 +28,7 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [isPending, startTransition] = useTransition();
   const [askedQuestions, setAskedQuestions] = useState<string[]>([]);
+  const { language } = useTranslation();
 
   const handleQuestionClick = (question: string) => {
     const questionId = Date.now();
@@ -36,7 +39,7 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
     setAskedQuestions(prev => [...prev, question]);
 
     startTransition(async () => {
-      const result = await getCareerQuestionAnswerAction(assessmentData, question);
+      const result = await getCareerQuestionAnswerAction(assessmentData, question, language);
       
       let finalAnswer: ChatMessage;
       if (result.answer) {
@@ -53,7 +56,7 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
     <div className="mt-8 pt-6 border-t">
       <h3 className="text-xl font-bold font-headline flex items-center gap-2">
         <Wand2 className="text-primary"/>
-        Ask Follow-up Questions
+        Get Expert Answers
       </h3>
       <p className="text-muted-foreground mt-1">
         Click a question below to get a detailed, AI-powered answer.

@@ -10,7 +10,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
-import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2, Sparkles, ArrowRight, Film, Atom, Trophy, Scale, BrainCircuit, Users, Rocket, DollarSign } from 'lucide-react';
+import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2, Sparkles, ArrowRight, Film, Atom, Trophy, Scale, BrainCircuit, Users, Rocket, DollarSign, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -19,6 +19,7 @@ import type { GenerateCareerReportInput, GenerateCareerReportOutput } from '@/ai
 import Link from 'next/link';
 import { Slider } from '@/components/ui/slider';
 import { InteractiveChat } from '@/components/assessment/InteractiveChat';
+import { useTranslation } from '@/hooks/use-translation';
 
 
 const baseSteps = [
@@ -80,6 +81,7 @@ const workStyles = [
 
 export function MultiStepAssessment({ userRole = 'student' }: { userRole: string }) {
   const [currentStep, setCurrentStep] = useState(0);
+  const { language } = useTranslation();
   const [formData, setFormData] = useState<GenerateCareerReportInput>({
     // Step 1
     currentStage: '',
@@ -105,6 +107,7 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
     // Junior Flow Specific
     parentQuestion: '',
     userRole: userRole,
+    language: language,
   });
 
   const [formNumericData, setFormNumericData] = useState({
@@ -126,7 +129,7 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
         setIsSubmitting(true);
         setError(null);
         
-        const payload = { ...formData, userRole };
+        const payload = { ...formData, userRole: userRole, language: language };
 
         const result = await getCareerReportAction(payload);
 
@@ -428,12 +431,10 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
             {currentStep === steps.length - 1 && (
               <div className="flex flex-col items-center justify-center text-left min-h-[450px]">
                 {isSubmitting && (
-                  <div className="text-center">
-                     <div className="flex flex-col gap-2 w-full animate-pulse">
-                        <Sparkles className="w-16 h-16 text-primary mx-auto mb-4" />
-                        <h2 className="text-2xl font-bold font-headline">Generating Your Report...</h2>
-                        <p className="text-muted-foreground">Analyzing your profile against millions of data points.</p>
-                    </div>
+                  <div className="text-center space-y-4">
+                     <Loader2 className="w-16 h-16 text-primary mx-auto animate-spin" />
+                     <h2 className="text-2xl font-bold font-headline">Generating Your Report...</h2>
+                     <p className="text-muted-foreground">Analyzing your profile against millions of data points.</p>
                   </div>
                 )}
                 {isFinished && (
