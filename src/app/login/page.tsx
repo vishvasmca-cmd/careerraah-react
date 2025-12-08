@@ -34,7 +34,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (!isUserLoading && user) {
-      const userName = user.displayName || name || 'User';
+      const userName = user.displayName || name || (role === 'parent' ? 'Child' : 'User');
       router.push(`/assessment?role=${role}&name=${encodeURIComponent(userName)}`);
     }
   }, [user, isUserLoading, router, role, name]);
@@ -68,8 +68,8 @@ export default function LoginPage() {
       e.preventDefault();
       toast({
         variant: 'destructive',
-        title: 'Please enter your name',
-        description: 'We need your name to personalize your experience.',
+        title: 'Please enter a name',
+        description: `We need ${role === 'parent' ? "your child's" : "your"} name to personalize the experience.`,
       });
     }
   };
@@ -106,14 +106,6 @@ export default function LoginPage() {
           </CardHeader>
           <CardContent>
             <form className="space-y-6">
-                <div className="space-y-2">
-                    <Label htmlFor="name">Full Name</Label>
-                    <Input id="name" placeholder="Rani Sharma" required type="text" value={name} onChange={(e) => setName(e.target.value)} />
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="mobile">Mobile Number</Label>
-                    <Input id="mobile" placeholder="98765 43210" required type="tel" />
-                </div>
                 <div className="space-y-3">
                     <Label>I am a...</Label>
                     <RadioGroup defaultValue="student" value={role} onValueChange={setRole} className="grid grid-cols-2 gap-4">
@@ -139,8 +131,22 @@ export default function LoginPage() {
                         </div>
                     </RadioGroup>
                 </div>
+                 <div className="space-y-2">
+                    <Label htmlFor="name">{role === 'parent' ? "Child's Full Name" : "Full Name"}</Label>
+                    <Input 
+                      id="name" 
+                      placeholder={role === 'parent' ? "e.g. Priya Kumar" : "e.g. Rani Sharma"} 
+                      required 
+                      type="text" 
+                      value={name} 
+                      onChange={(e) => setName(e.target.value)} />
+                </div>
+                <div className="space-y-2">
+                    <Label htmlFor="mobile">Your Mobile Number</Label>
+                    <Input id="mobile" placeholder="98765 43210" required type="tel" />
+                </div>
                  <Button asChild className="w-full" size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
-                    <Link href={`/assessment?role=${role}&name=${encodeURIComponent(name || 'User')}`} onClick={handleContinue}>
+                    <Link href={`/assessment?role=${role}&name=${encodeURIComponent(name || (role === 'parent' ? 'Child' : 'User'))}`} onClick={handleContinue}>
                         Continue <ArrowRight className="ml-2" />
                     </Link>
                 </Button>

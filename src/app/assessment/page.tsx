@@ -2,7 +2,7 @@ import { MultiStepAssessment } from '@/components/assessment/MultiStepAssessment
 
 export default function AssessmentPage({ searchParams }: { searchParams?: { role?: string, name?: string } }) {
   const role = searchParams?.role ?? 'student';
-  const name = searchParams?.name ?? (role === 'student' ? 'Student' : 'Parent');
+  const name = searchParams?.name ?? (role === 'student' ? 'Student' : 'your child');
   
   return (
     <div className="relative isolate min-h-full">
@@ -21,10 +21,10 @@ export default function AssessmentPage({ searchParams }: { searchParams?: { role
       <div className="container mx-auto max-w-3xl py-8 px-4 md:px-6 lg:py-12 fade-in">
         <div className="mb-8 text-center space-y-4">
           <h1 className="text-4xl font-headline font-bold tracking-tighter sm:text-5xl text-foreground">
-            {role === 'parent' ? "Child's Assessment" : 'Student Assessment'}
+            {role === 'parent' ? "Child's Career Assessment" : 'Your Career Assessment'}
           </h1>
           <p className="mt-3 text-muted-foreground md:text-xl">
-            Let's find the right career path for {role === 'parent' ? 'your child' : 'you'}, {name}.
+            Let's find the right career path for {role === 'parent' ? `your child, ${name}` : `you, ${name}`}.
           </p>
         </div>
         <MultiStepAssessment userRole={role} userName={name} />
