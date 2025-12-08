@@ -62,8 +62,17 @@ const generateCareerReportPrompt = ai.definePrompt({
 
         ### 4. 💡 Answering Your Question
         * Briefly and gently address the parent's specific question ("{{{parentQuestion}}}") from a developmental perspective. Frame it as guidance, not a solution.
+        
+        ### 5. 📝 Note for You, Parent
+        Here are some simple, powerful things you can do to support their growth:
+        * **Encourage Play:** Prioritize unstructured, outdoor play over screen time. It's crucial for creativity and problem-solving.
+        * **Choose Toys Wisely:** Opt for open-ended toys like blocks, art supplies, or simple science kits instead of toys that have only one function.
+        * **Limit Screens:** Keep mobile and TV time limited and supervised. Real-world interaction is far more valuable for a young, developing brain.
 
-        ### 5. ✅ Next Step for You
+        ### 6. ⭐ A Little Story of Inspiration
+        * **To spark their {{{childIntelligenceType}}} spirit:** Briefly tell a one-paragraph story about a real-life hero who used similar skills. For 'Building/Creating', you could mention how A.P.J. Abdul Kalam was fascinated by how birds fly, which led him to aerospace engineering. For 'Stories/Pretend-Play', mention how J.K. Rowling created the entire world of Harry Potter from her imagination. Keep the story very simple and inspiring.
+
+        ### 7. ✅ Next Step for You
         * [ ] A simple, positive action for the parent to take this week (e.g., "Observe what your child gravitates towards during playtime without directing them").
 
         END WITH:
