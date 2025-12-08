@@ -27,6 +27,7 @@ import {
   Trophy,
   Scale,
   ArrowRight,
+  User,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -178,7 +179,7 @@ const CAREER_DB = [
     risk: 'Medium',
     trustScore: 8,
     description: 'Design user-friendly interfaces for websites and apps to enhance user experience.',
-    imageUrl: 'https://images.unsplash.com/photo-1587440871875-191322ee64b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxVSVVYJTIwZGVzaWdufGVufDB8fHx8MTc2NjgyMTg1Nnww&ixlib-rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1587440871875-191322ee64b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxVSVVYJTIwZGVzaWdufGVufDB8fHx8MTc2NjgyMTg1Nnww&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'UIUX design',
     roiChart: [
       { name: 'Avg. Edu Cost', value: 4, fill: 'hsl(var(--muted))' },
@@ -232,7 +233,7 @@ const CAREER_DB = [
     risk: 'High',
     trustScore: 7,
     description: 'Help companies and governments raise capital by issuing stocks and bonds, and provide advice on mergers and acquisitions (M&A).',
-    imageUrl: 'https://images.unsplash.com/photo-1664448039325-797c6241ab9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaW5hbmNlJTIwdHJhZGluZ3xlbnwwfHx8fDE3NjY4MjIwMzV8MA&ixlib-rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1664448039325-797c6241ab9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaW5hbmNlJTIwdHJhZGluZ3xlbnwwfHx8fDE3NjY4MjIwMzV8MA&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'finance trading',
     roiChart: [
         { name: 'Avg. Edu Cost', value: 30, fill: 'hsl(var(--muted))' },
@@ -259,7 +260,7 @@ const CAREER_DB = [
     risk: 'Low',
     trustScore: 10,
     description: 'Work on cutting-edge space missions, from satellite design to planetary exploration, contributing to India\'s prestigious space program.',
-    imageUrl: 'https://images.unsplash.com/photo-1614728263952-84ea256ec677?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJU1JPJTIwcm9ja2V0fGVufDB8fHx8MTc2NzEyNDQ2MHww&ixlib-rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1614728263952-84ea256ec677?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJU1JPJTIwcm9ja2V0fGVufDB8fHx8MTc2NzEyNDQ2MHww&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'ISRO rocket',
     roiChart: [
       { name: 'Avg. Edu Cost', value: 6, fill: 'hsl(var(--muted))' },
@@ -286,7 +287,7 @@ const CAREER_DB = [
     risk: 'Very High',
     trustScore: 5,
     description: 'The creative lead of a film, responsible for visualizing the script and guiding the actors and technical crew to bring that vision to life.',
-    imageUrl: 'https://images.unsplash.com/photo-1574717024633-596a8376b0f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHxmaWxtJTIwZGlyZWN0b3J8ZW58MHx8fHwxNzY3MTI0NTMxfDA&ixlib-rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1574717024633-596a8376b0f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHxmaWxtJTIwZGlyZWN0b3J8ZW58MHx8fHwxNzY3MTI0NTMxfDA&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'film director',
     roiChart: [
       { name: 'Avg. Edu Cost', value: 10, fill: 'hsl(var(--muted))' },
@@ -313,7 +314,7 @@ const CAREER_DB = [
     risk: 'Very High',
     trustScore: 3,
     description: 'A high-performance athlete dedicated to playing cricket at state, national, or international levels, including lucrative leagues like the IPL.',
-    imageUrl: 'https://images.unsplash.com/photo-1595435940989-798240980479?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmlja2V0JTIwYmF0dGluZ3xlbnwwfHx8fDE3NjcxMjQ2MTB8MA&ixlib-rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1595435940989-798240980479?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmlja2V0JTIwYmF0dGluZ3xlbnwwfHx8fDE3NjcxMjQ2MTB8MA&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'cricket batting',
     roiChart: [
       { name: 'Avg. Edu Cost', value: 5, fill: 'hsl(var(--muted))' },
@@ -340,7 +341,7 @@ const CAREER_DB = [
     risk: 'Very High',
     trustScore: 10,
     description: 'Serve the nation as a top-level administrator or police officer by cracking the highly competitive UPSC Civil Services Examination.',
-    imageUrl: 'https://images.unsplash.com/photo-1608222351213-824141947273?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJbmRpYW4lMjBwb2xpY2V8ZW58MHx8fHwxNzY3MTI0NzExfDA&ixlib-rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1608222351213-824141947273?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJbmRpYW4lMjBwb2xpY2V8ZW58MHx8fHwxNzY3MTI0NzExfDA&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'Indian police',
     roiChart: [
       { name: 'Avg. Edu Cost', value: 3, fill: 'hsl(var(--muted))' },
@@ -356,6 +357,87 @@ const CAREER_DB = [
       { question: 'Does your child have a strong sense of public service and national duty?' },
       { question: 'Are they academically consistent, with a wide-ranging curiosity?' },
       { question: 'Do they possess extreme mental fortitude and perseverance for a long and arduous preparation journey?' },
+    ],
+  },
+  {
+    id: 13,
+    name: 'Professional Footballer',
+    category: 'Sports',
+    icon: Trophy,
+    salary: { low: 8, high: 1500 },
+    risk: 'Very High',
+    trustScore: 4,
+    description: 'Become a professional athlete in India\'s growing football scene, playing in leagues like the ISL and I-League.',
+    imageUrl: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmb290YmFsbCUyMHBsYXllcnxlbnwwfHx8fDE3MjE4MzYzODN8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'football player',
+    roiChart: [
+      { name: 'Avg. Training Cost', value: 4, fill: 'hsl(var(--muted))' },
+      { name: 'Starting Salary (ISL)', value: 8, fill: 'hsl(var(--primary))' },
+    ],
+    roadmap: [
+      { step: 'Join a Reputable Academy Early', desc: 'Start professional training between ages 10-14.' },
+      { step: 'Play Youth Leagues', desc: 'Compete in state and national level youth I-Leagues (U13, U15, U18).' },
+      { step: 'Get Scouted by a Club', desc: 'Perform well to get trials for senior teams in I-League or ISL.' },
+      { step: 'Professional Debut', desc: 'Sign a professional contract and make your debut.' },
+    ],
+    fitCheck: [
+      { question: 'Does your child have exceptional stamina, speed, and ball control?' },
+      { question: 'Are they highly coachable and a good team player?' },
+      { question: 'Do they show resilience to bounce back from injuries and selection setbacks?' },
+    ],
+  },
+  {
+    id: 14,
+    name: 'Badminton Player',
+    category: 'Sports',
+    icon: Trophy,
+    salary: { low: 5, high: 1000 },
+    risk: 'Very High',
+    trustScore: 5,
+    description: 'Compete at a national and international level in a sport where India has a strong global presence.',
+    imageUrl: 'https://images.unsplash.com/photo-1521587522486-0177e52b2354?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiYWRtaW50b24lMjBwbGF5ZXJ8ZW58MHx8fHwxNzIxODM2NDIxfDA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'badminton player',
+    roiChart: [
+      { name: 'Avg. Training Cost', value: 6, fill: 'hsl(var(--muted))' },
+      { name: 'National Level Earnings', value: 5, fill: 'hsl(var(--primary))' },
+    ],
+    roadmap: [
+      { step: 'Start at a Young Age (6-10)', desc: 'Join a good local academy with experienced coaches.' },
+      { step: 'Compete in Age-Group Nationals', desc: 'Perform well in U-13, U-15, U-17, U-19 Badminton Association of India (BAI) tournaments.' },
+      { step: 'Enter Senior Circuit', desc: 'Achieve a top national ranking to get selected for international tournaments.' },
+      { step: 'Join a Pro Academy', desc: 'Train at elite academies like Gopichand Academy or Prakash Padukone Academy.' },
+    ],
+    fitCheck: [
+      { question: 'Does your child possess exceptional agility, reflexes, and court speed?' },
+      { question: 'Do they have the dedication for rigorous daily training for many years?' },
+      { question: 'Are they mentally strong to handle the pressure of individual competition?' },
+    ],
+  },
+  {
+    id: 15,
+    name: 'Field Hockey Player',
+    category: 'Sports',
+    icon: Trophy,
+    salary: { low: 5, high: 50 },
+    risk: 'Very High',
+    trustScore: 4,
+    description: 'Represent India in its national sport, with opportunities to play in domestic leagues and for the national team.',
+    imageUrl: 'https://images.unsplash.com/photo-1593455959146-f949a5b3a925?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaWVsZCUyMGhvY2tleXxlbnwwfHx8fDE3MjE4MzY0NTZ8MA&ixlib-rb-4.1.0&q=80&w=1080',
+    imageHint: 'field hockey',
+    roiChart: [
+      { name: 'Avg. Training Cost', value: 3, fill: 'hsl(var(--muted))' },
+      { name: 'National Player Stipend', value: 5, fill: 'hsl(var(--primary))' },
+    ],
+    roadmap: [
+      { step: 'Join School/Local Team', desc: 'Start playing early and learn the fundamental skills.' },
+      { step: 'Get into a Sports Hostel/Academy', desc: 'Join state-run or private academies for intensive coaching.' },
+      { step: 'Play Junior & Senior Nationals', desc: 'Perform for your state team to get noticed by national selectors.' },
+      { step: 'National Team Camp', desc: 'Get selected for the national camp, the final step to playing for India.' },
+    ],
+    fitCheck: [
+      { question: 'Does your child have high levels of endurance and physical toughness?' },
+      { question: 'Are they a strategic thinker and a collaborative team player?' },
+      { question: 'Do they have a deep passion for representing the country in its national sport?' },
     ],
   },
 ];
@@ -513,13 +595,13 @@ export default function ParentExplorer() {
                   <div className="p-6">
                     <TabsContent value="roi">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <Card className="p-4 bg-muted/30">
+                        <Card className="p-4 bg-card">
                             <CardContent className="p-0">
                                 <p className="text-sm font-medium text-muted-foreground">Expected Salary Range (Per Annum)</p>
                                 <p className="text-2xl font-bold text-primary">₹{selectedCareer.salary.low}L - ₹{selectedCareer.salary.high}L+</p>
                             </CardContent>
                         </Card>
-                        <Card className="p-4 bg-muted/30">
+                        <Card className="p-4 bg-card">
                              <CardContent className="p-0">
                                 <p className="text-sm font-medium text-muted-foreground">Financial Risk</p>
                                 <p className={`text-2xl font-bold ${selectedCareer.risk === 'High' || selectedCareer.risk === 'Very High' ? 'text-red-500' : 'text-green-500'}`}>
@@ -531,7 +613,7 @@ export default function ParentExplorer() {
 
                       <h3 className="text-lg font-semibold mb-2">Cost vs. Starting Salary</h3>
                        <p className="text-sm text-muted-foreground mb-4">A visual comparison of average education cost vs. potential starting salary (in Lakhs Per Annum).</p>
-                      <div className="h-40 w-full bg-muted/30 rounded-lg p-4 flex items-end gap-8">
+                      <div className="h-40 w-full bg-card rounded-lg p-4 flex items-end gap-8">
                          {selectedCareer.roiChart.map(item => (
                              <div key={item.name} className="flex-1 flex flex-col items-center">
                                  <motion.div
@@ -568,7 +650,7 @@ export default function ParentExplorer() {
                         <h3 className="text-lg font-semibold mb-4">Is This Career Right for Your Child?</h3>
                         <ul className="space-y-3">
                             {selectedCareer.fitCheck.map((item, index) => (
-                                <li key={index} className="flex items-start gap-3 p-3 bg-muted/30 rounded-lg">
+                                <li key={index} className="flex items-start gap-3 p-3 bg-card rounded-lg">
                                     <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
                                     <span>{item.question}</span>
                                 </li>
@@ -579,7 +661,7 @@ export default function ParentExplorer() {
                 </Tabs>
               </div>
 
-              <footer className="p-6 border-t border-border bg-muted/20">
+              <footer className="p-6 border-t border-border bg-card">
                 <Button size="lg" className="w-full" asChild style={{ backgroundColor: '#FF6B00', color: 'white' }}>
                   <Link href="/login">
                     Create Roadmap for my child
@@ -594,5 +676,3 @@ export default function ParentExplorer() {
     </>
   );
 }
-
-    
