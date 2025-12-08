@@ -169,13 +169,15 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
 
         if (result.report) {
           setReport(result.report);
+          setIsFinished(true);
+          setCurrentStep(currentStep + 1);
         } else {
           setError(result.error || 'An unknown error occurred.');
+          setIsFinished(true); // Still go to final step to show error
+          setCurrentStep(currentStep + 1);
         }
 
         setIsSubmitting(false);
-        setIsFinished(true);
-        setCurrentStep(currentStep + 1);
 
       } else {
         setCurrentStep(currentStep + 1);
@@ -266,6 +268,16 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   const isSchoolStage = ['Class 1-5', 'Class 6-7', 'Class 8-10', 'Class 11-12'].includes(currentStage);
 
   return (
+    <>
+    {isSubmitting && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+            <div className="text-center space-y-4">
+                <Loader2 className="w-16 h-16 text-primary mx-auto animate-spin" />
+                <h2 className="text-2xl font-bold font-headline">Generating Your Report...</h2>
+                <p className="text-muted-foreground">Analyzing your profile against millions of data points.</p>
+            </div>
+        </div>
+    )}
     <Card className="shadow-2xl">
       <CardHeader>
         <Progress value={progressValue} className="w-full h-2 mb-4" />
@@ -479,13 +491,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
             )}
             {currentStep === steps.length - 1 && (
               <div className="flex flex-col items-center justify-center text-left min-h-[450px]">
-                {isSubmitting && (
-                  <div className="text-center space-y-4">
-                     <Loader2 className="w-16 h-16 text-primary mx-auto animate-spin" />
-                     <h2 className="text-2xl font-bold font-headline">Generating Your Report...</h2>
-                     <p className="text-muted-foreground">Analyzing your profile against millions of data points.</p>
-                  </div>
-                )}
+                
                 {isFinished && (
                   <>
                     {error && <div className="text-red-500 text-center">Error: {error}</div>}
@@ -578,7 +584,10 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
         </div>
       </CardFooter>
     </Card>
+    </>
   );
 }
+
+    
 
     
