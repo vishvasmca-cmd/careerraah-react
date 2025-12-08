@@ -44,7 +44,7 @@ const generateCareerReportPrompt = ai.definePrompt({
         - Primary Intelligence Type: {{{childIntelligenceType}}}
 
         REPORT GENERATION LOGIC:
-        Generate a very brief and concise **Early Development & Career Insights Report** in Markdown for the parent about their child, {{{userName}}}. The entire response should be less than 1000 characters. Use bullet points and short, easy-to-understand sentences. Start with a very positive opening line about the child's potential.
+        Generate a very brief and concise **Early Development & Career Insights Report** in Markdown for the parent about their child, {{{userName}}}. The entire response should be less than 1500 characters. Use bullet points and short, easy-to-understand sentences. Start with a very positive opening line about the child's potential.
 
         THE REPORT MUST INCLUDE:
 
@@ -98,14 +98,14 @@ const generateCareerReportPrompt = ai.definePrompt({
         - Parent's Question: {{{parentQuestion}}}
 
         REPORT GENERATION LOGIC:
-        Generate a detailed **Career Strategy Report** in Markdown, addressed TO THE PARENT about their child, {{{userName}}}. The entire response should be around 1000 characters. Use bullet points and clear headings. Directly address the parent's specific question: "{{{parentQuestion}}}".
+        Generate a detailed **Career Strategy Report** in Markdown, addressed TO THE PARENT about their child, {{{userName}}}. The entire response should be around 1500 characters. Use bullet points and clear headings. Directly address the parent's specific question: "{{{parentQuestion}}}".
 
         THE REPORT MUST INCLUDE:
 
         ### 1. 📝 Executive Summary
         * **Recommended Career Cluster:** Suggest one Primary career cluster that aligns with the student's interests (e.g., 'Creative Arts', 'Future Tech').
         * **Why it fits:** Justify this in 1-2 sentences, connecting it to a specific interest or strong subject (e.g., "This fits their interest in 'Sketching / UI Design' and 'Art', suggesting a field where creativity meets technology.").
-        * **Reality Check:** Briefly mention any potential challenges based on their profile (e.g., "While their interest in finance is strong, their current academic scores in Math may require extra focus.").
+        * **Reality Check:** You MUST perform a reality check. If there are contradictions (e.g., budget is 'Low' but location preference is 'Abroad', or interest is 'Art' but parent wants IIT), you must gently but directly point it out. For example: "While going abroad is a great ambition, the current budget may make it challenging. A better strategy could be to pursue a top Indian degree first and then aim for a Master's abroad."
 
         ### 2. 🏆 Top 2 Best-Fit Career Paths
         (For each path, provide in one line):
@@ -149,14 +149,14 @@ const generateCareerReportPrompt = ai.definePrompt({
         - Your Question: {{{parentQuestion}}}
 
         REPORT GENERATION LOGIC:
-        Generate a detailed **Career Strategy Report** in Markdown, addressed TO YOU, {{{userName}}}. The entire response should be around 1000 characters. Use bullet points and clear headings. Directly answer your specific question: "{{{parentQuestion}}}".
+        Generate a detailed **Career Strategy Report** in Markdown, addressed TO YOU, {{{userName}}}. The entire response should be around 1500 characters. Use bullet points and clear headings. Directly answer your specific question: "{{{parentQuestion}}}".
 
         THE REPORT MUST INCLUDE:
 
         ### 1. 📝 Executive Summary
         * **Recommended Career Cluster:** Suggest one Primary career cluster that aligns with your interests (e.g., 'Creative Arts', 'Future Tech').
         * **Why it fits:** Justify this in 1-2 sentences, connecting it to your interests or strong subjects (e.g., "This fits your love for 'Solving Puzzles' and strength in 'Mathematics', pointing to a career in tech.").
-        * **Reality Check:** Briefly mention any potential challenges (e.g., "Your passion for design is clear, but be prepared for a very competitive field.").
+        * **Reality Check:** You MUST perform a reality check. If there are contradictions (e.g., your budget is 'Low' but you want to go 'Abroad', or your stream is 'Commerce' but you want to go to 'IIT'), you must gently but directly point it out. For example: "Wanting to study abroad is a fantastic goal! However, with the current budget, it might be tough right away. A powerful strategy could be to ace your degree in India and then apply for a Master's scholarship abroad."
 
         ### 2. 🏆 Top 2 Best-Fit Career Paths
         (For each path, provide in one line):
