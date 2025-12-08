@@ -87,13 +87,13 @@ const baseSteps = [
   { id: 'Step 1', name: 'Profile', fields: ['currentStage'] },
   { id: 'Step 2', name: 'Academics', fields: ['strongSubjects', 'academicScore'] },
   { id: 'Step 3', name: 'Interests', fields: ['interests', 'workStyle'] },
-  { id: 'Step 4', name: 'Goals', fields: ['budget', 'location'] },
+  { id: 'Step 4', name: 'Goals', fields: ['budget', 'location', 'parentQuestion'] },
   { id: 'Step 5', name: 'Finish', fields: [] },
 ];
 
 const juniorSteps = [
     { id: 'Step 1', name: 'Profile', fields: ['currentStage'] },
-    { id: 'Step 2', name: 'Exploration', fields: ['strongSubjects', 'interests'] },
+    { id: 'Step 2', name: 'Exploration', fields: ['strongSubjects', 'interests', 'parentQuestion'] },
     { id: 'Step 3', name: 'Finish', fields: [] },
 ];
 
@@ -287,18 +287,11 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     const currentFields = steps[currentStep].fields;
     if (!currentFields || currentFields.length === 0) return true;
     
-    if (isJunior && currentStep === 1) {
-      return currentFields.every(field => {
-        if (field === 'parentQuestion') return true;
-        const value = formData[field as keyof typeof formData];
-        if (Array.isArray(value)) return value.length > 0;
-        return value !== '' && value !== null && value !== undefined;
-      });
-    }
-
     return currentFields.every(field => {
         const value = formData[field as keyof typeof formData];
         if (Array.isArray(value)) return value.length > 0;
+        // The question field is optional, so we don't validate its presence
+        if (field === 'parentQuestion') return true;
         return value !== '' && value !== null && value !== undefined;
     });
   };
@@ -561,6 +554,19 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                            ))}
                         </RadioGroup>
                     </div>
+                    <div>
+                        <Label className="text-lg font-semibold text-foreground" htmlFor="parentQuestion">
+                          Any specific questions or concerns?
+                        </Label>
+                        <p className="text-sm text-muted-foreground">e.g., "How can I become a pilot if my budget is low?"</p>
+                        <Textarea 
+                          id="parentQuestion"
+                          placeholder="Type your question here..."
+                          value={formData.parentQuestion}
+                          onChange={(e) => handleFormData('parentQuestion', e.target.value)}
+                          className="mt-2"
+                        />
+                    </div>
                     <div className="flex items-center space-x-2 pt-4 border-t">
                         <Checkbox id="parentPressure" checked={formData.parentPressure} onCheckedChange={(checked) => handleFormData('parentPressure', !!checked)} />
                         <label htmlFor="parentPressure" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-foreground">
@@ -730,3 +736,5 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     </>
   );
 }
+
+    

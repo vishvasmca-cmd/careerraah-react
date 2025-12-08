@@ -41,7 +41,7 @@ const generateCareerReportPrompt = ai.definePrompt({
         - College Budget: {{{budget}}} (This is a CRITICAL constraint)
         - Location Preference: {{{location}}}
         - Parent Pressure (Eng/Med): {{#if parentPressure}}Yes{{else}}No{{/if}}
-        - User's Question: {{{parentQuestion}}}
+        - Parent's Question: {{{parentQuestion}}}
         - Current Goal (if applicable): {{{currentGoal}}}
         - Industry Preference (if applicable): {{{industryPreference}}}
 
@@ -122,13 +122,13 @@ const generateCareerReportPrompt = ai.definePrompt({
         - College Budget: {{{budget}}} (This is a CRITICAL constraint)
         - Location Preference: {{{location}}}
         - Parent Pressure (Eng/Med): {{#if parentPressure}}Yes{{else}}No{{/if}}
-        - User's Question: {{{parentQuestion}}}
+        - Your Question: {{{parentQuestion}}}
         - Current Goal (if applicable): {{{currentGoal}}}
         - Industry Preference (if applicable): {{{industryPreference}}}
 
         TASK:
         Generate a highly personalized **Career Strategy Report** in Markdown format, addressed TO THE STUDENT, {{{userName}}}.
-        Tailor advice to your **current goal**, **industry preference**, and **timeline**.
+        Tailor advice to your **current goal**, **industry preference**, **timeline**, and your specific question: "{{{parentQuestion}}}".
         Include step-by-step actionable guidance, milestone planning, and resource recommendations.
         Highlight any warnings or risks related to finance, percentage, or unachievable goals in **bold**.
 
