@@ -59,12 +59,9 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
     <div className="mt-8 pt-6 border-t">
       <h3 className="text-xl font-bold font-headline flex items-center gap-2">
         <Wand2 className="text-primary"/>
-        Get Expert Answers
+        Talk to our career expert
       </h3>
-      <p className="text-muted-foreground mt-1">
-        Ask our AI career counselor anything about your report.
-      </p>
-
+      
       <div className="mt-4 flex flex-wrap gap-2">
         {predefinedQuestions.map((q, i) => (
           <Button
