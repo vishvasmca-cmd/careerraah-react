@@ -34,10 +34,10 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (!isUserLoading && user) {
-      const userName = user.displayName?.split(' ')[0] || 'User';
+      const userName = user.displayName || name || 'User';
       router.push(`/assessment?role=${role}&name=${encodeURIComponent(userName)}`);
     }
-  }, [user, isUserLoading, router, role]);
+  }, [user, isUserLoading, router, role, name]);
 
 
   const handleGoogleSignIn = async () => {
@@ -140,7 +140,7 @@ export default function LoginPage() {
                     </RadioGroup>
                 </div>
                  <Button asChild className="w-full" size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
-                    <Link href={`/assessment?role=${role}&name=${encodeURIComponent(name.split(' ')[0] || 'User')}`} onClick={handleContinue}>
+                    <Link href={`/assessment?role=${role}&name=${encodeURIComponent(name || 'User')}`} onClick={handleContinue}>
                         Continue <ArrowRight className="ml-2" />
                     </Link>
                 </Button>
@@ -172,3 +172,5 @@ export default function LoginPage() {
     </div>
   );
 }
+
+    
