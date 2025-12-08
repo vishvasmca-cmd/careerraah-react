@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2, Sparkles, ArrowRight, Film, Atom, Trophy, Scale, BrainCircuit, Users, Rocket, DollarSign, Loader2, Mail, FileDown, Lock } from 'lucide-react';
+import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2, Star, Video, ArrowRight, Film, Atom, Trophy, Scale, BrainCircuit, Users, Rocket, DollarSign, Loader2, Mail, FileDown, Lock } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -122,7 +122,7 @@ const formatReportForShare = (name: string, report: GenerateCareerReportOutput):
   const summaryMatch = report.reportContent.match(summaryRegex);
   const summary = summaryMatch ? summaryMatch[1].trim().replace(/<br \/>/g, '\n').replace(/<[^>]+>/g, '') : "Here is my career report summary.";
 
-  return `*My Personalized Career Report from CareerRaah for ${name}*
+  return `*Check out this AI-generated Career Report for ${name} from CareerRaah!*
 
 ${summary}
 
@@ -139,7 +139,6 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   const [currentStep, setCurrentStep] = useState(0);
   const { language } = useTranslation();
   const [isClient, setIsClient] = useState(false);
-  const reportContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -178,7 +177,9 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   const [isFinished, setIsFinished] = useState(false);
   const [report, setReport] = useState<GenerateCareerReportOutput | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [planLevel, setPlanLevel] = useState<'none' | 'basic' | 'premium'>('none');
+  
+  const isUnlocked = planLevel === 'basic' || planLevel === 'premium';
 
 
   const reportPreview = useMemo(() => {
@@ -305,17 +306,17 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     if (!content) return;
 
     const header = `
-      <div style="padding: 20px; text-align: center;">
-        <h1 style="font-size: 2.5rem; font-family: Belleza, sans-serif; color: #4F46E5;">CareerRaah</h1>
-        <p style="font-size: 1rem; font-family: Alegreya, serif; color: #555;">https://careerraah.com</p>
+      <div style="padding: 20px; text-align: center; border-bottom: 1px solid #eee;">
+        <h1 style="font-size: 2.5rem; font-family: 'Belleza', sans-serif; color: #4F46E5; margin: 0;">CareerRaah</h1>
+        <p style="font-size: 1rem; font-family: 'Alegreya', serif; color: #555; margin: 0;">https://careerraah.com</p>
       </div>
     `;
 
-    const fullHtml = header + content.innerHTML;
+    const fullHtml = `<div style="font-family: 'Alegreya', serif;">${header}${content.innerHTML}</div>`;
 
     const opt = {
       margin:       [0.5, 0.5, 0.5, 0.5],
-      filename:     `${userName.replace(/ /g, '_')}_careerreport_generated_by_CareerRaah.pdf`,
+      filename:     `${userName.replace(/ /g, '_')}_CareerReport_by_CareerRaah.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true, logging: false },
       jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
@@ -576,11 +577,65 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background to-transparent" />
                                     <div className="relative z-10">
                                         <Lock className="w-10 h-10 text-primary mx-auto mb-4" />
-                                        <h3 className="text-xl font-bold font-headline text-foreground">Unlock Your Full Potential</h3>
-                                        <p className="text-muted-foreground mt-1">Pay a one-time fee to unlock the complete detailed report.</p>
-                                        <Button size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }} onClick={() => setIsUnlocked(true)} className="mt-4">
-                                            Pay ₹49 and Unlock Full Report
-                                        </Button>
+                                        <h3 className="text-2xl font-bold font-headline text-foreground">Unlock Your Full Potential</h3>
+                                        <p className="text-muted-foreground mt-2">Choose a plan to view, share, and discuss your complete report.</p>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 max-w-2xl mx-auto">
+                                            
+                                            <Card className="text-left bg-background/70">
+                                                <CardHeader>
+                                                    <CardTitle className="font-headline">Basic Plan</CardTitle>
+                                                    <p className="text-3xl font-bold text-primary">₹49</p>
+                                                </CardHeader>
+                                                <CardContent className="space-y-3 text-sm">
+                                                    <div className="flex items-start gap-2">
+                                                        <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                                                        <span>Unlock and view the full, detailed career report.</span>
+                                                    </div>
+                                                    <div className="flex items-start gap-2">
+                                                        <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                                                        <span>Download the report as a professional PDF.</span>
+                                                    </div>
+                                                     <div className="flex items-start gap-2">
+                                                        <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                                                        <span>Share the report with family and counselors.</span>
+                                                    </div>
+                                                </CardContent>
+                                                <CardFooter>
+                                                    <Button size="lg" className="w-full" onClick={() => setPlanLevel('basic')}>
+                                                        Unlock Basic
+                                                    </Button>
+                                                </CardFooter>
+                                            </Card>
+
+                                            <Card className="text-left border-2 border-primary bg-primary/10 relative overflow-hidden">
+                                                <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-bl-lg">
+                                                    BEST VALUE
+                                                </div>
+                                                <CardHeader>
+                                                    <CardTitle className="font-headline">Premium Plan</CardTitle>
+                                                    <p className="text-3xl font-bold text-primary">₹499</p>
+                                                </CardHeader>
+                                                <CardContent className="space-y-3 text-sm">
+                                                    <div className="flex items-start gap-2 font-bold">
+                                                        <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                                                        <span>Everything in the Basic Plan, plus:</span>
+                                                    </div>
+                                                    <div className="flex items-start gap-2 pl-4">
+                                                        <BrainCircuit className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                                                        <span>Unlimited chat with our AI Career Expert.</span>
+                                                    </div>
+                                                     <div className="flex items-start gap-2 pl-4">
+                                                        <Video className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                                                        <span>30-minute video call with a human expert.</span>
+                                                    </div>
+                                                </CardContent>
+                                                <CardFooter>
+                                                    <Button size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }} className="w-full" onClick={() => setPlanLevel('premium')}>
+                                                        Unlock Premium
+                                                    </Button>
+                                                </CardFooter>
+                                            </Card>
+                                        </div>
                                     </div>
                                 </div>
                             )}
@@ -597,7 +652,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                                     Download as PDF
                                 </Button>
                             </div>
-                            {isUnlocked && <InteractiveChat assessmentData={formData} />}
+                            {planLevel === 'premium' && <InteractiveChat assessmentData={formData} />}
                         </div>
                     )}
                   </>
