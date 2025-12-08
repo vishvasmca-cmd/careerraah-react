@@ -42,11 +42,11 @@ const generateCareerReportPrompt = ai.definePrompt({
 
     THE REPORT MUST INCLUDE:
 
-    1.  **Recommended Career Clusters:**
+    1.  **recommendedClusters:**
         - A short and precise summary (not more than 100 words) of the 2-3 broad career fields that are a good fit for the user, linking to their interests and subjects.
 
-    2.  **Top 3 Best-Fit Career Paths:**
-        - An array of 3 objects in a field named 'topCareerPaths'.
+    2.  **topCareerPaths:**
+        - An array of 3 objects.
         - For each object in the array, you must provide:
             - **name:** The career title (e.g., "Product Manager").
             - **reason:** A sharp, single sentence linking their profile to the career. (e.g., "Your blend of business interest, leadership qualities, and strong academics makes this a great fit.").
