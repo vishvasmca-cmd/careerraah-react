@@ -139,6 +139,7 @@ export function MultiStepAssessment() {
 
   const progressValue = ((currentStep) / (steps.length - 1)) * 100;
   const currentStage = formData.currentStage;
+  const isSchoolStage = ['Class 1-5', 'Class 6-7', 'Class 8-10', 'Class 11-12'].includes(currentStage);
 
   return (
     <Card className="shadow-2xl">
@@ -170,18 +171,21 @@ export function MultiStepAssessment() {
                    ))}
                 </RadioGroup>
 
-                {(currentStage === 'Class 8-10' || currentStage === 'Class 6-7' || currentStage === 'Class 1-5') && (
+                {isSchoolStage && (
                   <Select onValueChange={(value) => handleFormData('board', value)} value={formData.board}>
                     <SelectTrigger><SelectValue placeholder="Select your Education Board" /></SelectTrigger>
-                    <SelectContent><SelectItem value="CBSE">CBSE</SelectItem><SelectItem value="ICSE">ICSE</SelectItem><SelectItem value="State Board">State Board</SelectItem></SelectContent>
+                    <SelectContent>
+                        <SelectItem value="CBSE">CBSE</SelectItem>
+                        <SelectItem value="ICSE/CISCE">ICSE/CISCE</SelectItem>
+                        <SelectItem value="State Board">State Board</SelectItem>
+                        <SelectItem value="IB">IB (International Baccalaureate)</SelectItem>
+                        <SelectItem value="NIOS">NIOS</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
+                    </SelectContent>
                   </Select>
                 )}
                 {currentStage === 'Class 11-12' && (
                     <div className='space-y-4'>
-                        <Select onValueChange={(value) => handleFormData('board', value)} value={formData.board}>
-                            <SelectTrigger><SelectValue placeholder="Select your Education Board" /></SelectTrigger>
-                            <SelectContent><SelectItem value="CBSE">CBSE</SelectItem><SelectItem value="ICSE">ICSE</SelectItem><SelectItem value="State Board">State Board</SelectItem></SelectContent>
-                        </Select>
                         <Select onValueChange={(value) => handleFormData('stream', value)} value={formData.stream}>
                             <SelectTrigger><SelectValue placeholder="Select your Stream" /></SelectTrigger>
                             <SelectContent><SelectItem value="Science (PCM)">Science (PCM)</SelectItem><SelectItem value="Science (PCB)">Science (PCB)</SelectItem><SelectItem value="Commerce">Commerce</SelectItem><SelectItem value="Arts">Arts</SelectItem></SelectContent>
@@ -384,5 +388,3 @@ export function MultiStepAssessment() {
     </Card>
   );
 }
-
-    
