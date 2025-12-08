@@ -23,7 +23,7 @@ export const GenerateCareerReportInputSchema = z.object({
   budget: z.string().describe("The user's budget for higher education per year."),
   location: z.string().optional().describe("The user's location preference for work/study."),
   parentPressure: z.boolean().optional().describe("Whether the user feels pressure from their parents to pursue a specific career path."),
-  parentQuestion: z.string().optional().describe("Any specific question or concern from the parent (for younger students)."),
+  parentQuestion: z.string().optional().describe("Any specific question or concern from the user (parent or student)."),
   // Fields for college grads / gap year
   university: z.string().optional(),
   collegeStream: z.string().optional(),
@@ -34,17 +34,7 @@ export const GenerateCareerReportInputSchema = z.object({
 });
 export type GenerateCareerReportInput = z.infer<typeof GenerateCareerReportInputSchema>;
 
-
-const CareerSuggestionSchema = z.object({
-    name: z.string().describe("The name of the suggested career path or field of exploration."),
-    reason: z.string().describe("A brief explanation of why this career/field is a good fit for the user, connecting to their specific inputs."),
-    path: z.string().describe("The typical educational path for this career (e.g., Exam -> Degree -> Role)."),
-    realityCheck: z.string().describe("The difficulty and success rate of this path (e.g., 'Hard / ~5% Success')."),
-    financials: z.string().describe("A summary of typical college fees vs. starting salary in India."),
-});
-
 export const GenerateCareerReportOutputSchema = z.object({
-  recommendedClusters: z.string().describe("A short summary (under 100 words) of the recommended career clusters for the user."),
-  topCareerPaths: z.array(CareerSuggestionSchema).describe("The top 3 specific and actionable career suggestions for the user."),
+  reportContent: z.string().describe("The full, detailed career strategy report in Markdown format."),
 });
 export type GenerateCareerReportOutput = z.infer<typeof GenerateCareerReportOutputSchema>;

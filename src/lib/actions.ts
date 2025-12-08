@@ -39,8 +39,8 @@ export async function getCareerReportAction(data: GenerateCareerReportInput) {
     const result = await generateCareerReport(data);
     return { report: result };
   } catch (error) {
-    console.error(error);
-    return { error: 'Failed to generate career report. Please try again later.' };
+    console.error("Action Error:", error);
+    return { error: 'Failed to generate career report from the AI model. Please try again later.' };
   }
 }
 
