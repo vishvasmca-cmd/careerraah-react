@@ -160,7 +160,7 @@ export default function Home() {
                 </p>
                 <div className="mt-8">
                     <Button asChild size="lg">
-                        <Link href="/blog">
+                        <Link href="/login">
                             {t('home_plan_cta')} <ArrowRight className="ml-2" />
                         </Link>
                     </Button>
