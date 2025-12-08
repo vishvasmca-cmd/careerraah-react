@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -11,6 +11,9 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { User, Users, UserPlus, LogIn, ArrowRight, Loader2 } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useFirebase } from '@/firebase';
+
 
 const GoogleIcon = () => (
     <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
@@ -22,19 +25,49 @@ const GoogleIcon = () => (
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
+  const { auth, user, isUserLoading } = useFirebase();
 
   const [role, setRole] = useState('student');
   const [isSigningIn, setIsSigningIn] = useState(false);
 
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-        title: "Welcome!",
+  useEffect(() => {
+    if (!isUserLoading && user) {
+      router.push('/assessment');
+    }
+  }, [user, isUserLoading, router]);
+
+
+  const handleGoogleSignIn = async () => {
+    if (!auth) return;
+    setIsSigningIn(true);
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      toast({
+        title: "Signed In!",
         description: "Redirecting to your assessment...",
-    });
-    router.push('/assessment');
+      });
+      router.push('/assessment');
+    } catch (error: any) {
+      console.error(error);
+       toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: error.message || "Could not sign in with Google.",
+      });
+    } finally {
+        setIsSigningIn(false);
+    }
   };
+
+  if (isUserLoading || (!isUserLoading && user)) {
+     return (
+      <div className="flex justify-center items-center min-h-[60vh]">
+        <Loader2 className="h-16 w-16 animate-spin text-primary" />
+      </div>
+    );
+  }
   
   return (
     <div className="relative isolate min-h-full py-12">
@@ -58,7 +91,7 @@ export default function LoginPage() {
             <CardDescription>Let's get started on your personalized career journey.</CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form className="space-y-6">
                 <div className="space-y-2">
                     <Label htmlFor="name">Full Name</Label>
                     <Input id="name" placeholder="Rani Sharma" required type="text" />
@@ -92,8 +125,10 @@ export default function LoginPage() {
                         </div>
                     </RadioGroup>
                 </div>
-                 <Button type="submit" className="w-full" size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
-                    Continue <ArrowRight className="ml-2" />
+                 <Button asChild className="w-full" size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
+                    <Link href={`/assessment?role=${role}`}>
+                        Continue <ArrowRight className="ml-2" />
+                    </Link>
                 </Button>
             </form>
              <div className="relative my-6">
@@ -104,8 +139,8 @@ export default function LoginPage() {
                     <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
                 </div>
             </div>
-             <Button variant="outline" className="w-full" size="lg" disabled>
-                <GoogleIcon />
+             <Button variant="outline" className="w-full" size="lg" onClick={handleGoogleSignIn} disabled={isSigningIn}>
+                {isSigningIn ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <GoogleIcon />}
                 Sign in with Google
             </Button>
           </CardContent>

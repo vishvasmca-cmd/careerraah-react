@@ -76,7 +76,7 @@ const workStyles = [
 ]
 
 
-export function MultiStepAssessment() {
+export function MultiStepAssessment({ userRole = 'student' }: { userRole: string }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     // Step 1
@@ -105,6 +105,7 @@ export function MultiStepAssessment() {
     location: '',
     // Junior Flow Specific
     parentQuestion: '',
+    userRole: userRole,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
@@ -140,6 +141,7 @@ export function MultiStepAssessment() {
             ...formData,
             academicScore: getAcademicBucket(formData.academicScore),
             budget: getBudgetBucket(formData.budget),
+            userRole,
         };
 
         const result = await getCareerReportAction(payload);
@@ -208,7 +210,7 @@ export function MultiStepAssessment() {
         <Progress value={progressValue} className="w-full h-2 mb-4" />
         <CardTitle className="text-2xl font-headline">{steps[currentStep].name}</CardTitle>
         {currentStep < steps.length -1 && (
-            <CardDescription>Step {currentStep + 1} of {steps.length -1}</CardDescription>
+            <CardDescription>Step {currentStep + 1} of {steps.length -1} {userRole === 'parent' ? "for your child" : ""}</CardDescription>
         )}
       </CardHeader>
       <CardContent className="overflow-hidden relative min-h-[450px]">
@@ -446,6 +448,9 @@ export function MultiStepAssessment() {
                                         <li key={suggestion.name} className="p-4 border rounded-lg bg-secondary/30">
                                             <p className="font-semibold text-primary text-lg">{suggestion.name}</p>
                                             <p className="text-muted-foreground">{suggestion.reason}</p>
+                                            {suggestion.path && <p className="text-sm text-foreground mt-2"><b>Path:</b> {suggestion.path}</p>}
+                                            {suggestion.realityCheck && <p className="text-sm text-foreground mt-1"><b>Reality Check:</b> {suggestion.realityCheck}</p>}
+                                            {suggestion.financials && <p className="text-sm text-foreground mt-1"><b>Financials:</b> {suggestion.financials}</p>}
                                         </li>
                                     ))}
                                 </ul>
