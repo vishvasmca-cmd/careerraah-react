@@ -50,6 +50,8 @@ export default function Home() {
   const posts = getBlogPosts();
   const { t } = useTranslation();
 
+  const featuredPosts = posts.filter(post => ['10', '16', '7'].includes(post.id));
+
   return (
     <div className="flex flex-col min-h-screen fade-in">
       <main className="flex-grow">
@@ -141,7 +143,7 @@ export default function Home() {
                 {t('home_guides_subtitle')}
               </p>
             </div>
-            <BlogList posts={posts.slice(0, 3)} showSearch={false} />
+            <BlogList posts={featuredPosts} showSearch={false} />
             <div className="text-center mt-12">
                 <Button asChild size="lg">
                     <Link href="/blog">
