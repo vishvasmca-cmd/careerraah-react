@@ -5,15 +5,18 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
-import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2 } from 'lucide-react';
+import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2, Sparkles, ArrowRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
+import { getCareerReportAction } from '@/lib/actions';
+import type { GenerateCareerReportOutput } from '@/ai/flows/generate-career-report';
+import Link from 'next/link';
 
 const baseSteps = [
   { id: 'Step 1', name: 'Profile', fields: ['currentStage'] },
@@ -93,18 +96,31 @@ export function MultiStepAssessment() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
+  const [report, setReport] = useState<GenerateCareerReportOutput | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const isJunior = formData.currentStage === 'Class 1-5' || formData.currentStage === 'Class 6-7';
+
+  const isJunior = formData.currentStage === 'Class 1-5' || formData.currentStage === 'Class 6-7' || formData.currentStage === 'Class 8-10';
   const steps = isJunior ? juniorSteps : baseSteps;
   
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep < steps.length - 1) {
       if (currentStep === steps.length - 2) { // Submitting on the last real step
         setIsSubmitting(true);
-        setTimeout(() => {
-          setIsFinished(true);
-          setCurrentStep(currentStep + 1);
-        }, 3000);
+        setError(null);
+        
+        const result = await getCareerReportAction(formData);
+
+        if (result.report) {
+          setReport(result.report);
+        } else {
+          setError(result.error || 'An unknown error occurred.');
+        }
+
+        setIsSubmitting(false);
+        setIsFinished(true);
+        setCurrentStep(currentStep + 1);
+
       } else {
         setCurrentStep(currentStep + 1);
       }
@@ -136,6 +152,7 @@ export function MultiStepAssessment() {
     // For junior flow, step 2 (exploration), parentQuestion is optional.
     if (isJunior && currentStep === 1) {
       return currentFields.every(field => {
+        if (field === 'parentQuestion') return true;
         const value = formData[field as keyof typeof formData];
         if (Array.isArray(value)) return value.length > 0;
         return value !== '' && value !== null && value !== undefined;
@@ -158,7 +175,9 @@ export function MultiStepAssessment() {
       <CardHeader>
         <Progress value={progressValue} className="w-full h-2 mb-4" />
         <CardTitle className="text-2xl font-headline">{steps[currentStep].name}</CardTitle>
-        <CardDescription>Step {currentStep + 1} of {steps.length -1}</CardDescription>
+        {currentStep < steps.length -1 && (
+            <CardDescription>Step {currentStep + 1} of {steps.length -1}</CardDescription>
+        )}
       </CardHeader>
       <CardContent className="overflow-hidden relative min-h-[450px]">
         <AnimatePresence mode="wait">
@@ -183,7 +202,7 @@ export function MultiStepAssessment() {
                    ))}
                 </RadioGroup>
 
-                {isSchoolStage && (
+                {isSchoolStage && formData.currentStage && (
                   <Select onValueChange={(value) => handleFormData('board', value)} value={formData.board}>
                     <SelectTrigger><SelectValue placeholder="Select your Education Board" /></SelectTrigger>
                     <SelectContent>
@@ -286,8 +305,9 @@ export function MultiStepAssessment() {
                     </div>
                 </div>
                  <div>
-                    <Label className="text-lg font-semibold">Any specific questions about your child? (Optional)</Label>
+                    <Label className="text-lg font-semibold" htmlFor="parentQuestion">Any specific questions about your child? (Optional)</Label>
                     <Textarea 
+                      id="parentQuestion"
                       placeholder="e.g., 'My child loves drawing but I'm worried about career stability.'"
                       value={formData.parentQuestion}
                       onChange={(e) => handleFormData('parentQuestion', e.target.value)}
@@ -357,30 +377,56 @@ export function MultiStepAssessment() {
                 </div>
             )}
             {currentStep === steps.length - 1 && (
-              <div className="flex flex-col items-center justify-center text-center h-[300px]">
-                {!isFinished ? (
+              <div className="flex flex-col items-center justify-center text-left min-h-[450px]">
+                {isSubmitting && (
                   <>
                     <div className="flex flex-col gap-4 w-full">
-                        <Skeleton className="h-8 w-3/4 mx-auto" />
-                        <Skeleton className="h-4 w-1/2 mx-auto" />
+                        <Skeleton className="h-8 w-3/4" />
+                        <Skeleton className="h-4 w-1/2" />
                         <Skeleton className="h-20 w-full mt-4" />
                         <Skeleton className="h-20 w-full" />
                     </div>
-                    <p className="text-lg font-semibold mt-4">Analyzing Profile...</p>
+                    <p className="text-lg font-semibold mt-4 text-center">Analyzing Profile...</p>
                   </>
-                ) : (
-                  <div className="text-center">
-                    <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                    <h2 className="text-2xl font-bold font-headline">Career Report Ready!</h2>
-                    <p className="text-muted-foreground mt-2">(AI Connectivity Pending)</p>
-                  </div>
+                )}
+                {isFinished && (
+                  <>
+                    {error && <div className="text-red-500 text-center">Error: {error}</div>}
+                    {report && (
+                       <div className="w-full text-left animate-fade-in space-y-6">
+                            <div className="text-center">
+                                <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                                <h2 className="text-3xl font-bold font-headline">Your Career Report is Ready!</h2>
+                            </div>
+                            <div>
+                                <p className="text-lg text-muted-foreground">{report.introduction}</p>
+                            </div>
+
+                            <div>
+                                <h3 className="text-xl font-bold font-headline flex items-center gap-2"><Sparkles className="text-primary"/> Top Suggestions</h3>
+                                <ul className="mt-4 space-y-4">
+                                    {report.topSuggestions.map(suggestion => (
+                                        <li key={suggestion.name} className="p-4 border rounded-lg bg-secondary/30">
+                                            <p className="font-semibold text-primary text-lg">{suggestion.name}</p>
+                                            <p className="text-muted-foreground">{suggestion.reason}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-bold font-headline">Next Steps</h3>
+                                <p className="text-muted-foreground mt-2 whitespace-pre-wrap">{report.nextSteps}</p>
+                            </div>
+                        </div>
+                    )}
+                  </>
                 )}
               </div>
             )}
           </motion.div>
         </AnimatePresence>
       </CardContent>
-      <div className="p-6 pt-0 flex justify-between items-center">
+      <CardFooter className="pt-0 flex justify-between items-center">
         <div>
           {currentStep > 0 && currentStep < steps.length - 1 && (
             <Button variant="ghost" onClick={handleBack}><ArrowLeft className="mr-2" /> Back</Button>
@@ -405,8 +451,15 @@ export function MultiStepAssessment() {
               {isSubmitting ? 'Analyzing...' : 'Finish'}
             </Button>
           )}
+          {isFinished && (
+             <Button asChild style={{ backgroundColor: '#FF6B00', color: 'white' }}>
+                 <Link href="/parent-explorer">
+                     Explore More Careers <ArrowRight className="ml-2"/>
+                 </Link>
+             </Button>
+          )}
         </div>
-      </div>
+      </CardFooter>
     </Card>
   );
 }
