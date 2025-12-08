@@ -21,7 +21,6 @@ import { Slider } from '@/components/ui/slider';
 import { InteractiveChat } from '@/components/assessment/InteractiveChat';
 import { useTranslation } from '@/hooks/use-translation';
 import { useRouter } from 'next/navigation';
-import html2pdf from 'html2pdf.js';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 
@@ -339,8 +338,11 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     }
   };
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (!report || !isUnlocked) return;
+    
+    // Dynamically import html2pdf
+    const { default: html2pdf } = await import('html2pdf.js');
 
     const contentElement = document.getElementById('full-report-for-pdf');
     if (!contentElement) {
@@ -354,7 +356,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
         <p style="font-size: 1rem; font-family: 'Alegreya', serif; color: #333; margin: 0;">https://careerraah.com</p>
       </div>
     `;
-
+    
     const reportBody = `
       <div style="padding: 20px 40px; font-family: 'Alegreya', serif; color: #000; background-color: #fff;">
         ${contentElement.innerHTML}
