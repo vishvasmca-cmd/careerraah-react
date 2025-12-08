@@ -87,7 +87,7 @@ export default function Home() {
                     {t('home_parent_tagline')}
                 </p>
                  <div className="mt-6 flex justify-center">
-                    <Button asChild size="lg" variant="secondary">
+                    <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
                       <Link href="/parent-explorer">{t('home_parent_cta')}</Link>
                     </Button>
                 </div>
