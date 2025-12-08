@@ -33,17 +33,17 @@ export type GenerateCareerReportInput = z.infer<typeof GenerateCareerReportInput
 
 
 const CareerSuggestionSchema = z.object({
-    name: z.string().describe("The name of the suggested career path."),
-    reason: z.string().describe("A brief explanation of why this career is a good fit for the user, connecting to their specific inputs."),
-    path: z.string().describe("The typical educational path for this career (e.g., Exam -> Degree -> Role)."),
-    realityCheck: z.string().describe("The difficulty and success rate of this path (e.g., 'Hard / ~5% Success')."),
-    financials: z.string().describe("A summary of typical college fees vs. starting salary in India."),
+    name: z.string().describe("The name of the suggested career path or field of exploration."),
+    reason: z.string().describe("A brief explanation of why this career/field is a good fit for the user, connecting to their specific inputs."),
+    path: z.string().optional().describe("The typical educational path for this career (e.g., Exam -> Degree -> Role). Only for senior students."),
+    realityCheck: z.string().optional().describe("The difficulty and success rate of this path (e.g., 'Hard / ~5% Success'). Only for senior students."),
+    financials: z.string().optional().describe("A summary of typical college fees vs. starting salary in India. Only for senior students."),
 });
 
 export const GenerateCareerReportOutputSchema = z.object({
   introduction: z.string().describe("A personalized introduction for the user based on their profile, acknowledging their stage and strengths."),
-  topSuggestions: z.array(CareerSuggestionSchema).describe("The top 2-3 specific and actionable career suggestions for the user."),
-  nextSteps: z.string().describe("A bulleted list of simple, actionable next steps for the user to explore these career paths (e.g., 'Watch a 'day in the life' of a Product Manager on YouTube')."),
-  planB: z.string().optional().describe("A safe and realistic backup plan if the primary goal is high-risk or doesn't work out."),
+  topSuggestions: z.array(CareerSuggestionSchema).describe("The top 2-3 specific and actionable career suggestions or fields of exploration for the user."),
+  nextSteps: z.string().describe("A bulleted list of simple, actionable next steps for the user to explore these paths (e.g., '- Watch a 'day in the life' video on YouTube', or for juniors '- Try a free coding app like Scratch')."),
+  planB: z.string().optional().describe("A safe and realistic backup plan, or a note for parents for junior students."),
 });
 export type GenerateCareerReportOutput = z.infer<typeof GenerateCareerReportOutputSchema>;

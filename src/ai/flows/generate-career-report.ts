@@ -7,7 +7,7 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { GenerateCareerReportInputSchema, GenerateCareerReportOutputSchema, type GenerateCareerReportInput } from '@/ai/schemas/career-report';
+import { GenerateCareerReportInputSchema, GenerateCareerReportOutputSchema, type GenerateCareerReportInput, type GenerateCareerReportOutput } from '@/ai/schemas/career-report';
 
 export async function generateCareerReport(input: GenerateCareerReportInput): Promise<GenerateCareerReportOutput> {
     return generateCareerReportFlow(input);
