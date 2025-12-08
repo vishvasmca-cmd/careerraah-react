@@ -69,7 +69,7 @@ export default function Home() {
               <h1 className="text-4xl md:text-6xl font-headline font-bold tracking-tighter text-white">
                 {t('home_hero_title')}
               </h1>
-              <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-primary-foreground/90">
+              <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-white/90">
                 {t('home_hero_subtitle')}
               </p>
               <div className="mt-8 flex justify-center">
@@ -83,7 +83,7 @@ export default function Home() {
 
             <div className="bg-black/20 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
                 <h2 className="text-2xl font-headline font-bold tracking-tight text-white">{t('home_parent_title')}</h2>
-                <p className="mt-2 max-w-2xl mx-auto text-base text-primary-foreground/90 font-semibold">
+                <p className="mt-2 max-w-2xl mx-auto text-base text-white/90 font-semibold">
                     {t('home_parent_tagline')}
                 </p>
                  <div className="mt-6 flex justify-center">
