@@ -24,29 +24,49 @@ import { useRouter } from 'next/navigation';
 import html2pdf from 'html2pdf.js';
 
 // A simple markdown-to-html renderer
-const MarkdownRenderer = ({ content, id }: { content: string, id: string }) => {
-    const htmlContent = content
-      .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold font-headline text-foreground mt-6 mb-2">$1</h3>')
-      .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold font-headline text-primary mt-8 mb-4">$1</h2>')
-      .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold font-headline text-primary mt-8 mb-4">$1</h1>')
-      .replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground/90">$1</strong>') // Bold
-      .replace(/\*(.*?)\*/g, '<em>$1</em>') // Italic
-      .replace(/\[ \]/g, '&#9744;') // Unchecked box
-      .replace(/\[x\]/g, '&#9745;') // Checked box
-      .replace(/^\s*-\s(.*$)/gim, '<li class="ml-4 list-disc">$1</li>') // Unordered list
-      .replace(/^\s*\d\.\s(.*$)/gim, '<li class="ml-4 list-decimal">$1</li>') // Ordered list
-      .replace(/\|(.+)\|/g, (match, content) => `<tr>${content.split('|').map(c => `<td>${c.trim()}</td>`).join('')}</tr>`)
-      .replace(/\|-+/g, '') // Remove table header separator
-      .replace(/(<tr>.+<\/tr>)/g, '<tbody>$1</tbody>')
-      .replace(/(<\/tbody><tbody>)/g, '')
-      .replace(/(<table><tbody>)/g, '<table><thead>')
-      .replace(/(<\/tr><\/thead>)/g, '</tr></thead>')
-      .replace(/(<li[\s\S]*?<\/li>)/g, '<ul>$1</ul>') // Wrap LIs in ULs
-      .replace(/<\/ul>\s*<ul>/g, '')
-      .replace(/\n/g, '<br />'); // New lines
+const MarkdownRenderer = ({ content, id }: { content: string; id: string }) => {
+  const processLine = (line: string) => {
+    // Headings
+    if (line.startsWith('### ')) return `<h3 class="text-xl font-bold font-headline text-foreground mt-6 mb-2">${line.substring(4)}</h3>`;
+    if (line.startsWith('## ')) return `<h2 class="text-2xl font-bold font-headline text-primary mt-8 mb-4">${line.substring(3)}</h2>`;
+    if (line.startsWith('# ')) return `<h1 class="text-3xl font-bold font-headline text-primary mt-8 mb-4">${line.substring(2)}</h1>`;
 
-    return <div id={id} className="prose prose-sm max-w-none text-foreground/90" dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+    // Bold and Italic
+    line = line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground/90">$1</strong>');
+    line = line.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    
+    // Checkboxes
+    line = line.replace(/\[ \]/g, '&#9744;'); // Unchecked
+    line = line.replace(/\[x\]/g, '&#9745;'); // Checked
+    
+    // List items
+    if (line.match(/^\s*-\s/)) return `<li class="ml-4 list-disc">${line.replace(/^\s*-\s/, '')}</li>`;
+    if (line.match(/^\s*\d\.\s/)) return `<li class="ml-4 list-decimal">${line.replace(/^\s*\d\.\s/, '')}</li>`;
+
+    // Tables
+    if (line.startsWith('|') && line.endsWith('|')) {
+        if (line.includes('---')) return ''; // Skip markdown table separator
+        const cells = line.split('|').slice(1, -1).map(c => `<td>${c.trim()}</td>`).join('');
+        return `<tr>${cells}</tr>`;
+    }
+
+    // Default to a paragraph for non-empty lines
+    return line ? `<p>${line}</p>` : '<br />';
+  };
+
+  const html = content.split('\n').map(processLine).join('');
+
+  // A bit of post-processing to wrap list items and table rows correctly
+  const finalHtml = html
+    .replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>')
+    .replace(/<\/ul>\s*<ul>/g, '')
+    .replace(/(<tr>.*?<\/tr>)/g, '<table><tbody>$1</tbody></table>')
+    .replace(/<\/tbody><\/table>\s*<table><tbody>/g, '');
+
+
+  return <div id={id} className="prose prose-sm max-w-none text-foreground/90 space-y-4" dangerouslySetInnerHTML={{ __html: finalHtml }} />;
 };
+
 
 
 const WhatsAppIcon = () => (
@@ -555,9 +575,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                             </div>
 
                              <div id="report-content-wrapper">
-                                <div className="prose prose-sm max-w-none text-foreground/90">
-                                   <MarkdownRenderer id="report-content" content={isUnlocked ? report.reportContent : reportPreview} />
-                                </div>
+                                <MarkdownRenderer id="report-content" content={isUnlocked ? report.reportContent : reportPreview} />
                             </div>
                             
                             {!isUnlocked && (
