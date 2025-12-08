@@ -1,0 +1,160 @@
+{
+  "entities": {
+    "Post": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Post",
+      "type": "object",
+      "description": "Represents a blog post.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Post entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the blog post."
+        },
+        "content": {
+          "type": "string",
+          "description": "Main content of the blog post."
+        },
+        "authorId": {
+          "type": "string",
+          "description": "Reference to Author. (Relationship: Author 1:N Post)"
+        },
+        "publicationDate": {
+          "type": "string",
+          "description": "Date and time when the post was published.",
+          "format": "date-time"
+        },
+        "tagIds": {
+          "type": "array",
+          "description": "References to Tags. (Relationship: Tag N:N Post)",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "content",
+        "authorId",
+        "publicationDate"
+      ]
+    },
+    "Author": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Author",
+      "type": "object",
+      "description": "Represents the author of a blog post.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Author entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the author."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the author.",
+          "format": "email"
+        },
+        "bio": {
+          "type": "string",
+          "description": "Short biography of the author."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email"
+      ]
+    },
+    "Tag": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Tag",
+      "type": "object",
+      "description": "Represents a tag associated with a blog post.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Tag entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the tag."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/authors/{authorId}",
+        "definition": {
+          "entityName": "Author",
+          "schema": {
+            "$ref": "#/backend/entities/Author"
+          },
+          "description": "Stores author profiles. The 'authorId' is the document ID.",
+          "params": [
+            {
+              "name": "authorId",
+              "description": "The unique identifier for the author."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/authors/{authorId}/posts/{postId}",
+        "definition": {
+          "entityName": "Post",
+          "schema": {
+            "$ref": "#/backend/entities/Post"
+          },
+          "description": "Stores blog posts for a specific author. Includes denormalized 'authorId' for authorization independence.",
+          "params": [
+            {
+              "name": "authorId",
+              "description": "The unique identifier for the author."
+            },
+            {
+              "name": "postId",
+              "description": "The unique identifier for the post."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/tags/{tagId}",
+        "definition": {
+          "entityName": "Tag",
+          "schema": {
+            "$ref": "#/backend/entities/Tag"
+          },
+          "description": "Stores tag information. The 'tagId' is the document ID.",
+          "params": [
+            {
+              "name": "tagId",
+              "description": "The unique identifier for the tag."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure is designed to support the blog application's features while adhering to the principles of Authorization Independence, Clarity of Intent, and DBAC (Database-Based Access Control). It focuses on simplicity for security rules and efficient data retrieval. The primary entities are 'Author', 'Post', and 'Tag'.\n\n1.  **Authors:** Authors are stored in a top-level `/authors` collection. This simplifies listing authors and managing author profiles.\n2.  **Posts:** Posts are stored within each author's document as a subcollection `/authors/{authorId}/posts/{postId}`. This structure establishes clear ownership and facilitates straightforward security rules based on the author's ID.\n3.  **Tags:** Tags are stored in a top-level `/tags` collection. The many-to-many relationship between posts and tags is managed through the `tagIds` array within each post document. This avoids the need for complex joins or subqueries.  Listing of Tags is simplified.\n\n**Authorization Independence (Denormalization):**\nThe structure inherently supports authorization independence. Since posts are nested under authors (`/authors/{authorId}/posts/{postId}`), ownership is directly derived from the path. This eliminates the need for `get()` calls to verify ownership, making security rules more efficient and robust.\n\n**QAPs (Rules are not Filters):**\nThe structure supports secure `list` operations:\n*   Listing Authors: The `/authors` collection can be listed securely because each document represents an author profile with consistent security needs.\n*   Listing Posts for an Author: The `/authors/{authorId}/posts` subcollection can be listed, and security rules can easily restrict access based on the `authorId` in the path.\n*   Listing Tags: The `/tags` collection can be listed securely, as each document represents a tag with consistent security needs.\n\n**Denormalization**: `authorId` is stored within the `Post` entity. This allows the security rules to implement RBAC based on ownership, without having to perform additional reads to establish authorization."
+  }
+}

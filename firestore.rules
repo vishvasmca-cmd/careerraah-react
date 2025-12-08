@@ -1,0 +1,171 @@
+/**
+ * @file firestore.rules
+ * @description Firestore Security Rules for a blog application.
+ *
+ * @section Core Philosophy
+ * This ruleset enforces a strict ownership model centered around authors. Authors
+ * have full control over their own profile and the posts they create. All other
+ * content, such as author profiles, posts, and tags, is publicly readable to
+ * support the functionality of a public-facing blog.
+ *
+ * @section Data Structure
+ * The data is organized hierarchically to reflect ownership clearly:
+ * - /authors/{authorId}: A top-level collection for author profiles. The document
+ *   ID `{authorId}` must match the UID of the authenticated user.
+ * - /authors/{authorId}/posts/{postId}: A subcollection containing posts.
+ *   Access is inherited from the parent author, making ownership checks simple
+ *   and performant.
+ * - /tags/{tagId}: A top-level collection for content tags. These are treated
+ *   as a shared, public resource.
+ *
+ * @section Key Security Decisions
+ * - Public Reads: All primary content (/authors, /posts, /tags) is publicly
+ *   readable to allow anonymous users to browse the blog.
+ * - Owner-Only Writes: All write operations (create, update, delete) are
+ *   strictly limited to the authenticated owner of the data.
+ * - User Isolation: An author cannot access or modify another author's profile
+ *   or posts. There is no concept of cross-user collaboration.
+ * - Tag Management: Any authenticated user can create new tags to encourage
+ *   organic content categorization. However, to prevent vandalism of this
+ *   shared resource, tags cannot be updated or deleted through the client.
+ *
+ * @section Denormalization for Authorization
+ * The rules rely on the data structure for authorization. Nesting posts under
+ * `/authors/{authorId}` eliminates the need for slow and costly `get()` calls
+ * to check for post ownership. Additionally, `authorId` is denormalized onto
+ * post documents to ensure relational integrity on creation.
+ *
+ * @section Structural Segregation
+ * Public content (author profiles, posts) and shared content (tags) are stored
+ * in separate top-level collections. User-specific data (posts) is further
+ * segregated into a subcollection under the author's document, which provides a
+ * strong security boundary.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // -------------------------------------------------------------------------
+    // Helper Functions
+    // -------------------------------------------------------------------------
+
+    /**
+     * Returns true if the user is authenticated.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
+     * Returns true if the authenticated user's UID matches the provided userId.
+     * This is the primary function for verifying resource ownership.
+     */
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+    
+    /**
+     * Returns true if the document being operated on already exists in Firestore.
+     * Used to protect update and delete operations from acting on non-existent data.
+     */
+    function isExistingDocument() {
+      return resource != null;
+    }
+    
+    /**
+     * A composite function that checks for both ownership and document existence.
+     * This is the standard for secure update and delete operations.
+     */
+    function isExistingOwner(userId) {
+      return isOwner(userId) && isExistingDocument();
+    }
+
+    /**
+     * Validates required relational fields when creating an Author profile.
+     * Ensures the document's internal `id` matches the user's auth UID.
+     */
+    function newAuthorDataIsValid(authorId) {
+      let data = request.resource.data;
+      return data.id == authorId;
+    }
+
+    /**
+     * Validates required relational fields when updating an Author profile.
+     * Enforces the immutability of the author's unique `id`.
+     */
+    function existingAuthorDataIsValid() {
+      let data = request.resource.data;
+      return data.id == resource.data.id;
+    }
+
+    /**
+     * Validates required relational fields when creating a Post.
+     * Ensures the post's internal `authorId` matches the parent path.
+     */
+    function newPostDataIsValid(authorId) {
+      let data = request.resource.data;
+      return data.authorId == authorId;
+    }
+
+    /**
+     * Validates required relational fields when updating a Post.
+     * Enforces the immutability of the post's `authorId`.
+     */
+    function existingPostDataIsValid() {
+      let data = request.resource.data;
+      return data.authorId == resource.data.authorId;
+    }
+
+    // -------------------------------------------------------------------------
+    // Collection Rules
+    // -------------------------------------------------------------------------
+
+    /**
+     * @description Rules for author profiles.
+     * @path /authors/{authorId}
+     * @allow (get) Any user, signed in or not, can read an author's profile.
+     * @allow (create) An authenticated user can create their own author profile.
+     * @deny (create) A user creating a profile for another user (`authorId != auth.uid`).
+     * @principle Enforces self-creation and ownership for writes, while allowing public reads.
+     */
+    match /authors/{authorId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if isOwner(authorId) && newAuthorDataIsValid(authorId);
+      allow update: if isExistingOwner(authorId) && existingAuthorDataIsValid();
+      allow delete: if isExistingOwner(authorId);
+
+      /**
+       * @description Rules for posts, which are nested under their author.
+       * @path /authors/{authorId}/posts/{postId}
+       * @allow (get) Any user can read any post.
+       * @allow (create) An author can create a post under their own profile.
+       * @deny (create) An author attempting to create a post under another author's profile.
+       * @principle Restricts access to a user's own data tree, inheriting ownership from the path.
+       */
+      match /posts/{postId} {
+        allow get: if true;
+        allow list: if true;
+        allow create: if isOwner(authorId) && newPostDataIsValid(authorId);
+        allow update: if isExistingOwner(authorId) && existingPostDataIsValid();
+        allow delete: if isExistingOwner(authorId);
+      }
+    }
+
+    /**
+     * @description Rules for content tags.
+     * @path /tags/{tagId}
+     * @allow (get) Any user can read tag documents.
+     * @allow (create) Any authenticated user can create a new tag.
+     * @deny (update) No user can update a tag, to prevent vandalism of a shared resource.
+     * @principle Allows public reading and authenticated creation of shared resources, but denies modification.
+     */
+    match /tags/{tagId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if isSignedIn();
+      allow update: if false;
+      allow delete: if false;
+    }
+  }
+}
