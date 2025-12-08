@@ -28,12 +28,12 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 const MarkdownRenderer = ({ content, id }: { content: string; id: string }) => {
   const processLine = (line: string) => {
     // Headings
-    if (line.startsWith('### ')) return `<h3 class="text-xl font-bold font-headline mt-6 mb-2">${line.substring(4)}</h3>`;
-    if (line.startsWith('## ')) return `<h2 class="text-2xl font-bold font-headline mt-8 mb-4">${line.substring(3)}</h2>`;
-    if (line.startsWith('# ')) return `<h1 class="text-3xl font-bold font-headline mt-8 mb-4">${line.substring(2)}</h1>`;
+    if (line.startsWith('### ')) return `<h3 class="text-xl font-bold font-headline text-foreground mt-6 mb-2">${line.substring(4)}</h3>`;
+    if (line.startsWith('## ')) return `<h2 class="text-2xl font-bold font-headline text-primary mt-8 mb-4">${line.substring(3)}</h2>`;
+    if (line.startsWith('# ')) return `<h1 class="text-3xl font-bold font-headline text-primary mt-8 mb-4">${line.substring(2)}</h1>`;
 
     // Bold and Italic
-    line = line.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold">$1</strong>');
+    line = line.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-foreground/90">$1</strong>');
     line = line.replace(/\*(.*?)\*/g, '<em>$1</em>');
     
     // Checkboxes
@@ -59,10 +59,10 @@ const MarkdownRenderer = ({ content, id }: { content: string; id: string }) => {
 
   // A bit of post-processing to wrap list items and table rows correctly
   const finalHtml = html
-    .replace(/(<li>.*?<\/li>)/g, '<ul>$1</ul>')
-    .replace(/<\/ul>\s*<ul>/g, '')
-    .replace(/(<tr>.*?<\/tr>)/g, '<table><tbody>$1</tbody></table>')
-    .replace(/<\/tbody><\/table>\s*<table><tbody>/g, '');
+    .replace(/(<li>.*?<\/li>)/gs, '<ul>$1</ul>')
+    .replace(/<\/ul>\s*<ul>/gs, '')
+    .replace(/(<tr>.*?<\/tr>)/gs, '<table><tbody>$1</tbody></table>')
+    .replace(/<\/tbody><\/table>\s*<table><tbody>/gs, '');
 
 
   return <div id={id} className="prose prose-sm max-w-none text-foreground/90 space-y-4" dangerouslySetInnerHTML={{ __html: finalHtml }} />;
@@ -167,6 +167,9 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     if (savedReport) {
       setReportState(JSON.parse(savedReport));
       setIsFinished(true);
+      const isYoungest = JSON.parse(savedReport).formData?.currentStage === 'Class 1-5';
+      const isJunior = ['Class 6-7', 'Class 8-10'].includes(JSON.parse(savedReport).formData?.currentStage);
+      const steps = isYoungest ? youngestSteps : isJunior ? juniorSteps : baseSteps;
       setCurrentStep(steps.length - 1); // Go to final step
     }
   }, []);
@@ -371,6 +374,10 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
             h1, h2, h3, h4, h5, h6 { color: black; }
             p, li, span, div { color: black; }
             strong { color: black; }
+            ul, ol { margin-left: 20px; }
+            table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+            td, th { padding: 8px; border: 1px solid #ddd; text-align: left; }
+            th { background-color: #f2f2f2; }
           </style>
         </head>
         <body>
@@ -846,5 +853,3 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     </>
   );
 }
-
-    
