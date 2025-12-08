@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState } from 'react';
@@ -9,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2, Sparkles, ArrowRight, Film, Atom, Trophy, Scale, BrainCircuit, Users, Rocket, DollarSign, Loader2, Mail } from 'lucide-react';
+import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2, Sparkles, ArrowRight, Film, Atom, Trophy, Scale, BrainCircuit, Users, Rocket, DollarSign, Loader2, Mail, FileDown } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -19,6 +20,32 @@ import Link from 'next/link';
 import { Slider } from '@/components/ui/slider';
 import { InteractiveChat } from '@/components/assessment/InteractiveChat';
 import { useTranslation } from '@/hooks/use-translation';
+
+// A simple markdown-to-html renderer
+const MarkdownRenderer = ({ content }: { content: string }) => {
+    const htmlContent = content
+      .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold font-headline text-foreground mt-6 mb-2">$1</h3>')
+      .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold font-headline text-primary mt-8 mb-4">$1</h2>')
+      .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold font-headline text-primary mt-8 mb-4">$1</h1>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground/90">$1</strong>') // Bold
+      .replace(/\*(.*?)\*/g, '<em>$1</em>') // Italic
+      .replace(/\[ \]/g, '&#9744;') // Unchecked box
+      .replace(/\[x\]/g, '&#9745;') // Checked box
+      .replace(/^\s*-\s(.*$)/gim, '<li class="ml-4 list-disc">$1</li>') // Unordered list
+      .replace(/^\s*\d\.\s(.*$)/gim, '<li class="ml-4 list-decimal">$1</li>') // Ordered list
+      .replace(/\|(.+)\|/g, (match, content) => `<tr>${content.split('|').map(c => `<td>${c.trim()}</td>`).join('')}</tr>`)
+      .replace(/\|-+/g, '') // Remove table header separator
+      .replace(/(<tr>.+<\/tr>)/g, '<tbody>$1</tbody>')
+      .replace(/(<\/tbody><tbody>)/g, '')
+      .replace(/(<table><tbody>)/g, '<table><thead>')
+      .replace(/(<\/tr><\/thead>)/g, '</tr></thead>')
+      .replace(/(<li[\s\S]*?<\/li>)/g, '<ul>$1</ul>') // Wrap LIs in ULs
+      .replace(/<\/ul>\s*<ul>/g, '')
+      .replace(/\n/g, '<br />'); // New lines
+
+    return <div className="prose prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+};
+
 
 const WhatsAppIcon = () => (
   <svg
@@ -89,20 +116,15 @@ const workStyles = [
 ]
 
 const formatReportForShare = (name: string, report: GenerateCareerReportOutput): string => {
-  const careerPaths = report.topCareerPaths.map(p => 
-    `- ${p.name}: ${p.reason}`
-  ).join('\n');
+  // Extract a summary from the full report for sharing
+  const summaryRegex = /### 1. 📝 Executive Summary([\s\S]*?)### 2./;
+  const summaryMatch = report.reportContent.match(summaryRegex);
+  const summary = summaryMatch ? summaryMatch[1].trim() : "Here is my career report summary.";
 
   return `
-*My Personalized Career Report from CareerRaah*
+*My Personalized Career Report from CareerRaah for ${name}*
 
-Hello! I just generated a free AI-powered career report for ${name}. Here's a summary:
-
-*RECOMMENDED CAREER CLUSTERS:*
-${report.recommendedClusters}
-
-*TOP CAREER SUGGESTIONS:*
-${careerPaths}
+${summary}
 
 This is just a summary! You can create your own free, detailed report and explore hundreds of modern careers.
 
@@ -187,7 +209,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
 
   const handleBack = () => {
     if (currentStep > 0) {
-      setCurrentStep(currentStep + 1);
+      setCurrentStep(currentStep - 1);
     }
   };
   
@@ -273,7 +295,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
             <div className="text-center space-y-4">
                 <Loader2 className="w-16 h-16 text-primary mx-auto animate-spin" />
-                <h2 className="text-2xl font-bold font-headline">Generating Your Report...</h2>
+                <h2 className="text-2xl font-bold font-headline text-foreground">Generating your Career Plan powered by CareerRaah..</h2>
                 <p className="text-muted-foreground">Analyzing your profile against millions of data points.</p>
             </div>
         </div>
@@ -283,7 +305,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
         <Progress value={progressValue} className="w-full h-2 mb-4" />
         <CardTitle className="text-2xl font-headline text-foreground">{steps[currentStep].name}</CardTitle>
         {currentStep < steps.length -1 && (
-            <CardDescription className="text-foreground/80">Step {currentStep + 1} of {steps.length -1} {userRole === 'parent' ? "for your child" : ""}</CardDescription>
+            <CardDescription className="text-foreground/80">Step {currentStep + 1} of {steps.length -1} {userRole === 'parent' ? `for your child, ${userName}` : ""}</CardDescription>
         )}
       </CardHeader>
       <CardContent className="overflow-hidden relative min-h-[450px]">
@@ -299,12 +321,12 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
           >
             {currentStep === 0 && (
               <div className="space-y-6">
-                <Label className="text-lg font-semibold">Which class/academic stage are you in?</Label>
+                <Label className="text-lg font-semibold text-foreground">Which class/academic stage are you in?</Label>
                 <RadioGroup onValueChange={(value) => handleFormData('currentStage', value)} value={formData.currentStage} className="grid grid-cols-2 md:grid-cols-4 gap-2">
                    {(['Class 1-5', 'Class 6-7', 'Class 8-10', 'Class 11-12', 'College / Graduate', 'Post Graduate', 'Gap Year'] as const).map(stage => (
                       <Label key={stage} htmlFor={stage} className={`flex items-center justify-center rounded-md border-2 p-4 cursor-pointer hover:border-primary ${formData.currentStage === stage ? 'border-primary bg-primary/10' : 'border-muted'}`}>
                         <RadioGroupItem value={stage} id={stage} className="sr-only"/>
-                        <span className="font-semibold text-center text-sm">{stage}</span>
+                        <span className="font-semibold text-center text-sm text-foreground">{stage}</span>
                       </Label>
                    ))}
                 </RadioGroup>
@@ -364,7 +386,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
             {currentStep === 1 && !isJunior && (
               <div className="space-y-6">
                 <div>
-                  <Label className="text-lg font-semibold">Which subjects do you genuinely enjoy & score well in?</Label>
+                  <Label className="text-lg font-semibold text-foreground">Which subjects do you genuinely enjoy & score well in?</Label>
                   <p className="text-sm text-muted-foreground">Select all that apply.</p>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {subjects.map(subject => (
@@ -375,14 +397,14 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                   </div>
                 </div>
                 <div>
-                    <Label className="text-lg font-semibold">What is your average aggregate percentage?</Label>
+                    <Label className="text-lg font-semibold text-foreground">What is your average aggregate percentage?</Label>
                     <div className="flex items-center gap-4 mt-2">
                       <Slider value={[formNumericData.academicScore]} onValueChange={(value) => handleNumericData('academicScore', value[0])} max={99} min={40} step={1} className="w-full" />
                       <span className="font-bold text-lg text-primary w-20 text-center">{formNumericData.academicScore}%</span>
                     </div>
                 </div>
                  <div>
-                  <Label className="text-lg font-semibold">Are you preparing for any entrance exams?</Label>
+                  <Label className="text-lg font-semibold text-foreground">Are you preparing for any entrance exams?</Label>
                   <p className="text-sm text-muted-foreground">Select all that apply.</p>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {entranceExams.map(exam => (
@@ -397,7 +419,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
              {currentStep === 1 && isJunior && (
               <div className='space-y-6'>
                 <div>
-                    <Label className="text-lg font-semibold">What subjects do you enjoy the most in school?</Label>
+                    <Label className="text-lg font-semibold text-foreground">What subjects do you enjoy the most in school?</Label>
                     <div className="flex flex-wrap gap-2 mt-2">
                         {subjects.slice(0,6).map(subject => (
                         <Button key={subject} variant={formData.strongSubjects.includes(subject) ? 'default' : 'outline'} onClick={() => handleMultiSelect('strongSubjects', subject)}>
@@ -407,7 +429,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                     </div>
                 </div>
                 <div>
-                    <Label className="text-lg font-semibold">What activities do you love doing after school?</Label>
+                    <Label className="text-lg font-semibold text-foreground">What activities do you love doing after school?</Label>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
                     {interests.map(interest => (
                         <Button key={interest.name} variant={formData.interests.includes(interest.name) ? "default" : "outline"} className="h-24 flex-col gap-2"
@@ -420,7 +442,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                     </div>
                 </div>
                  <div>
-                    <Label className="text-lg font-semibold" htmlFor="parentQuestion">Any specific questions you have for us? (Optional)</Label>
+                    <Label className="text-lg font-semibold text-foreground" htmlFor="parentQuestion">Any specific questions you have for us? (Optional)</Label>
                     <Textarea 
                       id="parentQuestion"
                       placeholder="e.g., 'I love drawing but I'm worried about career stability.' or 'How can my child balance studies and sports?'"
@@ -434,7 +456,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
             {currentStep === 2 && !isJunior &&(
               <div className='space-y-6'>
                 <div>
-                    <Label className="text-lg font-semibold">What topics excite you outside of textbooks?</Label>
+                    <Label className="text-lg font-semibold text-foreground">What topics excite you outside of textbooks?</Label>
                      <p className="text-sm text-muted-foreground">This helps us understand your real passions.</p>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
                     {seniorInterests.map(interest => (
@@ -448,7 +470,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                     </div>
                 </div>
                 <div>
-                    <Label className="text-lg font-semibold">Work Style Preference</Label>
+                    <Label className="text-lg font-semibold text-foreground">Work Style Preference</Label>
                     <RadioGroup onValueChange={(value) => handleFormData('workStyle', value)} value={formData.workStyle} className="mt-2 space-y-2">
                         {workStyles.map(style => (
                             <Label key={style.value} htmlFor={style.value} className="flex items-center gap-4 rounded-md border-2 p-3 cursor-pointer hover:border-primary has-[input:checked]:border-primary has-[input:checked]:bg-primary/10">
@@ -463,7 +485,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
              {currentStep === 3 && !isJunior && (
                 <div className="space-y-8">
                     <div>
-                        <Label className="text-lg font-semibold">College Budget Expectation (Per Year)</Label>
+                        <Label className="text-lg font-semibold text-foreground">College Budget Expectation (Per Year)</Label>
                         <p className="text-sm text-muted-foreground">This helps us suggest Pvt vs Govt colleges.</p>
                         <div className="flex items-center gap-4 mt-2">
                            <Slider value={[formNumericData.budget]} onValueChange={(value) => handleNumericData('budget', value[0])} max={1500000} min={50000} step={50000} className="w-full" />
@@ -471,7 +493,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                         </div>
                     </div>
                     <div>
-                        <Label className="text-lg font-semibold">Location Preference</Label>
+                        <Label className="text-lg font-semibold text-foreground">Location Preference</Label>
                          <RadioGroup onValueChange={(value) => handleFormData('location', value)} value={formData.location} className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
                            {(['Home Town', 'Metro City', 'Abroad'] as const).map(location => (
                                <Label key={location} htmlFor={location} className={`flex items-center justify-center rounded-md border-2 p-4 h-20 cursor-pointer hover:border-primary ${formData.location === location ? 'border-primary bg-primary/10' : 'border-muted'}`}>
@@ -483,7 +505,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                     </div>
                     <div className="flex items-center space-x-2 pt-4 border-t">
                         <Checkbox id="parentPressure" checked={formData.parentPressure} onCheckedChange={(checked) => handleFormData('parentPressure', !!checked)} />
-                        <label htmlFor="parentPressure" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                        <label htmlFor="parentPressure" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-foreground">
                             My parents strictly want Engineering/Medical.
                         </label>
                     </div>
@@ -499,39 +521,29 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                        <div className="w-full text-left animate-fade-in space-y-6">
                             <div className="text-center">
                                 <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                                <h2 className="text-3xl font-bold font-headline text-foreground">Your Career Report is Ready!</h2>
+                                <h2 className="text-3xl font-bold font-headline text-foreground">Your Career Strategy Report for {userName} is Ready!</h2>
                             </div>
 
-                            <div>
-                                <h3 className="text-xl font-bold font-headline flex items-center gap-2 text-foreground"><Sparkles className="text-primary"/> Recommended Career Clusters</h3>
-                                <p className="text-muted-foreground mt-2">{report.recommendedClusters}</p>
+                            <div className="prose prose-sm max-w-none text-foreground/90">
+                                <MarkdownRenderer content={report.reportContent} />
                             </div>
 
-                            <div>
-                                <h3 className="text-xl font-bold font-headline flex items-center gap-2 text-foreground"><Rocket className="text-primary"/> Top 3 Career Paths</h3>
-                                <ul className="mt-4 space-y-4">
-                                    {report.topCareerPaths.map(suggestion => (
-                                        <li key={suggestion.name} className="p-4 border rounded-lg bg-secondary/30">
-                                            <p className="font-semibold text-primary text-lg">{suggestion.name}</p>
-                                            <p className="text-muted-foreground mt-1"><b className="text-foreground/80">Why it fits:</b> {suggestion.reason}</p>
-                                            <p className="text-sm text-foreground/90 mt-2"><b className="text-foreground/80">Path:</b> {suggestion.path}</p>
-                                            <p className="text-sm text-foreground/90 mt-1"><b className="text-foreground/80">Reality Check:</b> {suggestion.realityCheck}</p>
-                                            <p className="text-sm text-foreground/90 mt-1"><b className="text-foreground/80">Financials:</b> {suggestion.financials}</p>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            
-                            <div className="pt-6 border-t">
-                                <h3 className="text-xl font-bold font-headline text-foreground">Share Your Report</h3>
-                                <div className="flex gap-2 mt-4">
-                                  <Button onClick={() => handleShare('whatsapp')} variant="outline">
-                                    <WhatsAppIcon /> Share on WhatsApp
-                                  </Button>
-                                  <Button onClick={() => handleShare('email')} variant="outline">
-                                    <Mail /> Share via Email
-                                  </Button>
+                            <div className="pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div>
+                                    <h3 className="text-xl font-bold font-headline text-foreground">Share Your Report</h3>
+                                    <div className="flex gap-2 mt-2">
+                                      <Button onClick={() => handleShare('whatsapp')} variant="outline">
+                                        <WhatsAppIcon /> Share on WhatsApp
+                                      </Button>
+                                      <Button onClick={() => handleShare('email')} variant="outline">
+                                        <Mail /> Share via Email
+                                      </Button>
+                                    </div>
                                 </div>
+                                <Button size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
+                                    <FileDown className="mr-2" />
+                                    Download Full Report (₹49)
+                                </Button>
                             </div>
 
                             <InteractiveChat assessmentData={formData} />
@@ -588,10 +600,3 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   );
 }
 
-    
-
-    
-
-
-
-    
