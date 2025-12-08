@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { User, Users, UserPlus, LogIn, ArrowRight, Loader2 } from 'lucide-react';
+import { User, Users, UserPlus, ArrowRight, Loader2 } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useFirebase } from '@/firebase';
@@ -31,10 +31,15 @@ export default function LoginPage() {
   const [name, setName] = useState('');
   const [isSigningIn, setIsSigningIn] = useState(false);
 
+  useEffect(() => {
+    // Clear any existing report from the session when the login page is visited.
+    // This ensures a new login always starts a new assessment.
+    sessionStorage.removeItem('careerReport');
+  }, []);
 
   useEffect(() => {
     if (!isUserLoading && user) {
-      const userName = user.displayName || name || (role === 'parent' ? 'Child' : 'User');
+      const userName = name || user.displayName || (role === 'parent' ? 'your child' : 'User');
       router.push(`/assessment?role=${role}&name=${encodeURIComponent(userName)}`);
     }
   }, [user, isUserLoading, router, role, name]);
@@ -50,7 +55,7 @@ export default function LoginPage() {
         title: "Signed In!",
         description: "Redirecting to your assessment...",
       });
-      // The useEffect will handle the redirection
+      // The useEffect will handle the redirection, using the Google display name
     } catch (error: any) {
       console.error(error);
        toast({
@@ -105,7 +110,7 @@ export default function LoginPage() {
             <CardDescription>Let's get started on your personalized career journey.</CardDescription>
           </CardHeader>
           <CardContent>
-            <form className="space-y-6">
+            <div className="space-y-6">
                 <div className="space-y-3">
                     <Label>I am a...</Label>
                     <RadioGroup defaultValue="student" value={role} onValueChange={setRole} className="grid grid-cols-2 gap-4">
@@ -132,7 +137,7 @@ export default function LoginPage() {
                     </RadioGroup>
                 </div>
                  <div className="space-y-2">
-                    <Label htmlFor="name">{role === 'parent' ? "Child's Full Name" : "Full Name"}</Label>
+                    <Label htmlFor="name">{role === 'parent' ? "Child's Full Name" : "Your Full Name"}</Label>
                     <Input 
                       id="name" 
                       placeholder={role === 'parent' ? "e.g. Priya Kumar" : "e.g. Rani Sharma"} 
@@ -141,16 +146,13 @@ export default function LoginPage() {
                       value={name} 
                       onChange={(e) => setName(e.target.value)} />
                 </div>
-                <div className="space-y-2">
-                    <Label htmlFor="mobile">Your Mobile Number</Label>
-                    <Input id="mobile" placeholder="98765 43210" required type="tel" />
-                </div>
+
                  <Button asChild className="w-full" size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
                     <Link href={`/assessment?role=${role}&name=${encodeURIComponent(name || (role === 'parent' ? 'Child' : 'User'))}`} onClick={handleContinue}>
                         Continue <ArrowRight className="ml-2" />
                     </Link>
                 </Button>
-            </form>
+            </div>
              <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
                     <span className="w-full border-t" />
@@ -178,5 +180,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-    
