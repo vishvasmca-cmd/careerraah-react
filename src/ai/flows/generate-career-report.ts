@@ -13,14 +13,12 @@ export async function generateCareerReport(input: GenerateCareerReportInput): Pr
     return generateCareerReportFlow(input);
 }
 
-const isJunior = (stage: string) => ['Class 1-5', 'Class 6-7', 'Class 8-10'].includes(stage);
-
 const generateCareerReportPrompt = ai.definePrompt({
     name: 'generateCareerReportPrompt',
     input: { schema: GenerateCareerReportInputSchema },
     output: { schema: GenerateCareerReportOutputSchema },
     prompt: `
-    ACT AS: A top-tier, empathetic Career Counselor for Indian students. You have deep knowledge of the Indian education system (CBSE, ICSE, State Boards), competitive exams (JEE, NEET, CLAT, etc.), university tiers, and the modern job market. Your advice is practical, encouraging, and highly personalized.
+    ACT AS: A top-tier, empathetic Career Counselor for Indian students. You have deep knowledge of the Indian education system, competitive exams, and the modern job market. Your advice is practical, encouraging, and highly personalized.
 
     TONE: Mentor-like, realistic, and motivational. Avoid generic advice. Be specific and actionable. Your tone should adjust based on the 'userRole'. If it's a 'parent', be slightly more formal and reassuring. If it's a 'student', be more direct and encouraging.
 
@@ -40,63 +38,21 @@ const generateCareerReportPrompt = ai.definePrompt({
     - Current Goal (if applicable): {{{currentGoal}}}
     - Industry Preference (if applicable): {{{industryPreference}}}
 
-    YOUR TASK: Generate a personalized career report based on the user's profile.
+    YOUR TASK: Generate a short and precise career report based on the user's profile.
 
-    {{#if (isJunior currentStage)}}
-    
-    *** JUNIOR STUDENT (CLASS 1-10) REPORT STRUCTURE ***
+    THE REPORT MUST INCLUDE:
 
-    1.  **Introduction:**
-        - Write a warm, encouraging introduction (2-3 sentences). Acknowledge their stage (e.g., "It's great that you're exploring your interests in Class {{currentStage}}!").
-        - Mention one positive aspect from their profile (e.g., "Your interest in 'Building/Creating' is a fantastic strength.").
+    1.  **Recommended Career Clusters:**
+        - A short and precise summary (not more than 100 words) of the 2-3 broad career fields that are a good fit for the user, linking to their interests and subjects.
 
-    2.  **Recommended Career Clusters (Primary & Secondary):**
-        - Suggest 2-3 broad FIELDS of exploration, not specific careers. Examples: "Creative Arts & Design", "Technology & Problem Solving", "Science & Nature".
-        - For each field, write a single sentence explaining WHY it's a good fit, linking it to their subjects and interests. (e.g., "Because you enjoy 'Mathematics' and 'Solving Puzzles', the 'Technology & Problem Solving' field could be very exciting for you.").
-
-    3.  **Next Steps (Fun Activities):**
-        - Provide a bulleted list of 2-3 simple, fun, and actionable next steps. These should be activities, not career research.
-        - Examples:
-            - "- Try a free block-based coding app like Scratch to see if you enjoy making games."
-            - "- Visit a local science museum or planetarium on a weekend."
-            - "- Start a small project, like creating a comic strip or writing a short story."
-
-    4.  **Plan B (Note for Parents):**
-        - If the parent asked a specific question in 'parentQuestion', address it directly and gently here.
-        - Example: "A note for parents: A love for drawing can lead to many stable careers today, such as UI/UX Design or Animation, which are in high demand. Encouraging this creativity now is a great investment."
-
-    {{else}}
-
-    *** SENIOR STUDENT (CLASS 11+ / GRADUATE) REPORT STRUCTURE ***
-
-    1.  **Introduction:**
-        - Write a concise, personalized introduction (2 sentences). Acknowledge their current stage and a key data point (e.g., "As a {{currentStage}} student with strong scores in {{academicScore}}, you have several strong paths available.").
-
-    2.  **Recommended Career Clusters (Primary & Secondary):**
-        - Provide 2-3 specific, actionable career paths.
-        - For each path, populate the following:
+    2.  **Top 3 Best-Fit Career Paths:**
+        - For each of the 3 paths, you must provide:
             - **name:** The career title (e.g., "Product Manager").
             - **reason:** A sharp, single sentence linking their profile to the career. (e.g., "Your blend of business interest, leadership qualities, and strong academics makes this a great fit.").
             - **path:** The typical path. (e.g., "B.Tech -> MBA -> APM Role").
             - **realityCheck:** Difficulty and approx. success rate. (e.g., "Hard / ~10% chance to enter top firms").
             - **financials:** Approx. fees vs. starting salary. (e.g., "Fees: ₹15-25L, Salary: ₹18-30LPA").
-
-    3.  **Next Steps (Actionable Research):**
-        - Provide a short, bulleted list of 2-3 concrete research steps.
-        - Examples:
-            - "- Watch three 'Day in the Life of a Data Scientist' videos on YouTube."
-            - "- Find and follow 5 top Product Managers on LinkedIn or Twitter."
-            - "- Try a free introductory course on 'UX Design Fundamentals' on Coursera or Udemy."
-
-    4.  **Plan B (The Realistic Fallback):**
-        - Provide a safe, logical backup plan.
-        - If they are targeting a high-risk/high-reward path (like JEE/UPSC), this is CRUCIAL.
-        - The Plan B should leverage the same core skills but have a higher probability of success. (e.g., "If top IITs are missed, a B.Tech in CS from a good Tier-2 college followed by a great portfolio still leads to excellent software engineering jobs.").
-        - If parent pressure is noted, gently address it: "This also serves as an excellent alternative to discuss with your parents, showcasing strong earning potential outside of traditional medicine/engineering."
-
-    {{/if}}
     `,
-    helpers: { isJunior }
 });
 
 
@@ -114,3 +70,4 @@ const generateCareerReportFlow = ai.defineFlow(
     return output;
   }
 );
+

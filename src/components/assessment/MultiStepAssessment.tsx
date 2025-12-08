@@ -437,38 +437,26 @@ export function MultiStepAssessment({ userRole = 'student' }: { userRole: string
                                 <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
                                 <h2 className="text-3xl font-bold font-headline">Your Career Report is Ready!</h2>
                             </div>
+
                             <div>
-                                <p className="text-lg text-muted-foreground">{report.introduction}</p>
+                                <h3 className="text-xl font-bold font-headline flex items-center gap-2"><Sparkles className="text-primary"/> Recommended Career Clusters</h3>
+                                <p className="text-muted-foreground mt-2">{report.recommendedClusters}</p>
                             </div>
 
                             <div>
-                                <h3 className="text-xl font-bold font-headline flex items-center gap-2"><Sparkles className="text-primary"/> Top Suggestions</h3>
+                                <h3 className="text-xl font-bold font-headline flex items-center gap-2"><Rocket className="text-primary"/> Top 3 Career Paths</h3>
                                 <ul className="mt-4 space-y-4">
                                     {report.topSuggestions.map(suggestion => (
                                         <li key={suggestion.name} className="p-4 border rounded-lg bg-secondary/30">
                                             <p className="font-semibold text-primary text-lg">{suggestion.name}</p>
-                                            <p className="text-muted-foreground">{suggestion.reason}</p>
-                                            {suggestion.path && <p className="text-sm text-foreground mt-2"><b>Path:</b> {suggestion.path}</p>}
-                                            {suggestion.realityCheck && <p className="text-sm text-foreground mt-1"><b>Reality Check:</b> {suggestion.realityCheck}</p>}
-                                            {suggestion.financials && <p className="text-sm text-foreground mt-1"><b>Financials:</b> {suggestion.financials}</p>}
+                                            <p className="text-muted-foreground mt-1"><b>Why it fits:</b> {suggestion.reason}</p>
+                                            <p className="text-sm text-foreground mt-2"><b>Path:</b> {suggestion.path}</p>
+                                            <p className="text-sm text-foreground mt-1"><b>Reality Check:</b> {suggestion.realityCheck}</p>
+                                            <p className="text-sm text-foreground mt-1"><b>Financials:</b> {suggestion.financials}</p>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
-                            <div>
-                                <h3 className="text-xl font-bold font-headline">Next Steps</h3>
-                                <div className="text-muted-foreground mt-2 whitespace-pre-wrap prose prose-sm">
-                                  <ul>
-                                    {report.nextSteps.split('\n').map((step, i) => step.trim() && <li key={i}>{step.replace(/^- /, '')}</li>)}
-                                  </ul>
-                                </div>
-                            </div>
-                             {report.planB && (
-                                <div>
-                                    <h3 className="text-xl font-bold font-headline">Your Safe Plan B</h3>
-                                    <p className="text-muted-foreground mt-2 whitespace-pre-wrap">{report.planB}</p>
-                                </div>
-                            )}
                         </div>
                     )}
                   </>
