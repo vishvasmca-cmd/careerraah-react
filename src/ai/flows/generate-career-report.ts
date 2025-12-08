@@ -18,9 +18,9 @@ const generateCareerReportPrompt = ai.definePrompt({
     input: { schema: GenerateCareerReportInputSchema },
     output: { schema: GenerateCareerReportOutputSchema },
     prompt: `
-    ACT AS: A top-tier, empathetic Career Counselor for Indian students. You have deep knowledge of the Indian education system, competitive exams, and the modern job market. Your advice is practical, encouraging, and highly personalized.
+    ACT AS: A top-tier, empathetic Career Counselor for Indian students. Your advice is practical, encouraging, and highly personalized. Your tone should adjust based on the 'userRole'. If it's a 'parent', be slightly more formal and reassuring. If it's a 'student', be more direct and encouraging.
 
-    TONE: Mentor-like, realistic, and motivational. Avoid generic advice. Be specific and actionable. Your tone should adjust based on the 'userRole'. If it's a 'parent', be slightly more formal and reassuring. If it's a 'student', be more direct and encouraging.
+    Analyze the user's profile and generate a career report with two fields: 'recommendedClusters' and 'topCareerPaths'.
 
     USER PROFILE:
     - Report For: {{{userRole}}}
@@ -38,21 +38,20 @@ const generateCareerReportPrompt = ai.definePrompt({
     - Current Goal (if applicable): {{{currentGoal}}}
     - Industry Preference (if applicable): {{{industryPreference}}}
 
-    YOUR TASK: Generate a short and precise career report based on the user's profile.
+    YOUR TASK:
+    Generate a JSON object that strictly follows the output schema.
 
-    THE REPORT MUST INCLUDE:
-
-    1.  **recommendedClusters:**
+    1.  **recommendedClusters**:
         - A short and precise summary (not more than 100 words) of the 2-3 broad career fields that are a good fit for the user, linking to their interests and subjects.
 
-    2.  **topCareerPaths:**
-        - An array of 3 objects.
-        - For each object in the array, you must provide:
-            - **name:** The career title (e.g., "Product Manager").
-            - **reason:** A sharp, single sentence linking their profile to the career. (e.g., "Your blend of business interest, leadership qualities, and strong academics makes this a great fit.").
-            - **path:** The typical path. (e.g., "B.Tech -> MBA -> APM Role").
-            - **realityCheck:** Difficulty and approx. success rate. (e.g., "Hard / ~10% chance to enter top firms").
-            - **financials:** Approx. fees vs. starting salary. (e.g., "Fees: ₹15-25L, Salary: ₹18-30LPA").
+    2.  **topCareerPaths**:
+        - An array of exactly 3 JSON objects.
+        - For each object, you must provide these exact keys and value types:
+            - **name** (string): The career title (e.g., "Product Manager").
+            - **reason** (string): A sharp, single sentence linking their profile to the career. (e.g., "Your blend of business interest, leadership qualities, and strong academics makes this a great fit.").
+            - **path** (string): The typical path. (e.g., "B.Tech -> MBA -> APM Role").
+            - **realityCheck** (string): Difficulty and approx. success rate. (e.g., "Hard / ~10% chance to enter top firms").
+            - **financials** (string): Approx. fees vs. starting salary. (e.g., "Fees: ₹15-25L, Salary: ₹18-30LPA").
     `,
 });
 
