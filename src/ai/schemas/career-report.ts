@@ -51,3 +51,5 @@ export const GenerateCareerReportOutputSchema = z.object({
   reportContent: z.string().describe("The full, detailed career strategy report in Markdown format."),
 });
 export type GenerateCareerReportOutput = z.infer<typeof GenerateCareerReportOutputSchema>;
+
+    

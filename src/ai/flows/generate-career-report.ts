@@ -98,7 +98,7 @@ const generateCareerReportPrompt = ai.definePrompt({
         - Parent's Question: {{{parentQuestion}}}
 
         REPORT GENERATION LOGIC:
-        Generate a detailed **Career Strategy Report** in Markdown, addressed TO THE PARENT about their child, {{{userName}}}. The entire response should be around 1500 characters. Use bullet points and clear headings. Directly address the parent's specific question: "{{{parentQuestion}}}".
+        Generate a detailed **Career Strategy Report** in Markdown, addressed TO THE PARENT about their child, {{{userName}}}. The entire response should be around 2500 characters. Use bullet points and clear headings. Directly address the parent's specific question: "{{{parentQuestion}}}".
 
         THE REPORT MUST INCLUDE:
 
@@ -152,7 +152,7 @@ const generateCareerReportPrompt = ai.definePrompt({
         - Your Question: {{{parentQuestion}}}
 
         REPORT GENERATION LOGIC:
-        Generate a detailed **Career Strategy Report** in Markdown, addressed TO YOU, {{{userName}}}. The entire response should be around 1500 characters. Use bullet points and clear headings. Directly answer your specific question: "{{{parentQuestion}}}".
+        Generate a detailed **Career Strategy Report** in Markdown, addressed TO YOU, {{{userName}}}. The entire response should be around 2500 characters. Use bullet points and clear headings. Directly answer your specific question: "{{{parentQuestion}}}".
 
         THE REPORT MUST INCLUDE:
 
@@ -213,12 +213,9 @@ const generateCareerReportFlow = ai.defineFlow(
     if (!output) {
       throw new Error("Failed to generate report from AI model.");
     }
-    return output;
+    // Make sure to return the expected 'reportContent' property
+    return { reportContent: output.reportContent };
   }
 );
-
-    
-
-    
 
     

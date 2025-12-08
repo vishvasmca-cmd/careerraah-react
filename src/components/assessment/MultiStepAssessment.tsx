@@ -341,7 +341,6 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   const handleDownload = async () => {
     if (!report || !isUnlocked) return;
     
-    // Dynamically import html2pdf
     const { default: html2pdf } = await import('html2pdf.js');
 
     const contentElement = document.getElementById('full-report-for-pdf');
@@ -351,8 +350,8 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     };
 
     const header = `
-      <div style="padding: 20px; text-align: center; border-bottom: 1px solid #eee;">
-        <h1 style="font-size: 2.5rem; font-family: 'Belleza', sans-serif; color: #4F46E5; margin: 0;">CareerRaah</h1>
+      <div style="padding: 20px; text-align: center; border-bottom: 1px solid #eee; background-color: white;">
+        <h1 style="font-size: 2.5rem; font-family: 'Belleza', sans-serif; color: #4338ca; margin: 0;">CareerRaah</h1>
         <p style="font-size: 1rem; font-family: 'Alegreya', serif; color: #333; margin: 0;">https://careerraah.com</p>
       </div>
     `;
@@ -364,10 +363,21 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     `;
 
     const fullHtml = `
-      <div style="font-family: 'Alegreya', serif; background-color: #fff;">
-        ${header}
-        ${reportBody}
-      </div>
+      <html>
+        <head>
+          <style>
+            @import url('https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&family=Belleza&display=swap');
+            body { background-color: white; color: black; }
+            h1, h2, h3, h4, h5, h6 { color: black; }
+            p, li, span, div { color: black; }
+            strong { color: black; }
+          </style>
+        </head>
+        <body>
+          ${header}
+          ${reportBody}
+        </body>
+      </html>
     `;
 
     const opt = {
@@ -836,3 +846,5 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     </>
   );
 }
+
+    
