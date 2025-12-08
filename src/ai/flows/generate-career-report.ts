@@ -1,39 +1,13 @@
+
 'use server';
 /**
- * @fileOverview A flow that generates a career report based on a user's assessment data.
+ * @fileOverview A flow that generates a detailed career strategy report based on a user's comprehensive assessment data.
  *
  * - generateCareerReport - A function that generates the career report.
- * - GenerateCareerReportInput - The input type for the generateCareerReport function.
- * - GenerateCareerReportOutput - The return type for the generateCareerReport function.
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
-
-const GenerateCareerReportInputSchema = z.object({
-  currentStage: z.string().describe("The user's current academic stage (e.g., 'Class 1-5', 'Class 11-12', 'College / Graduate')."),
-  strongSubjects: z.array(z.string()).describe("The user's strongest subjects."),
-  interests: z.array(z.string()).describe("The user's interests and hobbies."),
-  workStyle: z.string().optional().describe("The user's preferred work style (e.g., 'Desk Job', 'Field Work')."),
-  budget: z.string().optional().describe("The user's budget for higher education."),
-  location: z.string().optional().describe("The user's location preference for work/study."),
-  parentPressure: z.boolean().optional().describe("Whether the user feels pressure from their parents to pursue a specific career path."),
-  parentQuestion: z.string().optional().describe("Any specific question or concern from the parent (for younger students)."),
-});
-export type GenerateCareerReportInput = z.infer<typeof GenerateCareerReportInputSchema>;
-
-const CareerSuggestionSchema = z.object({
-    name: z.string().describe("The name of the suggested career path."),
-    reason: z.string().describe("A brief explanation of why this career is a good fit for the user."),
-});
-
-const GenerateCareerReportOutputSchema = z.object({
-  introduction: z.string().describe("A personalized introduction for the user based on their profile."),
-  topSuggestions: z.array(CareerSuggestionSchema).describe("The top 2-3 career suggestions for the user."),
-  nextSteps: z.string().describe("Actionable next steps for the user to explore these career paths."),
-});
-export type GenerateCareerReportOutput = z.infer<typeof GenerateCareerReportOutputSchema>;
-
+import { GenerateCareerReportInputSchema, GenerateCareerReportOutputSchema, type GenerateCareerReportInput } from '@/ai/schemas/career-report';
 
 export async function generateCareerReport(input: GenerateCareerReportInput): Promise<GenerateCareerReportOutput> {
     return generateCareerReportFlow(input);
@@ -45,40 +19,81 @@ const generateCareerReportPrompt = ai.definePrompt({
     name: 'generateCareerReportPrompt',
     input: { schema: GenerateCareerReportInputSchema },
     output: { schema: GenerateCareerReportOutputSchema },
-    prompt: `You are an expert career counselor in India. Your goal is to provide a helpful and encouraging report for a student based on their assessment data.
+    prompt: `
+    ACT AS: A top-tier, empathetic Career Counselor for Indian students. You have deep knowledge of the Indian education system (CBSE, ICSE, State Boards), competitive exams (JEE, NEET, CLAT, etc.), university tiers, and the modern job market. Your advice is practical, encouraging, and highly personalized.
 
-    **User Profile:**
-    - Current Stage: {{{currentStage}}}
+    TONE: Mentor-like, realistic, and motivational. Avoid generic advice. Be specific and actionable.
+
+    USER PROFILE:
+    - Academic Stage: {{{currentStage}}}
+    - Board: {{{board}}}
+    - Stream: {{{stream}}}
+    - Academic Score: {{{academicScore}}}
     - Strong Subjects: {{#each strongSubjects}}{{{this}}}{{#unless @last}}, {{/unless}}{{/each}}
     - Interests: {{#each interests}}{{{this}}}{{#unless @last}}, {{/unless}}{{/each}}
-    {{#if workStyle}}- Preferred Work Style: {{{workStyle}}}{{/if}}
-    {{#if budget}}- College Budget: {{{budget}}}{{/if}}
-    {{#if location}}- Location Preference: {{{location}}}{{/if}}
-    {{#if parentPressure}}- Feels Parent Pressure for Engineering/Medical: Yes{{/if}}
-    {{#if parentQuestion}}- Parent's Concern: {{{parentQuestion}}}{{/if}}
+    - Work Style: {{{workStyle}}}
+    - College Budget: {{{budget}}} (This is a CRITICAL constraint)
+    - Location Preference: {{{location}}}
+    - Parent Pressure (Eng/Med): {{#if parentPressure}}Yes{{else}}No{{/if}}
+    - Parent's Question: {{{parentQuestion}}}
+    - Current Goal (if applicable): {{{currentGoal}}}
+    - Industry Preference (if applicable): {{{industryPreference}}}
 
-    **Your Task:**
+    YOUR TASK: Generate a personalized career report based on the user's profile.
 
-    Based on the profile, generate a personalized career report.
-
-    1.  **Introduction:** Write a warm and encouraging introduction (2-3 sentences). Acknowledge their current stage and one key strength from their profile.
+    {{#if (isJunior currentStage)}}
     
-    2.  **Top Suggestions:**
-        {{#if (isJunior currentStage)}}
-        - For this younger student, suggest 2-3 broad fields of exploration rather than specific careers. Examples: "Creative Arts & Design", "Science & Discovery", "Technology & Building".
-        {{else}}
-        - Suggest 2-3 specific, actionable career paths.
-        {{/if}}
-        - For each suggestion, provide a single sentence explaining *why* it's a good fit, linking it to their subjects and interests. For example, "Your strength in Science and interest in Helping People makes 'Healthcare' a great area to explore."
+    *** JUNIOR STUDENT (CLASS 1-10) REPORT STRUCTURE ***
 
-    3.  **Next Steps:** Provide a short, bulleted list of 2-3 simple, actionable next steps they can take.
-        {{#if (isJunior currentStage)}}
-        - Suggest fun activities. Example: "Try a block-based coding app like Scratch" or "Visit a science museum".
-        {{else}}
-        - Suggest concrete actions. Example: "Watch a 'day in the life' video of a Product Manager on YouTube" or "Try a free online course in UX Design".
-        {{/if}}
-        
-    Keep the tone positive, encouraging, and tailored to the Indian context. Avoid jargon. Address the user directly.
+    1.  **Introduction:**
+        - Write a warm, encouraging introduction (2-3 sentences). Acknowledge their stage (e.g., "It's great that you're exploring your interests in Class {{currentStage}}!").
+        - Mention one positive aspect from their profile (e.g., "Your interest in 'Building/Creating' is a fantastic strength.").
+
+    2.  **Top Suggestions (Fields of Exploration):**
+        - Suggest 2-3 broad FIELDS of exploration, not specific careers. Examples: "Creative Arts & Design", "Technology & Problem Solving", "Science & Nature".
+        - For each field, write a single sentence explaining WHY it's a good fit, linking it to their subjects and interests. (e.g., "Because you enjoy 'Mathematics' and 'Solving Puzzles', the 'Technology & Problem Solving' field could be very exciting for you.").
+
+    3.  **Next Steps (Fun Activities):**
+        - Provide a bulleted list of 2-3 simple, fun, and actionable next steps. These should be activities, not career research.
+        - Examples:
+            - "- Try a free block-based coding app like Scratch to see if you enjoy making games."
+            - "- Visit a local science museum or planetarium on a weekend."
+            - "- Start a small project, like creating a comic strip or writing a short story."
+
+    4.  **Plan B (Note for Parents):**
+        - If the parent asked a specific question in 'parentQuestion', address it directly and gently here.
+        - Example: "A note for parents: A love for drawing can lead to many stable careers today, such as UI/UX Design or Animation, which are in high demand. Encouraging this creativity now is a great investment."
+
+    {{else}}
+
+    *** SENIOR STUDENT (CLASS 11+ / GRADUATE) REPORT STRUCTURE ***
+
+    1.  **Introduction:**
+        - Write a concise, personalized introduction (2 sentences). Acknowledge their current stage and a key data point (e.g., "As a {{currentStage}} student with strong scores in {{academicScore}}, you have several strong paths available.").
+
+    2.  **Top Suggestions (Career Paths):**
+        - Provide 2-3 specific, actionable career paths.
+        - For each path, populate the following:
+            - **name:** The career title (e.g., "Product Manager").
+            - **reason:** A sharp, single sentence linking their profile to the career. (e.g., "Your blend of business interest, leadership qualities, and strong academics makes this a great fit.").
+            - **path:** The typical path. (e.g., "B.Tech -> MBA -> APM Role").
+            - **realityCheck:** Difficulty and approx. success rate. (e.g., "Hard / ~10% chance to enter top firms").
+            - **financials:** Approx. fees vs. starting salary. (e.g., "Fees: ₹15-25L, Salary: ₹18-30LPA").
+
+    3.  **Next Steps (Actionable Research):**
+        - Provide a short, bulleted list of 2-3 concrete research steps.
+        - Examples:
+            - "- Watch three 'Day in the Life of a Data Scientist' videos on YouTube."
+            - "- Find and follow 5 top Product Managers on LinkedIn or Twitter."
+            - "- Try a free introductory course on 'UX Design Fundamentals' on Coursera or Udemy."
+
+    4.  **Plan B (The Realistic Fallback):**
+        - Provide a safe, logical backup plan.
+        - If they are targeting a high-risk/high-reward path (like JEE/UPSC), this is CRUCIAL.
+        - The Plan B should leverage the same core skills but have a higher probability of success. (e.g., "If top IITs are missed, a B.Tech in CS from a good Tier-2 college followed by a great portfolio still leads to excellent software engineering jobs.").
+        - If parent pressure is noted, gently address it: "This also serves as an excellent alternative to discuss with your parents, showcasing strong earning potential outside of traditional medicine/engineering."
+
+    {{/if}}
     `,
     helpers: { isJunior }
 });
@@ -92,6 +107,9 @@ const generateCareerReportFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await generateCareerReportPrompt(input);
-    return output!;
+    if (!output) {
+      throw new Error("Failed to generate report from AI model.");
+    }
+    return output;
   }
 );

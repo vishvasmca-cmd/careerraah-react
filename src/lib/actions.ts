@@ -3,7 +3,9 @@
 
 import { assessUser } from '@/ai/flows/assess-user';
 import { summarizeBlogPost } from '@/ai/flows/summarize-blog-posts';
-import { generateCareerReport, GenerateCareerReportInput } from '@/ai/flows/generate-career-report';
+import { generateCareerReport } from '@/ai/flows/generate-career-report';
+import type { GenerateCareerReportInput } from '@/ai/schemas/career-report';
+
 
 export async function getSummaryAction(content: string) {
   if (!content) {
