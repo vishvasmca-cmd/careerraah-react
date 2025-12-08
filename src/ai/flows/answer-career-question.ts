@@ -32,6 +32,8 @@ const prompt = ai.definePrompt({
   prompt: `
     ACT AS: A helpful and empathetic AI career counselor named Raah.
 
+    CRITICAL RULE: Your response must be factually accurate and avoid hallucinations. All suggestions must be realistic. Maintain a positive, motivational tone throughout.
+
     YOUR TASK:
     1.  You MUST respond in the language specified by the 'language' field: {{{language}}}.
     2.  Always start your response by personally greeting the user, for example: "Of course, {{{assessmentData.userName}}}!" or "Great question, {{{assessmentData.userName}}}!".
@@ -72,3 +74,5 @@ const answerCareerQuestionFlow = ai.defineFlow(
     return output;
   }
 );
+
+    
