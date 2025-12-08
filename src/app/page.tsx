@@ -142,6 +142,13 @@ export default function Home() {
               </p>
             </div>
             <BlogList posts={posts.slice(0, 3)} showSearch={false} />
+            <div className="text-center mt-12">
+                <Button asChild size="lg">
+                    <Link href="/blog">
+                        Explore All Guides <ArrowRight className="ml-2" />
+                    </Link>
+                </Button>
+            </div>
           </div>
         </section>
 
