@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -9,8 +9,10 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { User, Users, UserPlus, LogIn, ArrowRight } from 'lucide-react';
+import { User, Users, UserPlus, LogIn, ArrowRight, Loader2 } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { useAuth, useUser } from '@/firebase';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const GoogleIcon = () => (
     <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
@@ -22,16 +24,56 @@ const GoogleIcon = () => (
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const [role, setRole] = useState('student');
+  const auth = useAuth();
+  const { user, isUserLoading } = useUser();
 
+  const [role, setRole] = useState('student');
+  const [isSigningIn, setIsSigningIn] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      toast({
+        title: "Login Successful",
+        description: "Redirecting to your assessment...",
+      });
+      router.push('/assessment');
+    }
+  }, [user, router, toast]);
+
+  if (isUserLoading || user) {
+    return (
+      <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+        <Loader2 className="h-16 w-16 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  const handleGoogleSignIn = async () => {
+    setIsSigningIn(true);
+    const provider = new GoogleAuthProvider();
+    try {
+      // We don't await here because the useEffect will handle the redirect
+      signInWithPopup(auth, provider);
+    } catch (error: any) {
+      console.error("Google Sign-In Error:", error);
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: error.message || "Could not sign in with Google.",
+      });
+      setIsSigningIn(false);
+    }
+  };
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement actual Firebase login logic
+    // This is a placeholder for email/password or other login methods.
+    // For now, we only implement Google Sign-In.
     toast({
-        title: "Login Successful (Simulated)",
-        description: "Redirecting to your assessment...",
+        variant: "destructive",
+        title: "Feature Not Implemented",
+        description: "Please use 'Sign in with Google' to continue.",
     });
-    router.push('/assessment');
   };
   
   return (
@@ -59,11 +101,11 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
                     <Label htmlFor="name">Full Name</Label>
-                    <Input id="name" placeholder="Rani Sharma" required type="text" />
+                    <Input id="name" placeholder="Rani Sharma" required type="text" disabled />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="mobile">Mobile Number</Label>
-                    <Input id="mobile" placeholder="98765 43210" required type="tel" />
+                    <Input id="mobile" placeholder="98765 43210" required type="tel" disabled />
                 </div>
                 <div className="space-y-3">
                     <Label>I am a...</Label>
@@ -90,7 +132,7 @@ export default function LoginPage() {
                         </div>
                     </RadioGroup>
                 </div>
-                 <Button type="submit" className="w-full" size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
+                 <Button type="submit" className="w-full" size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }} disabled>
                     Continue <ArrowRight className="ml-2" />
                 </Button>
             </form>
@@ -102,8 +144,12 @@ export default function LoginPage() {
                     <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
                 </div>
             </div>
-             <Button variant="outline" className="w-full" size="lg">
-                <GoogleIcon />
+             <Button variant="outline" className="w-full" size="lg" onClick={handleGoogleSignIn} disabled={isSigningIn}>
+                {isSigningIn ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <GoogleIcon />
+                )}
                 Sign in with Google
             </Button>
           </CardContent>
