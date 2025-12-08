@@ -73,6 +73,20 @@ const posts: Omit<BlogPost, 'imageUrl' | 'imageHint'>[] = [
     content: 'Investment Banking is one of the most demanding but also one of the highest-paying careers in the world. Bankers help companies raise money and advise on large financial deals like mergers. This career is for those who are exceptional with numbers, can work grueling hours, and thrive under pressure. The entry barriers are extremely high, typically requiring a degree from a Tier-1 institution (like an IIT or SRCC) followed by an MBA from a top IIM. This guide provides a realistic look at the demanding lifestyle, the required pedigree, and the path to becoming an analyst at a top firm.'
   },
   {
+    id: '13',
+    title: 'Pilot in India After 12th: A Step-by-Step Guide',
+    author: 'CareerRaah Research Wing',
+    date: 'September 28, 2023',
+    content: `Soaring through the clouds in a pilot's uniform is a dream for many. But how do you turn this dream into a reality in India? This comprehensive guide breaks down the entire process, step-by-step. We cover the essential requirements like a Class 12 education in Science (with Physics and Math), the rigorous Class 2 and Class 1 medical examinations, and the process of joining a DGCA-approved flight school. Learn about the different types of licenses—from the Student Pilot License (SPL) to the Commercial Pilot License (CPL)—and the costs involved. This is your definitive roadmap to a career in the cockpit.`
+  },
+  {
+    id: '14',
+    title: 'B.Tech vs BCA vs B.Sc (Computer Science): The Ultimate Comparison',
+    author: 'CareerRaah Research Wing',
+    date: 'September 26, 2023',
+    content: `For students passionate about computers, the choice between a B.Tech, BCA, or B.Sc in Computer Science is often confusing. Which degree offers the best job prospects? Which is more theoretical vs. practical? This article provides a head-to-head comparison to help you decide. We analyze the syllabus, the focus of each program (Engineering vs. Application vs. Science), entrance exams, typical college fees, and the long-term career growth associated with each degree. Whether you want to be a software architect, a web developer, or a research scientist, this guide will help you choose the right path.`
+  },
+  {
     id: '9',
     title: 'Which is Better After 12th: Commerce or Science?',
     author: 'CareerRaah Research Wing',
@@ -116,6 +130,8 @@ export const getBlogPosts = (): BlogPost[] => {
 export const getBlogPost = (id: string): BlogPost | undefined => {
   return getBlogPosts().find(post => post.id === id);
 };
+
+    
 
     
 
