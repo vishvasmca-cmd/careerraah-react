@@ -9,8 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Skeleton } from '@/components/ui/skeleton';
-import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2, Sparkles, ArrowRight, Film, Atom, Trophy, Scale, BrainCircuit, Users, Rocket, DollarSign, Loader2 } from 'lucide-react';
+import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2, Sparkles, ArrowRight, Film, Atom, Trophy, Scale, BrainCircuit, Users, Rocket, DollarSign, Loader2, Mail } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -20,6 +19,17 @@ import Link from 'next/link';
 import { Slider } from '@/components/ui/slider';
 import { InteractiveChat } from '@/components/assessment/InteractiveChat';
 import { useTranslation } from '@/hooks/use-translation';
+
+const WhatsAppIcon = () => (
+  <svg
+    className="h-4 w-4"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.89-5.465 0-9.89 4.428-9.889 9.891.001 2.23.651 4.35 1.848 6.096l-1.214 4.439 4.542-1.192z" />
+  </svg>
+);
 
 
 const baseSteps = [
@@ -78,8 +88,31 @@ const workStyles = [
     { value: "Uniform/Discipline", label: "I want Uniform/Discipline (Defense, Pilot, Merchant Navy)"}
 ]
 
+const formatReportForShare = (name: string, report: GenerateCareerReportOutput): string => {
+  const careerPaths = report.topCareerPaths.map(p => 
+    `- ${p.name}: ${p.reason}`
+  ).join('\n');
 
-export function MultiStepAssessment({ userRole = 'student', userName = 'Student' }: { userRole: string, userName: string }) {
+  return `
+*My Personalized Career Report from CareerRaah*
+
+Hello! I just generated a free AI-powered career report for ${name}. Here's a summary:
+
+*RECOMMENDED CAREER CLUSTERS:*
+${report.recommendedClusters}
+
+*TOP CAREER SUGGESTIONS:*
+${careerPaths}
+
+This is just a summary! You can create your own free, detailed report and explore hundreds of modern careers.
+
+*CareerRaah - Your Personal AI Career Guide*
+Discover your path today: https://careerraah.com
+  `.trim();
+};
+
+
+export function MultiStepAssessment({ userRole = 'student', userName = 'Student' }: { userRole:string, userName: string }) {
   const [currentStep, setCurrentStep] = useState(0);
   const { language } = useTranslation();
   const [formData, setFormData] = useState<GenerateCareerReportInput>({
@@ -211,6 +244,21 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
         if (Array.isArray(value)) return value.length > 0;
         return value !== '' && value !== null && value !== undefined;
     });
+  };
+
+  const handleShare = (platform: 'whatsapp' | 'email') => {
+    if (!report) return;
+
+    const reportText = formatReportForShare(userName, report);
+    
+    if (platform === 'whatsapp') {
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(reportText)}`;
+      window.open(whatsappUrl, '_blank');
+    } else if (platform === 'email') {
+      const subject = `My CareerRaah Report for ${userName}`;
+      const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(reportText)}`;
+      window.location.href = mailtoUrl;
+    }
   };
 
   const progressValue = ((currentStep) / (steps.length - 1)) * 100;
@@ -467,6 +515,19 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                                     ))}
                                 </ul>
                             </div>
+                            
+                            <div className="pt-6 border-t">
+                                <h3 className="text-xl font-bold font-headline">Share Your Report</h3>
+                                <div className="flex gap-2 mt-4">
+                                  <Button onClick={() => handleShare('whatsapp')} variant="outline">
+                                    <WhatsAppIcon /> Share on WhatsApp
+                                  </Button>
+                                  <Button onClick={() => handleShare('email')} variant="outline">
+                                    <Mail /> Share via Email
+                                  </Button>
+                                </div>
+                            </div>
+
                             <InteractiveChat assessmentData={formData} />
                         </div>
                     )}
@@ -519,3 +580,5 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     </Card>
   );
 }
+
+    
