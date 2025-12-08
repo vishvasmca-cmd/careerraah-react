@@ -1,14 +1,16 @@
 
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Loader2, Wand2, Send } from 'lucide-react';
+import { Loader2, Wand2, Send, User, BrainCircuit } from 'lucide-react';
 import { getCareerQuestionAnswerAction } from '@/lib/actions';
 import type { GenerateCareerReportInput } from '@/ai/schemas/career-report';
 import { useTranslation } from '@/hooks/use-translation';
 import { Input } from '@/components/ui/input';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { cn } from '@/lib/utils';
 
 const predefinedQuestions = [
   'Create a Year-by-Year Roadmap to my first job.',
@@ -20,7 +22,7 @@ const predefinedQuestions = [
 
 type ChatMessage = {
   id: number;
-  type: 'question' | 'answer' | 'error';
+  role: 'user' | 'bot';
   text: string;
   isLoading?: boolean;
 };
@@ -30,15 +32,23 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
   const [isPending, startTransition] = useTransition();
   const [inputValue, setInputValue] = useState('');
   const { language } = useTranslation();
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Scroll to the bottom when new messages are added
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [chatHistory]);
 
   const handleQuestionSubmit = (question: string) => {
     if (!question.trim() || isPending) return;
 
     const questionId = Date.now();
-    const newQuestion: ChatMessage = { id: questionId, type: 'question', text: question };
-    const loadingAnswer: ChatMessage = { id: questionId + 1, type: 'answer', text: '', isLoading: true };
+    const newUserMessage: ChatMessage = { id: questionId, role: 'user', text: question };
+    const loadingAnswer: ChatMessage = { id: questionId + 1, role: 'bot', text: '', isLoading: true };
 
-    setChatHistory(prev => [...prev, newQuestion, loadingAnswer]);
+    setChatHistory(prev => [...prev, newUserMessage, loadingAnswer]);
     setInputValue('');
 
     startTransition(async () => {
@@ -46,9 +56,9 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
       
       let finalAnswer: ChatMessage;
       if (result.answer) {
-        finalAnswer = { id: questionId + 1, type: 'answer', text: result.answer };
+        finalAnswer = { id: questionId + 1, role: 'bot', text: result.answer };
       } else {
-        finalAnswer = { id: questionId + 1, type: 'error', text: result.error || 'Sorry, I could not process that request.' };
+        finalAnswer = { id: questionId + 1, role: 'bot', text: result.error || 'Sorry, I could not process that request.' };
       }
       
       setChatHistory(prev => prev.map(msg => msg.id === finalAnswer.id ? finalAnswer : msg));
@@ -77,34 +87,51 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
         ))}
       </div>
 
-      <div className="mt-6 space-y-4 max-h-96 overflow-y-auto pr-2">
+      <div ref={chatContainerRef} className="mt-6 space-y-6 max-h-96 overflow-y-auto pr-2 bg-secondary/20 p-4 rounded-lg">
         {chatHistory.map(msg => (
-          <div key={msg.id}>
-            {msg.type === 'question' && (
-              <p className="font-semibold text-foreground text-right">You: {msg.text}</p>
+          <div key={msg.id} className={cn("flex items-start gap-3", { 'justify-end': msg.role === 'user' })}>
+            {msg.role === 'bot' && (
+              <Avatar className="h-8 w-8">
+                <AvatarFallback className="bg-primary text-primary-foreground">
+                  <BrainCircuit size={18} />
+                </AvatarFallback>
+              </Avatar>
             )}
-            {msg.type === 'answer' && (
-              <Card className="bg-secondary/20">
-                <CardContent className="p-4">
-                  {msg.isLoading ? (
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      <span>Raah is thinking...</span>
-                    </div>
-                  ) : (
-                    <div
-                      className="prose prose-sm max-w-none text-foreground"
-                      dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />') }}
-                    />
-                  )}
-                </CardContent>
-              </Card>
+
+            <div className={cn(
+                "max-w-sm rounded-lg px-4 py-2",
+                {
+                  'bg-primary text-primary-foreground rounded-br-none': msg.role === 'user',
+                  'bg-background border rounded-bl-none': msg.role === 'bot'
+                }
+            )}>
+              {msg.isLoading ? (
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span>Raah is thinking...</span>
+                </div>
+              ) : (
+                <div
+                  className="prose prose-sm max-w-none text-inherit"
+                  dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />') }}
+                />
+              )}
+            </div>
+
+             {msg.role === 'user' && (
+              <Avatar className="h-8 w-8">
+                <AvatarFallback className="bg-muted text-muted-foreground">
+                  <User size={18} />
+                </AvatarFallback>
+              </Avatar>
             )}
-             {msg.type === 'error' && (
-                <p className="text-sm text-red-500">{msg.text}</p>
-             )}
           </div>
         ))}
+        {chatHistory.length === 0 && (
+          <div className="text-center text-muted-foreground py-8">
+            <p>Ask a question or select one above to start the conversation.</p>
+          </div>
+        )}
       </div>
       
       <div className="mt-4 flex gap-2">
