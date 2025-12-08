@@ -1,3 +1,4 @@
+
 import { PlaceHolderImages } from './placeholder-images';
 
 export interface BlogPost {
@@ -56,6 +57,48 @@ const posts: Omit<BlogPost, 'imageUrl' | 'imageHint'>[] = [
     author: 'CareerRaah Research Wing',
     date: 'October 5, 2023',
     content: 'Every parent wants their child to be fluent in English. But does that mean they must learn complex subjects like Physics or Chemistry only in English? Research shows that students learn best in their mother tongue. This guide explores the "Vernacular is the Gateway" strategy used by top educational platforms. Learn how to prioritize "Spoken English" as a separate, premium skill while allowing your child to master core subjects in the language they understand best. This balanced approach builds both confidence and competence.'
+  },
+  {
+    id: '7',
+    title: 'B.Tech vs BCA vs B.Sc (Computer Science): The Ultimate Comparison',
+    author: 'CareerRaah Research Wing',
+    date: 'October 1, 2023',
+    content: `It's the most confusing choice for any student interested in a tech career. Do you go for the engineering prestige of a B.Tech, the application-focused approach of a BCA, or the theoretical foundation of a B.Sc? Each path leads to a different career outcome. This definitive guide breaks down the curriculum, job opportunities, salary expectations, and ideal student profiles for each degree. We provide a clear framework to help you and your child choose the right path based on their marks, interests, and long-term goals, saving you from making a costly mistake.`
+  },
+  {
+    id: '8',
+    title: 'How to Become a Pilot in India After 12th: A Step-by-Step Guide',
+    author: 'CareerRaah Research Wing',
+    date: 'September 28, 2023',
+    content: `The dream of flying is a powerful one. For many students, becoming a commercial pilot is the ultimate career aspiration. But the path is expensive and demanding. This guide provides a realistic, step-by-step roadmap for Indian students. We cover everything from the required subjects in Class 12, the medical fitness tests, the costs of flight school (in India vs. abroad), and the type of exams you need to clear to get your Commercial Pilot License (CPL). We also look at the job market and salary expectations for new pilots.`
+  },
+  {
+    id: '9',
+    title: 'Which is Better After 12th: Commerce or Science?',
+    author: 'CareerRaah Research Wing',
+    date: 'September 25, 2023',
+    content: `This is the great Indian education dilemma. Should your child pursue the 'safe' and diverse path of Science, or the business-oriented world of Commerce? The choice made in Class 11 can define their entire career trajectory. This article provides a comprehensive analysis, comparing the subjects, difficulty levels, and the wide array of career options available for both streams. From engineering and medicine to CA and marketing, we lay out the pros and cons to help you have a productive conversation with your child and make a choice that aligns with their aptitude and interests, not just societal pressure.`
+  },
+  {
+    id: '10',
+    title: 'How to Join ISRO / Become a Space Scientist in India',
+    author: 'CareerRaah Research Wing',
+    date: 'September 20, 2023',
+    content: 'With the success of Chandrayaan and Gaganyaan, a career at ISRO is the new dream for millions of Indian students. But how do you get there? The path is challenging but clear. This guide breaks down the exact steps to become a scientist or engineer at the prestigious Indian Space Research Organisation. We detail the importance of the IIST exam, the direct recruitment process via the ICRB, and which engineering branches are most in-demand. Learn what it takes to work on India\'s most ambitious space missions.'
+  },
+  {
+    id: '11',
+    title: 'How to Become a Professional Cricketer in India: A Realistic Guide',
+    author: 'CareerRaah Research Wing',
+    date: 'September 15, 2023',
+    content: 'The dream of playing for India or getting a lucrative IPL contract is shared by millions, but the path is one of the toughest in the world. This guide provides a brutally honest and realistic roadmap. We explain the structure of age-group cricket (U-14, U-16, U-19), the importance of performing in BCCI-affiliated tournaments, and the role of the Ranji Trophy. We also discuss the financial costs, the importance of a backup plan, and how to identify if your child has the extraordinary talent and mental toughness required to even have a chance.'
+  },
+  {
+    id: '12',
+    title: 'How to Become an IAS/IPS Officer: Cracking the UPSC Dream',
+    author: 'CareerRaah Research Wing',
+    date: 'September 10, 2023',
+    content: 'The UPSC Civil Services Exam is more than just a test; it\'s a national obsession. But what does it really take to become an IAS or IPS officer? This guide demystifies the process. We break down the three stages of the exam (Prelims, Mains, Interview), the syllabus, the importance of choosing the right optional subject, and the timeline for preparation. We also offer a realistic look at the dedication required, the high competition, and why having a backup plan is essential for every aspirant.'
   }
 ];
 
