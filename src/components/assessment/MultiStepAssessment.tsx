@@ -312,8 +312,12 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   const handleDownload = () => {
     if (!report || !isUnlocked) return;
 
-    const content = document.getElementById('report-content');
-    if (!content) return;
+    // Use the hidden div with the full report for PDF generation
+    const content = document.getElementById('full-report-for-pdf');
+    if (!content) {
+        console.error("PDF generation failed: full report content not found.");
+        return;
+    };
 
     const header = `
       <div style="padding: 20px; text-align: center; border-bottom: 1px solid #eee;">
@@ -597,6 +601,12 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                               </AlertDescription>
                             </Alert>
 
+                            {/* Hidden div for full report PDF generation */}
+                            <div className="hidden">
+                                 <MarkdownRenderer id="full-report-for-pdf" content={report.reportContent} />
+                            </div>
+
+                            {/* Visible report content (summary or full) */}
                              <div id="report-content-wrapper">
                                 <MarkdownRenderer id="report-content" content={isUnlocked ? report.reportContent : reportPreview} />
                             </div>
@@ -736,7 +746,3 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     </>
   );
 }
-
-    
-
-    
