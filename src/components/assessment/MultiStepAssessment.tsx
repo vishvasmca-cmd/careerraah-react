@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2, Star, Video, ArrowRight, Film, Atom, Trophy, Scale, BrainCircuit, Users, Rocket, DollarSign, Loader2, Mail, FileDown, Lock, Info } from 'lucide-react';
+import { CheckCircle, ArrowLeft, Book, Beaker, Landmark, Palette, Code, Handshake, IndianRupee, Briefcase, Building, Gamepad2, Mic2, Star, Video, ArrowRight, Film, Atom, Trophy, Scale, BrainCircuit, Users, Rocket, DollarSign, Loader2, Mail, FileDown, Lock, Info, Search, Heart, Lightbulb, UserCheck } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -97,6 +97,13 @@ const juniorSteps = [
     { id: 'Step 3', name: 'Finish', fields: [] },
 ];
 
+const youngestSteps = [
+    { id: 'Step 1', name: 'Profile', fields: ['currentStage'] },
+    { id: 'Step 2', name: 'Child\'s Personality', fields: ['childNewSituation', 'childThinkingStyle', 'childIntelligenceType'] },
+    { id: 'Step 3', name: 'Exploration', fields: ['strongSubjects', 'interests', 'parentQuestion'] },
+    { id: 'Step 4', name: 'Finish', fields: [] },
+];
+
 
 const slideVariants = {
   hidden: { x: '100%', opacity: 0 },
@@ -177,6 +184,9 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     userRole: userRole,
     userName: userName,
     language: language,
+    childNewSituation: '',
+    childThinkingStyle: '',
+    childIntelligenceType: '',
   });
 
   const [formNumericData, setFormNumericData] = useState({
@@ -195,7 +205,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
 
   const reportPreview = useMemo(() => {
     if (!report) return "";
-    const summaryRegex = /(### 1. 📝 Executive Summary[\s\S]*?)(?=### 2.|$)/;
+    const summaryRegex = /(### 1. .*?[\s\S]*?)(?=### 2.|$)/;
     const match = report.reportContent.match(summaryRegex);
     return match ? match[0] : "Your report is ready!";
   }, [report]);
@@ -207,8 +217,9 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   }, [report]);
 
 
-  const isJunior = ['Class 1-5', 'Class 6-7', 'Class 8-10'].includes(formData.currentStage);
-  const steps = isJunior ? juniorSteps : baseSteps;
+  const isYoungest = formData.currentStage === 'Class 1-5';
+  const isJunior = ['Class 6-7', 'Class 8-10'].includes(formData.currentStage);
+  const steps = isYoungest ? youngestSteps : isJunior ? juniorSteps : baseSteps;
   
   const handleNext = async () => {
     if (currentStep < steps.length - 1) {
@@ -385,93 +396,70 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                       </Label>
                    ))}
                 </RadioGroup>
-
-                {isSchoolStage && formData.currentStage && (
-                  <Select onValueChange={(value) => handleFormData('board', value)} value={formData.board}>
-                    <SelectTrigger><SelectValue placeholder="Select your Education Board" /></SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="CBSE">CBSE</SelectItem>
-                        <SelectItem value="ICSE/CISCE">ICSE/CISCE</SelectItem>
-                        <SelectItem value="State Board">State Board</SelectItem>
-                        <SelectItem value="IB">IB (International Baccalaureate)</SelectItem>
-                        <SelectItem value="Cambridge">Cambridge (IGCSE, A-Levels)</SelectItem>
-                        <SelectItem value="NIOS">NIOS</SelectItem>
-                        <SelectItem value="Other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                )}
-                {currentStage === 'Class 11-12' && (
-                    <div className='space-y-4'>
-                        <Select onValueChange={(value) => handleFormData('stream', value)} value={formData.stream}>
-                            <SelectTrigger><SelectValue placeholder="Select your Stream" /></SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="Science (PCM)">Science (PCM) - Engineering Focus</SelectItem>
-                                <SelectItem value="Science (PCB)">Science (PCB) - Medical Focus</SelectItem>
-                                <SelectItem value="Science (PCMB)">Science (PCMB) - General</SelectItem>
-                                <SelectItem value="Commerce with Maths">Commerce with Maths</SelectItem>
-                                <SelectItem value="Commerce without Maths">Commerce without Maths</SelectItem>
-                                <SelectItem value="Humanities / Arts">Humanities / Arts</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                )}
-                { (currentStage === 'College / Graduate' || currentStage === 'Post Graduate') && (
-                    <div className="space-y-4">
-                        <Input placeholder="University/College" value={formData.university} onChange={e => handleFormData('university', e.target.value)} />
-                        <Input placeholder="Stream/Degree (e.g. B.Tech in CS)" value={formData.collegeStream} onChange={e => handleFormData('collegeStream', e.target.value)} />
-                        <Select onValueChange={(value) => handleFormData('currentGoal', value)} value={formData.currentGoal}>
-                            <SelectTrigger><SelectValue placeholder="What is your current primary goal?" /></SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="Get a Job">Get a Job</SelectItem>
-                                <SelectItem value="Higher Studies">Pursue Higher Studies</SelectItem>
-                                <SelectItem value="Entrepreneurship">Entrepreneurship</SelectItem>
-                            </SelectContent>
-                        </Select>
-                        {formData.currentGoal === 'Get a Job' && <Input placeholder="Which industry/field interests you?" value={formData.industryPreference} onChange={e => handleFormData('industryPreference', e.target.value)} />}
-                    </div>
-                )}
-                { currentStage === 'Gap Year' && (
-                    <div className="space-y-4">
-                        <Input placeholder="Degree completed before gap" value={formData.gapDegree} onChange={e => handleFormData('gapDegree', e.target.value)} />
-                        <Textarea placeholder="What is your main aspiration now? (e.g., prepare for an exam, explore a new field)" value={formData.gapAspiration} onChange={e => handleFormData('gapAspiration', e.target.value)} />
-                    </div>
-                )}
               </div>
             )}
-            {currentStep === 1 && !isJunior && (
-              <div className="space-y-6">
-                <div>
-                  <Label className="text-lg font-semibold text-foreground">Which subjects do you genuinely enjoy & score well in?</Label>
-                  <p className="text-sm text-muted-foreground">Select all that apply.</p>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {subjects.map(subject => (
-                      <Button key={subject} variant={formData.strongSubjects.includes(subject) ? 'default' : 'outline'} onClick={() => handleMultiSelect('strongSubjects', subject)}>
-                        {subject}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                    <Label className="text-lg font-semibold text-foreground">What is your average aggregate percentage?</Label>
-                    <div className="flex items-center gap-4 mt-2">
-                      <Slider value={[formNumericData.academicScore]} onValueChange={(value) => handleNumericData('academicScore', value[0])} max={99} min={40} step={1} className="w-full" />
-                      <span className="font-bold text-lg text-primary w-20 text-center">{formNumericData.academicScore}%</span>
+            {currentStep === 1 && isYoungest && (
+                <div className="space-y-8">
+                    <div>
+                        <Label className="text-lg font-semibold text-foreground">How does your child react to new situations or people?</Label>
+                        <RadioGroup onValueChange={(v) => handleFormData('childNewSituation', v)} value={formData.childNewSituation} className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <Label htmlFor="cns-curious" className="flex items-center gap-4 rounded-md border-2 p-3 cursor-pointer hover:border-primary has-[input:checked]:border-primary has-[input:checked]:bg-primary/10">
+                                <RadioGroupItem value="curious" id="cns-curious"/>
+                                <div>
+                                    <div className='flex items-center gap-2 font-semibold'><Search /> Curious & Excited</div>
+                                    <p className='text-xs text-muted-foreground ml-7'>Jumps right in, asks questions.</p>
+                                </div>
+                            </Label>
+                             <Label htmlFor="cns-cautious" className="flex items-center gap-4 rounded-md border-2 p-3 cursor-pointer hover:border-primary has-[input:checked]:border-primary has-[input:checked]:bg-primary/10">
+                                <RadioGroupItem value="cautious" id="cns-cautious"/>
+                                <div>
+                                    <div className='flex items-center gap-2 font-semibold'><UserCheck /> Cautious & Observant</div>
+                                    <p className='text-xs text-muted-foreground ml-7'>Likes to watch first, then join in.</p>
+                                </div>
+                            </Label>
+                        </RadioGroup>
+                    </div>
+                     <div>
+                        <Label className="text-lg font-semibold text-foreground">When solving a problem, are they more of a...</Label>
+                        <RadioGroup onValueChange={(v) => handleFormData('childThinkingStyle', v)} value={formData.childThinkingStyle} className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <Label htmlFor="cts-thinker" className="flex items-center gap-4 rounded-md border-2 p-3 cursor-pointer hover:border-primary has-[input:checked]:border-primary has-[input:checked]:bg-primary/10">
+                                <RadioGroupItem value="thinker" id="cts-thinker"/>
+                                <div>
+                                    <div className='flex items-center gap-2 font-semibold'><Lightbulb /> Thinker</div>
+                                    <p className='text-xs text-muted-foreground ml-7'>Tries to understand the 'why' and 'how'.</p>
+                                </div>
+                            </Label>
+                             <Label htmlFor="cts-feeler" className="flex items-center gap-4 rounded-md border-2 p-3 cursor-pointer hover:border-primary has-[input:checked]:border-primary has-[input:checked]:bg-primary/10">
+                                <RadioGroupItem value="feeler" id="cts-feeler"/>
+                                 <div>
+                                    <div className='flex items-center gap-2 font-semibold'><Heart /> Feeler</div>
+                                    <p className='text-xs text-muted-foreground ml-7'>Considers how people are affected.</p>
+                                </div>
+                            </Label>
+                        </RadioGroup>
+                    </div>
+                    <div>
+                        <Label className="text-lg font-semibold text-foreground">What's their favorite way to play?</Label>
+                        <RadioGroup onValueChange={(v) => handleFormData('childIntelligenceType', v)} value={formData.childIntelligenceType} className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                             <Label htmlFor="cit-builder" className="flex items-center gap-4 rounded-md border-2 p-3 cursor-pointer hover:border-primary has-[input:checked]:border-primary has-[input:checked]:bg-primary/10">
+                                <RadioGroupItem value="building/creating" id="cit-builder"/>
+                                 <div>
+                                    <div className='flex items-center gap-2 font-semibold'><Palette /> Building & Creating</div>
+                                    <p className='text-xs text-muted-foreground ml-7'>With blocks, clay, or drawings.</p>
+                                </div>
+                            </Label>
+                             <Label htmlFor="cit-storyteller" className="flex items-center gap-4 rounded-md border-2 p-3 cursor-pointer hover:border-primary has-[input:checked]:border-primary has-[input:checked]:bg-primary/10">
+                                <RadioGroupItem value="stories/pretend-play" id="cit-storyteller"/>
+                                 <div>
+                                    <div className='flex items-center gap-2 font-semibold'><Book /> Stories & Pretend Play</div>
+                                    <p className='text-xs text-muted-foreground ml-7'>Making up characters and worlds.</p>
+                                </div>
+                            </Label>
+                        </RadioGroup>
                     </div>
                 </div>
-                 <div>
-                  <Label className="text-lg font-semibold text-foreground">Are you preparing for any entrance exams?</Label>
-                  <p className="text-sm text-muted-foreground">Select all that apply.</p>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {entranceExams.map(exam => (
-                      <Button key={exam} variant={formData.examStatus.includes(exam) ? 'default' : 'outline'} onClick={() => handleMultiSelect('examStatus', exam)}>
-                        {exam}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              </div>
             )}
-             {currentStep === 1 && isJunior && (
+            {currentStep === 1 && isJunior && (
               <div className='space-y-6'>
                 <div>
                     <Label className="text-lg font-semibold text-foreground">What subjects do you enjoy the most in school?</Label>
@@ -508,7 +496,78 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                 </div>
               </div>
             )}
-            {currentStep === 2 && !isJunior &&(
+            {currentStep === 1 && !isJunior && !isYoungest && (
+              <div className="space-y-6">
+                <div>
+                  <Label className="text-lg font-semibold text-foreground">Which subjects do you genuinely enjoy & score well in?</Label>
+                  <p className="text-sm text-muted-foreground">Select all that apply.</p>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {subjects.map(subject => (
+                      <Button key={subject} variant={formData.strongSubjects.includes(subject) ? 'default' : 'outline'} onClick={() => handleMultiSelect('strongSubjects', subject)}>
+                        {subject}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                    <Label className="text-lg font-semibold text-foreground">What is your average aggregate percentage?</Label>
+                    <div className="flex items-center gap-4 mt-2">
+                      <Slider value={[formNumericData.academicScore]} onValueChange={(value) => handleNumericData('academicScore', value[0])} max={99} min={40} step={1} className="w-full" />
+                      <span className="font-bold text-lg text-primary w-20 text-center">{formNumericData.academicScore}%</span>
+                    </div>
+                </div>
+                 <div>
+                  <Label className="text-lg font-semibold text-foreground">Are you preparing for any entrance exams?</Label>
+                  <p className="text-sm text-muted-foreground">Select all that apply.</p>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {entranceExams.map(exam => (
+                      <Button key={exam} variant={formData.examStatus.includes(exam) ? 'default' : 'outline'} onClick={() => handleMultiSelect('examStatus', exam)}>
+                        {exam}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+            {currentStep === 2 && isYoungest && (
+                <div className='space-y-6'>
+                    <div>
+                        <Label className="text-lg font-semibold text-foreground">What subjects does your child enjoy the most in school?</Label>
+                        <div className="flex flex-wrap gap-2 mt-2">
+                            {subjects.slice(0,6).map(subject => (
+                            <Button key={subject} variant={formData.strongSubjects.includes(subject) ? 'default' : 'outline'} onClick={() => handleMultiSelect('strongSubjects', subject)}>
+                                {subject}
+                            </Button>
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <Label className="text-lg font-semibold text-foreground">What activities do they love doing after school?</Label>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
+                        {interests.map(interest => (
+                            <Button key={interest.name} variant={formData.interests.includes(interest.name) ? "default" : "outline"} className="h-24 flex-col gap-2"
+                            onClick={() => handleMultiSelect('interests', interest.name)}
+                            >
+                            <interest.icon size={24} />
+                            <span className="text-xs text-center">{interest.name.split('/')[0]}</span>
+                            </Button>
+                        ))}
+                        </div>
+                    </div>
+                    <div>
+                        <Label className="text-lg font-semibold text-foreground" htmlFor="parentQuestion">Any specific questions for us? (Optional)</Label>
+                        <Textarea 
+                        id="parentQuestion"
+                        placeholder="e.g., 'How can I encourage my child's creativity?'"
+                        value={formData.parentQuestion}
+                        onChange={(e) => handleFormData('parentQuestion', e.target.value)}
+                        className="mt-2"
+                        />
+                    </div>
+                </div>
+            )}
+
+            {currentStep === 2 && !isJunior && !isYoungest && (
               <div className='space-y-6'>
                 <div>
                     <Label className="text-lg font-semibold text-foreground">What topics excite you outside of textbooks?</Label>
@@ -537,7 +596,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                 </div>
               </div>
             )}
-             {currentStep === 3 && !isJunior && (
+             {currentStep === 3 && !isJunior && !isYoungest && (
                 <div className="space-y-8">
                     <div>
                         <Label className="text-lg font-semibold text-foreground">College Budget Expectation (Per Year)</Label>
@@ -589,7 +648,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                             <div className="text-center">
                                 <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
                                 <h2 className="text-3xl font-bold font-headline text-foreground">
-                                  {userRole === 'parent' ? `Your Career Strategy Report for ${userName} is Ready!` : `Your Career Strategy Report is Ready, ${userName}!`}
+                                  {userRole === 'parent' ? `Your ${isYoungest ? 'Insights Report' : 'Career Strategy'} for ${userName} is Ready!` : `Your Career Strategy Report is Ready, ${userName}!`}
                                 </h2>
                             </div>
                             
@@ -746,5 +805,3 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     </>
   );
 }
-
-    

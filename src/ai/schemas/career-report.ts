@@ -39,6 +39,11 @@ export const GenerateCareerReportInputSchema = z.object({
   industryPreference: z.string().optional().describe("Industry preference if looking for a job."),
   gapDegree: z.string().optional().describe("Degree completed before taking a gap year."),
   gapAspiration: z.string().optional().describe("Main aspiration during the gap year."),
+
+  // New psychological fields for youngest students
+  childNewSituation: z.string().optional().describe("How the child reacts to new situations."),
+  childThinkingStyle: z.string().optional().describe("The child's dominant thinking style."),
+  childIntelligenceType: z.string().optional().describe("The child's primary intelligence type."),
 });
 export type GenerateCareerReportInput = z.infer<typeof GenerateCareerReportInputSchema>;
 
@@ -46,5 +51,3 @@ export const GenerateCareerReportOutputSchema = z.object({
   reportContent: z.string().describe("The full, detailed career strategy report in Markdown format."),
 });
 export type GenerateCareerReportOutput = z.infer<typeof GenerateCareerReportOutputSchema>;
-
-    
