@@ -50,7 +50,10 @@ export function BlogPostCard({ post, index }: BlogPostCardProps) {
       <Card className="flex flex-col h-full overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl">
         <div className="relative h-48 w-full">
           {imgError ? (
-            <div className="absolute inset-0 bg-black" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-secondary to-muted text-muted-foreground">
+                <Lightbulb className="h-12 w-12 opacity-50" />
+                <p className="mt-2 text-xs">Image not available</p>
+            </div>
           ) : (
             <Image
               src={post.imageUrl}
@@ -60,6 +63,7 @@ export function BlogPostCard({ post, index }: BlogPostCardProps) {
               className="object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               onError={() => setImgError(true)}
+              priority={index < 3} // Prioritize images in the first row
             />
           )}
         </div>
