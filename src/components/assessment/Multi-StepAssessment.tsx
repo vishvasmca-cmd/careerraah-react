@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -20,6 +20,7 @@ import Link from 'next/link';
 import { Slider } from '@/components/ui/slider';
 import { InteractiveChat } from '@/components/assessment/InteractiveChat';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRouter } from 'next/navigation';
 
 // A simple markdown-to-html renderer
 const MarkdownRenderer = ({ content }: { content: string }) => {
@@ -43,7 +44,7 @@ const MarkdownRenderer = ({ content }: { content: string }) => {
       .replace(/<\/ul>\s*<ul>/g, '')
       .replace(/\n/g, '<br />'); // New lines
 
-    return <div className="prose prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+    return <div className="prose prose-sm max-w-none text-foreground/90" dangerouslySetInnerHTML={{ __html: htmlContent }} />;
 };
 
 
@@ -135,8 +136,15 @@ Discover your path today: https://careerraah.com
 
 
 export function MultiStepAssessment({ userRole = 'student', userName = 'Student' }: { userRole:string, userName: string }) {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const { language } = useTranslation();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const [formData, setFormData] = useState<GenerateCareerReportInput>({
     // Step 1
     currentStage: '',
@@ -210,6 +218,8 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   const handleBack = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
+    } else {
+      router.back();
     }
   };
   
@@ -285,6 +295,20 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     }
   };
 
+    const handleDownload = () => {
+    if (!report) return;
+
+    const blob = new Blob([report.reportContent], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `CareerRaah_Report_${userName.replace(' ', '_')}.md`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   const progressValue = ((currentStep) / (steps.length - 1)) * 100;
   const currentStage = formData.currentStage;
   const isSchoolStage = ['Class 1-5', 'Class 6-7', 'Class 8-10', 'Class 11-12'].includes(currentStage);
@@ -300,12 +324,14 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
             </div>
         </div>
     )}
-    <Card className="shadow-2xl">
+    <Card className="shadow-2xl bg-card">
       <CardHeader>
         <Progress value={progressValue} className="w-full h-2 mb-4" />
         <CardTitle className="text-2xl font-headline text-foreground">{steps[currentStep].name}</CardTitle>
         {currentStep < steps.length -1 && (
-            <CardDescription className="text-foreground/80">Step {currentStep + 1} of {steps.length -1} {userRole === 'parent' ? `for your child, ${userName}` : ""}</CardDescription>
+            <CardDescription className="text-foreground/80">
+              Step {currentStep + 1} of {steps.length - 1} {userRole === 'parent' ? "for your child" : ""}
+            </CardDescription>
         )}
       </CardHeader>
       <CardContent className="overflow-hidden relative min-h-[450px]">
@@ -322,11 +348,11 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
             {currentStep === 0 && (
               <div className="space-y-6">
                 <Label className="text-lg font-semibold text-foreground">Which class/academic stage are you in?</Label>
-                <RadioGroup onValueChange={(value) => handleFormData('currentStage', value)} value={formData.currentStage} className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                <RadioGroup onValueChange={(value) => handleFormData('currentStage', value)} value={formData.currentStage} className="grid grid-cols-2 md:grid-cols-3 gap-3">
                    {(['Class 1-5', 'Class 6-7', 'Class 8-10', 'Class 11-12', 'College / Graduate', 'Post Graduate', 'Gap Year'] as const).map(stage => (
-                      <Label key={stage} htmlFor={stage} className={`flex items-center justify-center rounded-md border-2 p-4 cursor-pointer hover:border-primary ${formData.currentStage === stage ? 'border-primary bg-primary/10' : 'border-muted'}`}>
+                      <Label key={stage} htmlFor={stage} className={`flex items-center justify-center rounded-md border-2 p-4 cursor-pointer hover:border-primary h-20 ${formData.currentStage === stage ? 'border-primary bg-primary/10' : 'border-muted'}`}>
                         <RadioGroupItem value={stage} id={stage} className="sr-only"/>
-                        <span className="font-semibold text-center text-sm text-foreground">{stage}</span>
+                        <span className="font-semibold text-center text-base text-foreground">{stage}</span>
                       </Label>
                    ))}
                 </RadioGroup>
@@ -521,7 +547,9 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                        <div className="w-full text-left animate-fade-in space-y-6">
                             <div className="text-center">
                                 <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                                <h2 className="text-3xl font-bold font-headline text-foreground">Your Career Strategy Report for {userName} is Ready!</h2>
+                                <h2 className="text-3xl font-bold font-headline text-foreground">
+                                  {userRole === 'parent' ? `Your Career Strategy Report for your child is Ready!` : `Your Career Strategy Report for ${userName} is Ready!`}
+                                </h2>
                             </div>
 
                             <div className="prose prose-sm max-w-none text-foreground/90">
@@ -540,7 +568,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                                       </Button>
                                     </div>
                                 </div>
-                                <Button size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
+                                <Button size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }} onClick={handleDownload}>
                                     <FileDown className="mr-2" />
                                     Download Full Report (₹49)
                                 </Button>
@@ -558,8 +586,8 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
       </CardContent>
       <CardFooter className="pt-0 flex justify-between items-center">
         <div>
-          {currentStep > 0 && currentStep < steps.length - 1 && (
-            <Button variant="ghost" onClick={handleBack}><ArrowLeft className="mr-2" /> Back</Button>
+          {isClient && currentStep < steps.length - 1 && (
+              <Button variant="ghost" onClick={handleBack}><ArrowLeft className="mr-2" /> Back</Button>
           )}
         </div>
         <div>
@@ -568,6 +596,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
               onClick={handleNext}
               disabled={!validateStep()}
               style={{ backgroundColor: '#FF6B00', color: 'white' }}
+              size="lg"
             >
               Next
             </Button>
@@ -577,6 +606,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
               onClick={handleNext}
               disabled={!validateStep() || isSubmitting}
               style={{ backgroundColor: '#FF6B00', color: 'white' }}
+              size="lg"
             >
               {isSubmitting ? (
                 <>
@@ -587,7 +617,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
             </Button>
           )}
           {isFinished && (
-             <Button asChild style={{ backgroundColor: '#FF6B00', color: 'white' }}>
+             <Button asChild style={{ backgroundColor: '#FF6B00', color: 'white' }} size="lg">
                  <Link href="/parent-explorer">
                      Explore More Careers <ArrowRight className="ml-2"/>
                  </Link>
@@ -599,4 +629,3 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
     </>
   );
 }
-
