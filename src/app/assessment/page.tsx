@@ -24,7 +24,7 @@ export default function AssessmentPage({ searchParams }: { searchParams?: { role
             {role === 'parent' ? "Child's Assessment" : 'Student Assessment'}
           </h1>
           <p className="mt-3 text-muted-foreground md:text-xl">
-            Let&apos;s find the right career path for {role === 'parent' ? 'your child' : 'you'}, {name}.
+            Let's find the right career path for {role === 'parent' ? 'your child' : 'you'}, {name}.
           </p>
         </div>
         <MultiStepAssessment userRole={role} userName={name} />
