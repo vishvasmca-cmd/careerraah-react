@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -139,6 +139,12 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const { language } = useTranslation();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const [formData, setFormData] = useState<GenerateCareerReportInput>({
     // Step 1
     currentStage: '',
@@ -580,7 +586,9 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
       </CardContent>
       <CardFooter className="pt-0 flex justify-between items-center">
         <div>
-            <Button variant="ghost" onClick={handleBack}><ArrowLeft className="mr-2" /> Back</Button>
+          {isClient && currentStep < steps.length - 1 && (
+              <Button variant="ghost" onClick={handleBack}><ArrowLeft className="mr-2" /> Back</Button>
+          )}
         </div>
         <div>
           {currentStep < steps.length - 2 && (
