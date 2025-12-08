@@ -43,7 +43,7 @@ const CAREER_DB = [
     risk: 'Medium',
     trustScore: 9,
     description: 'Develop intelligent algorithms and systems that can learn and make decisions.',
-    imageUrl: 'https://images.unsplash.com/photo-1677756119517-756a188d2d94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhaSUyMGVuZ2luZWVyfGVufDB8fHx8MTc2NjgyMTk1NHww&ixlib.rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1677756119517-756a188d2d94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhaSUyMGVuZ2luZWVyfGVufDB8fHx8MTc2NjgyMTk1NHww&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'ai engineer',
     roiChart: [
         { name: 'Avg. Edu Cost', value: 16, fill: 'hsl(var(--muted))' },
@@ -70,7 +70,7 @@ const CAREER_DB = [
     risk: 'Medium',
     trustScore: 9,
     description: 'Analyze large, complex data sets to identify trends, develop predictive models, and provide actionable insights to businesses.',
-    imageUrl: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkYXRhJTIwc2NpZW5jZXxlbnwwfHx8fDE3NjY4MjE5OTR8MA&ixlib.rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkYXRhJTIwc2NpZW5jZXxlbnwwfHx8fDE3NjY4MjE5OTR8MA&ixlib-rb-4.1.0&q=80&w=1080',
     imageHint: 'data science',
     roiChart: [
         { name: 'Avg. Edu Cost', value: 10, fill: 'hsl(var(--muted))' },
@@ -97,7 +97,7 @@ const CAREER_DB = [
     risk: 'Medium',
     trustScore: 8,
     description: 'Act as the "CEO" of a product, guiding its success by defining strategy, roadmap, and features from conception to launch.',
-    imageUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9kdWN0JTIwbWFuYWdlbWVudHxlbnwwfHx8fDE3NjY4MjIwODJ8MA&ixlib.rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9kdWN0JTIwbWFuYWdlbWVudHxlbnwwfHx8fDE3NjY4MjIwODJ8MA&ixlib-rb-4.1.0&q=80&w=1080',
     imageHint: 'product management',
     roiChart: [
         { name: 'Avg. Edu Cost', value: 25, fill: 'hsl(var(--muted))' },
@@ -124,7 +124,7 @@ const CAREER_DB = [
     risk: 'Medium',
     trustScore: 8,
     description: 'Operate and manage unmanned aerial vehicles for aerial photography, surveying, and delivery.',
-    imageUrl: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxEUk9ORSUyMGZseWluZ3xlbnwwfHx8fDE3NjY4MjE0NTh8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxEUk9ORSUyMGZseWluZ3xlbnwwfHx8fDE3NjY4MjE0NTh8MA&ixlib-rb-4.1.0&q=80&w=1080',
     imageHint: 'drone flying',
     roiChart: [
       { name: 'Avg. Edu Cost', value: 3, fill: 'hsl(var(--muted))' },
@@ -232,7 +232,7 @@ const CAREER_DB = [
     risk: 'High',
     trustScore: 7,
     description: 'Help companies and governments raise capital by issuing stocks and bonds, and provide advice on mergers and acquisitions (M&A).',
-    imageUrl: 'https://images.unsplash.com/photo-1664448039325-797c6241ab9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaW5hbmNlJTIwdHJhZGluZ3xlbnwwfHx8fDE3NjY4MjIwMzV8MA&ixlib.rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1664448039325-797c6241ab9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaW5hbmNlJTIwdHJhZGluZ3xlbnwwfHx8fDE3NjY4MjIwMzV8MA&ixlib-rb-4.1.0&q=80&w=1080',
     imageHint: 'finance trading',
     roiChart: [
         { name: 'Avg. Edu Cost', value: 30, fill: 'hsl(var(--muted))' },
@@ -313,7 +313,7 @@ const CAREER_DB = [
     risk: 'Very High',
     trustScore: 3,
     description: 'A high-performance athlete dedicated to playing cricket at state, national, or international levels, including lucrative leagues like the IPL.',
-    imageUrl: 'https://images.unsplash.com/photo-1595435940989-798240980479?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmlja2V0JTIwYmF0dGluZ3xlbnwwfHx8fDE3NjcxMjQ2MTB8MA&ixlib-rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1595435940989-798240980479?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmlja2V0JTIwYmF0dGluZ3xlbnwwfHx8fDE3NjcxMjQ2MTB8MA&ixlib.rb-4.1.0&q=80&w=1080',
     imageHint: 'cricket batting',
     roiChart: [
       { name: 'Avg. Edu Cost', value: 5, fill: 'hsl(var(--muted))' },
@@ -340,7 +340,7 @@ const CAREER_DB = [
     risk: 'Very High',
     trustScore: 10,
     description: 'Serve the nation as a top-level administrator or police officer by cracking the highly competitive UPSC Civil Services Examination.',
-    imageUrl: 'https://images.unsplash.com/photo-1608222351213-824141947273?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJbmRpYW4lMjBwb2xpY2V8ZW58MHx8fHwxNzY3MTI0NzExfDA&ixlib-rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://images.unsplash.com/photo-1608222351213-824141947273?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJbmRpYW4lMjBwb2xpY2V8ZW58MHx8fHwxNzY3MTI0NzExfDA&ixlib.rb-4.1.0&q=80&w=1080',
     imageHint: 'Indian police',
     roiChart: [
       { name: 'Avg. Edu Cost', value: 3, fill: 'hsl(var(--muted))' },
@@ -389,16 +389,16 @@ export default function ParentExplorer() {
 
   return (
     <>
-      <div className="sticky top-[64px] z-30 bg-gray-50/80 backdrop-blur-lg border-b border-gray-200">
+      <div className="sticky top-[64px] z-30 bg-background/80 backdrop-blur-lg border-b border-border">
         <div className="container mx-auto px-4 py-4">
           <div className="relative mb-4">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search any career, e.g., 'Data Scientist'"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-shadow"
+              className="w-full pl-10 pr-4 py-3 border border-input bg-card rounded-full focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-shadow"
             />
           </div>
           <ScrollArea className="w-full whitespace-nowrap">
@@ -414,7 +414,7 @@ export default function ParentExplorer() {
                     className={`rounded-full transition-colors duration-200 ${
                       selectedCategory === category
                         ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-                        : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-100'
+                        : 'bg-card border-border text-foreground hover:bg-muted'
                     }`}
                   >
                     {CategoryIcon && <CategoryIcon className="mr-2 h-4 w-4" />}
@@ -433,7 +433,7 @@ export default function ParentExplorer() {
           {filteredCareers.map(career => {
             const CategoryIcon = career.icon;
             return (
-              <Card key={career.id} className="overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 group flex flex-col">
+              <Card key={career.id} className="overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 group flex flex-col bg-card">
                 <div className="relative h-40 w-full">
                     <Image 
                         src={career.imageUrl} 
@@ -487,15 +487,15 @@ export default function ParentExplorer() {
             >
               <button
                 onClick={() => setSelectedCareer(null)}
-                className="absolute top-3 right-3 text-gray-400 hover:text-gray-700 transition-colors z-10 p-1 bg-gray-100 rounded-full"
+                className="absolute top-3 right-3 text-muted-foreground hover:text-foreground transition-colors z-10 p-1 bg-muted rounded-full"
               >
                 <X size={20} />
               </button>
 
-              <header className="p-6 border-b border-gray-200">
+              <header className="p-6 border-b border-border">
                 <h2 className="text-2xl font-bold text-foreground">{selectedCareer.name}</h2>
                 <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-1.5 px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold">
+                    <div className="flex items-center gap-1.5 px-2 py-1 bg-green-900/50 text-green-300 border border-green-700 rounded-full font-semibold">
                         <Shield size={14} />
                         <span>Trust Score: {selectedCareer.trustScore}/10 Job Security</span>
                     </div>
@@ -513,16 +513,16 @@ export default function ParentExplorer() {
                   <div className="p-6">
                     <TabsContent value="roi">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <Card className="p-4 bg-gray-50">
+                        <Card className="p-4 bg-muted/30">
                             <CardContent className="p-0">
                                 <p className="text-sm font-medium text-muted-foreground">Expected Salary Range (Per Annum)</p>
                                 <p className="text-2xl font-bold text-primary">₹{selectedCareer.salary.low}L - ₹{selectedCareer.salary.high}L+</p>
                             </CardContent>
                         </Card>
-                        <Card className="p-4 bg-gray-50">
+                        <Card className="p-4 bg-muted/30">
                              <CardContent className="p-0">
                                 <p className="text-sm font-medium text-muted-foreground">Financial Risk</p>
-                                <p className={`text-2xl font-bold ${selectedCareer.risk === 'High' || selectedCareer.risk === 'Very High' ? 'text-red-600' : 'text-green-600'}`}>
+                                <p className={`text-2xl font-bold ${selectedCareer.risk === 'High' || selectedCareer.risk === 'Very High' ? 'text-red-500' : 'text-green-500'}`}>
                                     {selectedCareer.risk}
                                 </p>
                             </CardContent>
@@ -531,7 +531,7 @@ export default function ParentExplorer() {
 
                       <h3 className="text-lg font-semibold mb-2">Cost vs. Starting Salary</h3>
                        <p className="text-sm text-muted-foreground mb-4">A visual comparison of average education cost vs. potential starting salary (in Lakhs Per Annum).</p>
-                      <div className="h-40 w-full bg-gray-50 rounded-lg p-4 flex items-end gap-8">
+                      <div className="h-40 w-full bg-muted/30 rounded-lg p-4 flex items-end gap-8">
                          {selectedCareer.roiChart.map(item => (
                              <div key={item.name} className="flex-1 flex flex-col items-center">
                                  <motion.div
@@ -568,8 +568,8 @@ export default function ParentExplorer() {
                         <h3 className="text-lg font-semibold mb-4">Is This Career Right for Your Child?</h3>
                         <ul className="space-y-3">
                             {selectedCareer.fitCheck.map((item, index) => (
-                                <li key={index} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                                    <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                                <li key={index} className="flex items-start gap-3 p-3 bg-muted/30 rounded-lg">
+                                    <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
                                     <span>{item.question}</span>
                                 </li>
                             ))}
@@ -579,7 +579,7 @@ export default function ParentExplorer() {
                 </Tabs>
               </div>
 
-              <footer className="p-6 border-t border-gray-200 bg-gray-50/50">
+              <footer className="p-6 border-t border-border bg-muted/20">
                 <Button size="lg" className="w-full" asChild style={{ backgroundColor: '#FF6B00', color: 'white' }}>
                   <Link href="/login">
                     Create Roadmap for my child
