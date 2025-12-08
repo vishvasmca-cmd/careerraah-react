@@ -33,7 +33,7 @@
     {
       "id": "blog-6",
       "description": "A person learning a new language on their laptop, with digital flashcards visible on the screen.",
-      "imageUrl": "https://images.unsplash.com/photo-1559139873-1f93f6696d55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsYW5ndWFnZSUyMGxlYXJuaW5nJTIwb25saW5lfGVufDB8fHx8MTc2OTI3ODcwOXww&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1559139873-1f93f6696d55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsYW5ndWFnZSUyMGxlYXJuaW5nJTIwb25saW5lfGVufDB8fHx8MTc2OTI3ODcwOXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "language learning"
     },
     {
@@ -45,14 +45,32 @@
     {
       "id": "blog-8",
       "description": "A view from inside a cockpit of a plane, showing the controls and the runway ahead.",
-      "imageUrl": "https://images.unsplash.com/photo-1484412028608-72b647729813?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwaWxvdCUyMGNvY2twaXR8ZW58MHx8fHwxNzY5MzE1MDQyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1484412028608-72b647729813?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwaWxvdCUyMGNvY2twaXR8ZW58MHx8fHwxNzY5MzE1MDQyfDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "pilot cockpit"
     },
     {
       "id": "blog-9",
       "description": "A split image with a student looking confused between two signs, one for 'Science' and one for 'Commerce'.",
-      "imageUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJlZXIlMjBjb25mdXNpb258ZW58MHx8fHwxNzY5MzE1MTM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJlZXIlMjBjb25mdXNpb258ZW58MHx8fHwxNzY5MzE1MTM5fDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "career confusion"
+    },
+    {
+      "id": "blog-10",
+      "description": "An ISRO rocket (like PSLV or GSLV) during a launch sequence with smoke and fire.",
+      "imageUrl": "https://images.unsplash.com/photo-1614728263952-84ea256ec677?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJU1JPJTIwcm9ja2V0fGVufDB8fHx8MTc2NzEyNDQ2MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ISRO rocket"
+    },
+    {
+      "id": "blog-11",
+      "description": "A professional cricket stadium with a batsman playing a shot under the floodlights.",
+      "imageUrl": "https://images.unsplash.com/photo-1595435940989-798240980479?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmlja2V0JTIwYmF0dGluZ3xlbnwwfHx8fDE3NjcxMjQ2MTB8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageHint": "cricket batting"
+    },
+    {
+      "id": "blog-12",
+      "description": "A person in an IPS officer's uniform looking determined, with the Indian flag in the background.",
+      "imageUrl": "https://scilindia.org/wp-content/uploads/2021/04/Indian-Police-Service.jpg",
+      "imageHint": "Indian police"
     }
   ]
 }
