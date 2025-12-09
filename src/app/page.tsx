@@ -1,12 +1,12 @@
 
 'use client';
 
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { BlogList } from '@/components/blog/BlogList';
 import { getBlogPosts } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowRight, BrainCircuit, Newspaper, PlayCircle } from 'lucide-react';
+import { ArrowRight, BrainCircuit, Newspaper, PlayCircle, X } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 import {
@@ -16,6 +16,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useTranslation } from '@/hooks/use-translation';
 
 
@@ -61,12 +62,18 @@ const videos = [
 export default function Home() {
   const posts = getBlogPosts();
   const { t } = useTranslation();
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
 
   const featuredPosts = posts.filter(post => ['10', '16', '14'].includes(post.id));
 
-  const openVideo = (url: string) => {
-    window.open(url, '_blank');
+  const handleCardClick = (video: typeof videos[0]) => {
+    if (video.isVideo) {
+      setVideoUrl(video.imageUrl);
+    } else {
+      window.open(video.imageUrl, '_blank');
+    }
   };
+
 
   return (
     <div className="flex flex-col min-h-screen fade-in">
@@ -129,7 +136,7 @@ export default function Home() {
                     <CarouselItem key={index} className="md:basis-1/2">
                        <div
                           className="relative aspect-video rounded-xl overflow-hidden shadow-2xl group cursor-pointer m-2"
-                          onClick={() => video.isVideo && openVideo(video.imageUrl)}
+                          onClick={() => handleCardClick(video)}
                         >
                         {video.isVideo ? (
                           <video
@@ -165,6 +172,14 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {videoUrl && (
+          <Dialog open={!!videoUrl} onOpenChange={(isOpen) => !isOpen && setVideoUrl(null)}>
+            <DialogContent className="max-w-4xl p-0 border-0 bg-transparent">
+               <video src={videoUrl} controls autoPlay className="w-full rounded-lg" />
+            </DialogContent>
+          </Dialog>
+        )}
 
         <section id="featured-posts" className="py-12 md:py-20 bg-secondary/50">
           <div className="container mx-auto px-4 md:px-6">
@@ -205,3 +220,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
+
+    
