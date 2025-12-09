@@ -24,7 +24,7 @@ CareerRaah is a platform that provides personalized, AI-driven career guidance f
 
 This is the core data-gathering component of the application. The assessment is a multi-step form that dynamically adapts based on the user's selected academic stage.
 
-- **Dynamic Flows**: The number and content of the steps change based on the `currentStage` value selected in Step 1.
+- **Dynamic Flows**: The number and content of the steps change based on the user's `currentStage` value selected in Step 1.
   - **Youngest Students (e.g., Class 1-5)**: A simplified flow focused on personality and early development traits.
   - **Junior/Senior Students (e.g., Class 8-12)**: A comprehensive flow covering academics, interests, and goals.
   - **Graduates / Gap Year Students**: A flow tailored to job-seeking or further studies.
