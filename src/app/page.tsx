@@ -16,7 +16,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useTranslation } from '@/hooks/use-translation';
 
 
@@ -176,6 +176,9 @@ export default function Home() {
         {videoUrl && (
           <Dialog open={!!videoUrl} onOpenChange={(isOpen) => !isOpen && setVideoUrl(null)}>
             <DialogContent className="max-w-4xl p-0 border-0 bg-transparent">
+               <DialogHeader>
+                 <DialogTitle className="sr-only">Video Player</DialogTitle>
+               </DialogHeader>
                <video src={videoUrl} controls autoPlay className="w-full rounded-lg" />
             </DialogContent>
           </Dialog>
@@ -220,7 +223,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
