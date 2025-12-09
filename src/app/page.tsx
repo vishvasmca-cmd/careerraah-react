@@ -50,7 +50,7 @@ export default function Home() {
   const posts = getBlogPosts();
   const { t } = useTranslation();
 
-  const featuredPosts = posts.filter(post => ['10', '16', '7'].includes(post.id));
+  const featuredPosts = posts.filter(post => ['10', '16', '14'].includes(post.id));
 
   return (
     <div className="flex flex-col min-h-screen fade-in">
