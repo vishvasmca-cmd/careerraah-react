@@ -11,8 +11,8 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { User, Users, UserPlus, ArrowRight, Loader2 } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useFirebase } from '@/firebase';
+import { initiateGoogleSignIn } from '@/firebase/non-blocking-login'; // Import the new function
 
 
 const GoogleIcon = () => (
@@ -45,27 +45,17 @@ export default function LoginPage() {
   }, [user, isUserLoading, router, role, name]);
 
 
-  const handleGoogleSignIn = async () => {
+  const handleGoogleSignIn = () => {
     if (!auth) return;
     setIsSigningIn(true);
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-      toast({
-        title: "Signed In!",
-        description: "Redirecting to your assessment...",
-      });
-      // The useEffect will handle the redirection, using the Google display name
-    } catch (error: any) {
-      console.error(error);
-       toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: error.message || "Could not sign in with Google.",
-      });
-    } finally {
-        setIsSigningIn(false);
-    }
+    initiateGoogleSignIn(auth);
+    // The non-blocking flow starts here. Redirection and state changes
+    // will be handled by the onAuthStateChanged listener in FirebaseProvider
+    // and the useEffect hook above. We can show a toast as immediate feedback.
+    toast({
+      title: "Signing in...",
+      description: "You'll be redirected shortly.",
+    });
   };
 
   const handleContinue = (e: React.MouseEvent<HTMLAnchorElement>) => {
