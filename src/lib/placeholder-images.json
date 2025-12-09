@@ -39,8 +39,8 @@
     {
       "id": "blog-7",
       "description": "A fast-paced stock market trading floor with multiple screens.",
-      "imageUrl": "https://images.unsplash.com/photo-1614728263952-84ea256ec677?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJU1JPJTIwcm9ja2V0fGVufDB8fHx8MTc2NzEyNDQ2MHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "ISRO rocket"
+      "imageUrl": "https://images.unsplash.com/photo-1664448039325-797c6241ab9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaW5hbmNlJTIwdHJhZGluZ3xlbnwwfHx8fDE3NjY4MjIwMzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "finance trading"
     },
     {
       "id": "blog-8",
@@ -57,7 +57,7 @@
     {
       "id": "blog-10",
       "description": "An ISRO rocket (like PSLV or GSLV) during a launch sequence with smoke and fire.",
-      "imageUrl": "https://images.unsplash.com/photo-1614728263952-84ea256ec677?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJU1JPJTIwcm9ja2V0fGVufDB8fHx8MTc2NzEyNDQ2MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7IcJP28kGfwlsMI556Y2ORT9Pgffl4sY9qw&s",
       "imageHint": "ISRO rocket"
     },
     {
