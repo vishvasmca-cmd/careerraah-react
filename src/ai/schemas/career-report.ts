@@ -13,7 +13,7 @@ export const GenerateCareerReportInputSchema = z.object({
   userName: z.string().optional().describe("The name of the user for whom the report is generated."),
   userRole: z.string().optional().describe("The person viewing the report, e.g., 'student' or 'parent'."),
   language: z.string().describe("The ISO 639-1 code for the language the response should be in (e.g., 'en', 'hi')."),
-  
+
   // Current Academic Status
   currentStage: z.string().describe("The user's current academic stage (e.g., 'Class 8-10', 'Class 11-12', 'College / Graduate')."),
   board: z.string().optional().describe("The user's education board (e.g., 'CBSE', 'ICSE')."),
@@ -25,7 +25,7 @@ export const GenerateCareerReportInputSchema = z.object({
   strongSubjects: z.array(z.string()).describe("The user's strongest or favorite subjects."),
   interests: z.array(z.string()).describe("The user's interests and hobbies outside of academics."),
   workStyle: z.string().optional().describe("The user's preferred work style (e.g., 'Desk Job', 'Field Work')."),
-  
+
   // Goals and Constraints
   budget: z.string().describe("The user's budget for higher education per year."),
   location: z.string().optional().describe("The user's location preference for work/study."),
@@ -44,6 +44,12 @@ export const GenerateCareerReportInputSchema = z.object({
   childNewSituation: z.string().optional().describe("How the child reacts to new situations."),
   childThinkingStyle: z.string().optional().describe("The child's dominant thinking style."),
   childIntelligenceType: z.string().optional().describe("The child's primary intelligence type."),
+
+  // New Group A Fields
+  learningStyle: z.string().optional().describe("For Class 1-5: The child's preferred learning style (e.g., Visual, Auditory)."),
+  emotionalTraits: z.string().optional().describe("For Class 1-5: The child's primary emotional traits (e.g., Sensitive, Confident)."),
+  strengthSignals: z.array(z.string()).optional().describe("For Class 1-5: Observed strength signals (e.g., Good memory, Curiosity)."),
+  childCity: z.string().optional().describe("For Class 1-5: The city/state where the child studies."),
 });
 export type GenerateCareerReportInput = z.infer<typeof GenerateCareerReportInputSchema>;
 
@@ -52,4 +58,17 @@ export const GenerateCareerReportOutputSchema = z.object({
 });
 export type GenerateCareerReportOutput = z.infer<typeof GenerateCareerReportOutputSchema>;
 
-    
+// Input schema for the prompts (includes computed flags)
+export const PromptInputSchema = GenerateCareerReportInputSchema.extend({
+  isParent: z.boolean(),
+  isYoungest: z.boolean(),
+  isCurious: z.boolean(),
+  // Class specific flags for targeted prompts
+  isGroupB: z.boolean().optional(),
+  isClass9: z.boolean().optional(),
+  isClass10: z.boolean().optional(),
+  isClass11: z.boolean().optional(),
+  isClass12: z.boolean().optional(),
+});
+export type PromptInput = z.infer<typeof PromptInputSchema>;
+
