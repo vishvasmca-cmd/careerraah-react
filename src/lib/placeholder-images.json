@@ -57,7 +57,7 @@
     {
       "id": "blog-10",
       "description": "An ISRO rocket (like PSLV or GSLV) during a launch sequence with smoke and fire.",
-      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7IcJP28kGfwlsMI556Y2ORT9Pgffl4sY9qw&s",
+      "imageUrl": "https://images.unsplash.com/photo-1614728263952-84ea256ec677?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxJU1JPJTIwcm9ja2V0fGVufDB8fHx8MTc2NzEyNDQ2MHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "ISRO rocket"
     },
     {
@@ -92,9 +92,9 @@
     },
     {
       "id": "blog-16",
-      "description": "Cadets marching in uniform at the National Defence Academy.",
-      "imageUrl": "https://media.licdn.com/dms/image/D4D12AQGg4z0b0xN2aQ/article-cover_image-shrink_720_1280/0/1686027572350?e=2147483647&v=beta&t=M8-9xL0BrtbE-2cQp1p2jXpT6H_2u9iW-Xp8mF_g_i0",
-      "imageHint": "NDA cadets"
+      "description": "A student at an NDA counseling session.",
+      "imageUrl": "https://scilindia.org/wp-content/uploads/2023/11/NDA.jpg",
+      "imageHint": "NDA counseling"
     }
   ]
 }
