@@ -44,6 +44,15 @@ export function BlogPostCard({ post, index }: BlogPostCardProps) {
       }
     });
   };
+  
+  const getInitials = (title: string) => {
+    return title
+      .split(' ')
+      .slice(0, 2)
+      .map((word) => word[0])
+      .join('')
+      .toUpperCase();
+  };
 
   return (
     <>
@@ -51,8 +60,7 @@ export function BlogPostCard({ post, index }: BlogPostCardProps) {
         <div className="relative h-48 w-full">
           {imgError ? (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-secondary to-muted text-muted-foreground">
-                <Lightbulb className="h-12 w-12 opacity-50" />
-                <p className="mt-2 text-xs">Image not available</p>
+                <span className="font-bold text-4xl text-foreground/50">{getInitials(post.title)}</span>
             </div>
           ) : (
             <Image
