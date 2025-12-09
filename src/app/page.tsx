@@ -128,16 +128,28 @@ export default function Home() {
                   {videos.map((video, index) => (
                     <CarouselItem key={index} className="md:basis-1/2">
                        <div
-                          className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-2xl group cursor-pointer m-2"
+                          className="relative aspect-video rounded-xl overflow-hidden shadow-2xl group cursor-pointer m-2"
                           onClick={() => video.isVideo && openVideo(video.imageUrl)}
                         >
-                        <Image
-                          src={video.isVideo ? video.thumbnailUrl! : video.imageUrl}
-                          alt={video.title}
-                          data-ai-hint={video.imageHint}
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
+                        {video.isVideo ? (
+                          <video
+                            src={video.imageUrl}
+                            poster={video.thumbnailUrl}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                        ) : (
+                          <Image
+                            src={video.imageUrl}
+                            alt={video.title}
+                            data-ai-hint={video.imageHint}
+                            fill
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                        )}
                         <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center p-4 text-center">
                            <PlayCircle className="w-16 h-16 text-white/80 transition-transform duration-300 group-hover:scale-110" />
                            <h3 className="mt-4 text-lg font-bold text-white">{video.title}</h3>
