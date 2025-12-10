@@ -41,7 +41,7 @@ export async function getCareerReportAction(data: GenerateCareerReportInput) {
     return { report: result };
   } catch (error) {
     console.error("Action Error:", error);
-    return { error: friendlyError };
+    return { error: String(error) };
   }
 }
 

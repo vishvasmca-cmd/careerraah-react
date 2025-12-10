@@ -9,6 +9,8 @@
 import { ai } from '@/ai/genkit';
 import { GenerateCareerReportInputSchema, GenerateCareerReportOutputSchema, PromptInputSchema, type GenerateCareerReportInput, type GenerateCareerReportOutput } from '@/ai/schemas/career-report';
 import { generateGroupACareerReportPrompt } from '@/ai/prompts/group-a-report';
+import { generateGroupBCareerReportPrompt } from '@/ai/prompts/group-b-report';
+import { generateGroupCCareerReportPrompt } from '@/ai/prompts/group-c-report';
 import { generateStandardCareerReportPrompt } from '@/ai/prompts/standard-report';
 
 export async function generateCareerReport(input: GenerateCareerReportInput): Promise<GenerateCareerReportOutput> {
@@ -36,9 +38,17 @@ const generateCareerReportFlow = ai.defineFlow(
       isClass12: input.currentStage === 'Class 12',
     };
 
-    const promptToUse = promptInput.isYoungest
-      ? generateGroupACareerReportPrompt
-      : generateStandardCareerReportPrompt;
+    let promptToUse;
+
+    if (promptInput.isYoungest) {
+      promptToUse = generateGroupACareerReportPrompt;
+    } else if (promptInput.isGroupB) {
+      promptToUse = generateGroupBCareerReportPrompt;
+    } else if (promptInput.isClass9 || promptInput.isClass10 || promptInput.isClass11 || promptInput.isClass12) {
+      promptToUse = generateGroupCCareerReportPrompt;
+    } else {
+      promptToUse = generateStandardCareerReportPrompt;
+    }
 
     const { output } = await promptToUse(promptInput);
     if (!output) {
