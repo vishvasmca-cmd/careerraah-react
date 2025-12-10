@@ -1,6 +1,6 @@
 import { genkit } from 'genkit';
 // import { ollama } from 'genkitx-ollama';
-import { openai } from 'genkitx-openai';
+import { openAI } from 'genkitx-openai';
 // import { googleAI } from '@genkit-ai/google-genai';
 import dotenv from 'dotenv';
 import path from 'path';
@@ -13,7 +13,7 @@ export const ai = genkit({
   plugins: [
     // googleAI(),
     // ollama({ ... }),
-    openai({
+    openAI({
       apiKey: process.env.OLLAMA_API_KEY || process.env.GROQ_API_KEY,
       baseURL: 'https://api.groq.com/openai/v1',
     }),
