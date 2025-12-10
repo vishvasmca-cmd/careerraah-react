@@ -1,5 +1,6 @@
 import { genkit } from 'genkit';
-import { ollama } from 'genkitx-ollama';
+// import { ollama } from 'genkitx-ollama';
+import { openai } from 'genkitx-openai';
 // import { googleAI } from '@genkit-ai/google-genai';
 import dotenv from 'dotenv';
 import path from 'path';
@@ -11,12 +12,11 @@ dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 export const ai = genkit({
   plugins: [
     // googleAI(),
-    ollama({
-      models: [{ name: 'llama3-70b-8192' }],
-      serverAddress: process.env.OLLAMA_BASE_URL || 'https://api.groq.com/openai/v1',
-      // Note: Groq requires an API Key. genkitx-ollama might not support custom headers natively 
-      // in all versions. If this fails, consider using the 'openai' plugin with Groq's base URL.
+    // ollama({ ... }),
+    openai({
+      apiKey: process.env.OLLAMA_API_KEY || process.env.GROQ_API_KEY,
+      baseURL: 'https://api.groq.com/openai/v1',
     }),
   ],
-  model: 'ollama/llama3-70b-8192',
+  model: 'openai/llama3-70b-8192',
 });
