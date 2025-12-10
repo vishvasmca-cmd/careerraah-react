@@ -6,7 +6,10 @@ import { BlogList } from '@/components/blog/BlogList';
 import { getBlogPosts } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowRight, BrainCircuit, Newspaper, PlayCircle, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useFirebase } from '@/firebase';
+import { ArrowRight, BrainCircuit, Newspaper, PlayCircle, X, Search } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 import {
@@ -63,12 +66,30 @@ export default function Home() {
   const posts = getBlogPosts();
   const { t } = useTranslation();
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const { user } = useFirebase();
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+
+    const returnPath = `/search-results?q=${encodeURIComponent(searchQuery)}`;
+    // If we have a user, go directly there. Otherwise login first.
+    // Note: checks against 'user' might be async, but for a simple button click this is usually fine 
+    // if the auth state has settled. If auth is loading, 'user' is null, so it defaults to login flow which is safe.
+    if (user) {
+      router.push(returnPath);
+    } else {
+      router.push(`/login?returnPath=${encodeURIComponent(returnPath)}`);
+    }
+  };
 
   const featuredPosts = posts.filter(post => ['10', '16', '14'].includes(post.id));
 
   const handleCardClick = (video: (typeof videos)[0]) => {
     if (video.isVideo && 'videoUrl' in video) {
-      setVideoUrl(video.videoUrl);
+      setVideoUrl(video.videoUrl || null);
     } else if ('imageUrl' in video) {
       window.open(video.imageUrl, '_blank');
     }
@@ -91,12 +112,41 @@ export default function Home() {
           <div className="relative z-10 p-4 space-y-12">
 
             <div>
-              <h1 className="text-4xl md:text-6xl font-headline font-bold tracking-tighter text-white">
-                {t('home_hero_title')}
-              </h1>
-              <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-white/90">
-                {t('home_hero_subtitle')}
-              </p>
+              {/* Ask Anything Search Box */}
+              {/* Ask Anything Search Box */}
+              <div className="max-w-xl mx-auto mb-10 relative z-20">
+                <p className="mb-6 text-xl md:text-2xl font-bold text-white drop-shadow-md tracking-wide">
+                  Ask about your dream Job, College, or School 🎓
+                </p>
+                <form onSubmit={handleSearch} className="relative flex items-center w-full shadow-2xl rounded-full overflow-hidden bg-white/10 backdrop-blur-md border border-white/30 transition-all hover:bg-white/20 focus-within:bg-white/90 group">
+                  <Search className="absolute left-4 w-6 h-6 text-white/70 group-focus-within:text-purple-600" />
+                  <Input
+                    placeholder="e.g. How do I get into Harvard? or What does a pilot do?"
+                    className="w-full pl-12 pr-32 py-8 text-lg bg-transparent border-none text-white placeholder:text-white/60 focus-visible:ring-0 focus-visible:ring-offset-0 group-focus-within:text-gray-900"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    suppressHydrationWarning
+                  />
+                  <Button
+                    type="submit"
+                    className="absolute right-1 top-1 bottom-1 rounded-full px-6 font-semibold transition-all hover:scale-105"
+                    style={{ backgroundColor: '#8B5CF6', color: 'white' }}
+                    suppressHydrationWarning
+                  >
+                    Try Mentor
+                  </Button>
+                </form>
+                <p className="mt-2 text-sm text-white/70">✨ Use our magical AI to explore your dream career</p>
+              </div>
+
+              <div>
+                <h1 className="text-2xl md:text-3xl font-headline font-bold tracking-tighter text-white">
+                  {t('home_hero_title')}
+                </h1>
+                <p className="mt-4 max-w-2xl mx-auto text-base text-white/90 mb-12">
+                  {t('home_hero_subtitle')}
+                </p>
+              </div>
               <div className="mt-8 flex justify-center">
                 <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
                   <Link href="/login">
@@ -107,15 +157,15 @@ export default function Home() {
             </div>
 
             <div className="bg-black/20 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
-                <h2 className="text-2xl font-headline font-bold tracking-tight text-white">{t('home_parent_title')}</h2>
-                <p className="mt-2 max-w-2xl mx-auto text-base text-white/90 font-semibold">
-                    {t('home_parent_tagline')}
-                </p>
-                 <div className="mt-6 flex justify-center">
-                    <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
-                      <Link href="/parent-explorer">{t('home_parent_cta')}</Link>
-                    </Button>
-                </div>
+              <h2 className="text-2xl font-headline font-bold tracking-tight text-white">{t('home_parent_title')}</h2>
+              <p className="mt-2 max-w-2xl mx-auto text-base text-white/90 font-semibold">
+                {t('home_parent_tagline')}
+              </p>
+              <div className="mt-6 flex justify-center">
+                <Button asChild size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }}>
+                  <Link href="/parent-explorer">{t('home_parent_cta')}</Link>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
@@ -123,7 +173,7 @@ export default function Home() {
         <section className="py-12 md:py-20 bg-background text-center">
           <div className="container mx-auto px-2 md:px-6">
             <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">{t('home_why_title')}</h2>
-             <div className="mt-8 max-w-5xl mx-auto">
+            <div className="mt-8 max-w-5xl mx-auto">
               <Carousel
                 opts={{
                   align: 'start',
@@ -134,21 +184,21 @@ export default function Home() {
                 <CarouselContent>
                   {videos.map((video, index) => (
                     <CarouselItem key={index} className="md:basis-1/2">
-                       <div
-                          className="relative aspect-video rounded-xl overflow-hidden shadow-2xl group cursor-pointer m-2"
-                          onClick={() => handleCardClick(video)}
-                        >
+                      <div
+                        className="relative aspect-video rounded-xl overflow-hidden shadow-2xl group cursor-pointer m-2"
+                        onClick={() => handleCardClick(video)}
+                      >
                         <Image
-                          src={video.isVideo ? video.thumbnailUrl : video.imageUrl}
+                          src={(video.isVideo ? video.thumbnailUrl : video.imageUrl) || ''}
                           alt={video.title}
                           data-ai-hint={video.imageHint}
                           fill
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center p-4 text-center">
-                           <PlayCircle className="w-16 h-16 text-white/80 transition-transform duration-300 group-hover:scale-110" />
-                           <h3 className="mt-4 text-lg font-bold text-white">{video.title}</h3>
-                           <p className="mt-1 text-xs text-white/90">{video.description}</p>
+                          <PlayCircle className="w-16 h-16 text-white/80 transition-transform duration-300 group-hover:scale-110" />
+                          <h3 className="mt-4 text-lg font-bold text-white">{video.title}</h3>
+                          <p className="mt-1 text-xs text-white/90">{video.description}</p>
                         </div>
                       </div>
                     </CarouselItem>
@@ -164,10 +214,10 @@ export default function Home() {
         {videoUrl && (
           <Dialog open={!!videoUrl} onOpenChange={(isOpen) => !isOpen && setVideoUrl(null)}>
             <DialogContent className="max-w-4xl p-0 border-0 bg-transparent">
-               <DialogHeader>
-                 <DialogTitle className="sr-only">Video Player</DialogTitle>
-               </DialogHeader>
-               <video src={videoUrl} controls autoPlay className="w-full rounded-lg" />
+              <DialogHeader>
+                <DialogTitle className="sr-only">Video Player</DialogTitle>
+              </DialogHeader>
+              <video src={videoUrl} controls autoPlay className="w-full rounded-lg" />
             </DialogContent>
           </Dialog>
         )}
@@ -182,29 +232,29 @@ export default function Home() {
             </div>
             <BlogList posts={featuredPosts} showSearch={false} />
             <div className="text-center mt-12">
-                <Button asChild size="lg">
-                    <Link href="/blog">
-                        Explore All Guides <ArrowRight className="ml-2" />
-                    </Link>
-                </Button>
+              <Button asChild size="lg">
+                <Link href="/blog">
+                  Explore All Guides <ArrowRight className="ml-2" />
+                </Link>
+              </Button>
             </div>
           </div>
         </section>
 
         <section className="py-12 md:py-20 bg-background">
-            <div className="container mx-auto px-4 md:px-6 text-center">
-                 <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">{t('home_plan_title')}</h2>
-                <p className="mt-3 max-w-2xl mx-auto text-muted-foreground md:text-xl">
-                    {t('home_plan_subtitle')}
-                </p>
-                <div className="mt-8">
-                    <Button asChild size="lg">
-                        <Link href="/login">
-                            {t('home_plan_cta')} <ArrowRight className="ml-2" />
-                        </Link>
-                    </Button>
-                </div>
+          <div className="container mx-auto px-4 md:px-6 text-center">
+            <h2 className="text-3xl font-bold font-headline tracking-tighter text-foreground sm:text-4xl">{t('home_plan_title')}</h2>
+            <p className="mt-3 max-w-2xl mx-auto text-muted-foreground md:text-xl">
+              {t('home_plan_subtitle')}
+            </p>
+            <div className="mt-8">
+              <Button asChild size="lg">
+                <Link href="/login">
+                  {t('home_plan_cta')} <ArrowRight className="ml-2" />
+                </Link>
+              </Button>
             </div>
+          </div>
         </section>
 
       </main>

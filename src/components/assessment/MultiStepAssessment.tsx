@@ -820,7 +820,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                               Download as PDF
                             </Button>
                           </div>
-                          {planLevel === 'premium' && <InteractiveChat assessmentData={formData} />}
+                          <InteractiveChat assessmentData={formData} />
                         </div>
                       )}
                     </>

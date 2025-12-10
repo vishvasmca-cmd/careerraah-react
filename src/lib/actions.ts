@@ -58,3 +58,14 @@ export async function getCareerQuestionAnswerAction(
     return { error: friendlyError };
   }
 }
+
+import { askMentor } from '@/ai/flows/ask-mentor';
+export async function askMentorAction(query: string, language: string = 'en', userName?: string, ageOrStage?: string) {
+  try {
+    const result = await askMentor({ query, language, userName, ageOrStage });
+    return { response: result };
+  } catch (error) {
+    console.error("Ask Mentor Error:", error);
+    return { error: friendlyError };
+  }
+}

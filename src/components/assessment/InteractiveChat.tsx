@@ -53,14 +53,14 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
 
     startTransition(async () => {
       const result = await getCareerQuestionAnswerAction(assessmentData, question, language);
-      
+
       let finalAnswer: ChatMessage;
       if (result.answer) {
         finalAnswer = { id: questionId + 1, role: 'bot', text: result.answer };
       } else {
         finalAnswer = { id: questionId + 1, role: 'bot', text: result.error || 'Sorry, I could not process that request.' };
       }
-      
+
       setChatHistory(prev => prev.map(msg => msg.id === finalAnswer.id ? finalAnswer : msg));
     });
   };
@@ -68,10 +68,11 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
   return (
     <div className="mt-8 pt-6 border-t">
       <h3 className="text-xl font-bold font-headline flex items-center gap-2">
-        <Wand2 className="text-primary"/>
-        Talk to Raah, your Career Expert
+        <Wand2 className="text-primary" />
+        Ask Anything About Your Dream Career
       </h3>
-      
+      <p className="text-sm text-muted-foreground mb-4">Your magical AI mentor is ready to help!</p>
+
       <div className="mt-4 flex flex-wrap gap-2">
         {predefinedQuestions.map((q, i) => (
           <Button
@@ -99,11 +100,11 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
             )}
 
             <div className={cn(
-                "max-w-sm rounded-lg px-4 py-2",
-                {
-                  'bg-primary text-primary-foreground rounded-br-none': msg.role === 'user',
-                  'bg-background border rounded-bl-none': msg.role === 'bot'
-                }
+              "max-w-sm rounded-lg px-4 py-2",
+              {
+                'bg-primary text-primary-foreground rounded-br-none': msg.role === 'user',
+                'bg-background border rounded-bl-none': msg.role === 'bot'
+              }
             )}>
               {msg.isLoading ? (
                 <div className="flex items-center gap-2 text-muted-foreground">
@@ -118,7 +119,7 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
               )}
             </div>
 
-             {msg.role === 'user' && (
+            {msg.role === 'user' && (
               <Avatar className="h-8 w-8">
                 <AvatarFallback className="bg-muted text-muted-foreground">
                   <User size={18} />
@@ -133,7 +134,7 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
           </div>
         )}
       </div>
-      
+
       <div className="mt-4 flex gap-2">
         <Input
           type="text"
