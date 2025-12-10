@@ -67,7 +67,7 @@ export default function Home() {
   const { t } = useTranslation();
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const { user } = useFirebase();
+  const { user, isUserLoading } = useFirebase();
   const router = useRouter();
 
   const handleSearch = (e: React.FormEvent) => {
@@ -125,15 +125,17 @@ export default function Home() {
                     className="w-full pl-12 pr-32 py-8 text-lg bg-transparent border-none text-white placeholder:text-white/60 focus-visible:ring-0 focus-visible:ring-offset-0 group-focus-within:text-gray-900"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
+                    disabled={isUserLoading}
                     suppressHydrationWarning
                   />
                   <Button
                     type="submit"
                     className="absolute right-1 top-1 bottom-1 rounded-full px-6 font-semibold transition-all hover:scale-105"
                     style={{ backgroundColor: '#8B5CF6', color: 'white' }}
+                    disabled={isUserLoading}
                     suppressHydrationWarning
                   >
-                    Try Mentor
+                    {isUserLoading ? '...' : 'Try Mentor'}
                   </Button>
                 </form>
                 <p className="mt-2 text-sm text-white/70">✨ Use our magical AI to explore your dream career</p>

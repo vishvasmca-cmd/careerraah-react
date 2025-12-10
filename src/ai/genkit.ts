@@ -1,5 +1,6 @@
 import { genkit } from 'genkit';
-import { ollama } from 'genkitx-ollama';
+// import { ollama } from 'genkitx-ollama';
+import { googleAI } from '@genkit-ai/google-genai';
 import dotenv from 'dotenv';
 import path from 'path';
 
@@ -9,10 +10,11 @@ dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
 export const ai = genkit({
   plugins: [
-    ollama({
-      models: [{ name: 'gpt-oss:120b-cloud' }],
-      serverAddress: 'http://127.0.0.1:11434',
-    }),
+    googleAI(),
+    // ollama({
+    //   models: [{ name: 'gpt-oss:120b-cloud' }],
+    //   serverAddress: 'http://127.0.0.1:11434',
+    // }),
   ],
-  model: 'ollama/gpt-oss:120b-cloud',
+  model: 'googleai/gemini-1.5-flash',
 });

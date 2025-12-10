@@ -1,10 +1,13 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+
+export const dynamic = 'force-dynamic';
+
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -22,7 +25,7 @@ const GoogleIcon = () => (
 );
 
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
   const { toast } = useToast();
   const { auth, user, isUserLoading } = useFirebase();
@@ -187,5 +190,13 @@ export default function LoginPage() {
         </Card>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center min-h-[60vh]"><Loader2 className="h-16 w-16 animate-spin text-primary" /></div>}>
+      <LoginForm />
+    </Suspense>
   );
 }
