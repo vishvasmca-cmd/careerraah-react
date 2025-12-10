@@ -1,7 +1,7 @@
-
+```
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useFirebase } from '@/firebase';
 import { Button } from '@/components/ui/button';
@@ -20,7 +20,7 @@ type Message = {
     suggestions?: string[];
 };
 
-export default function MentorChatPage() {
+function ChatInterface() {
     const { language } = useTranslation();
     const searchParams = useSearchParams();
     const initialQuery = searchParams.get('q');
@@ -153,14 +153,14 @@ export default function MentorChatPage() {
                         )}
 
                         {messages.map((msg, idx) => (
-                            <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`flex max-w-[80%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start gap-3`}>
+                            <div key={idx} className={`flex ${ msg.role === 'user' ? 'justify-end' : 'justify-start' } `}>
+                                <div className={`flex max - w - [80 %] ${ msg.role === 'user' ? 'flex-row-reverse' : 'flex-row' } items - start gap - 3`}>
 
-                                    <div className={`flex-shrink-0 h-10 w-10 rounded-full flex items-center justify-center ${msg.role === 'user' ? 'bg-blue-100' : 'bg-purple-100'}`}>
+                                    <div className={`flex - shrink - 0 h - 10 w - 10 rounded - full flex items - center justify - center ${ msg.role === 'user' ? 'bg-blue-100' : 'bg-purple-100' } `}>
                                         {msg.role === 'user' ? <User className="h-6 w-6 text-blue-600" /> : <Sparkles className="h-6 w-6 text-purple-600" />}
                                     </div>
 
-                                    <div className={`p-4 rounded-2xl text-lg ${msg.role === 'user' ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-purple-50 border shadow-sm rounded-tl-none text-gray-900'}`}>
+                                    <div className={`p - 4 rounded - 2xl text - lg ${ msg.role === 'user' ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-purple-50 border shadow-sm rounded-tl-none text-gray-900' } `}>
                                         <div className="prose prose-neutral max-w-none">
                                             <ReactMarkdown>
                                                 {msg.content}
@@ -232,3 +232,12 @@ export default function MentorChatPage() {
         </div>
     );
 }
+
+export default function MentorChatPage() {
+    return (
+        <Suspense fallback={<div className="flex h-screen items-center justify-center"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>}>
+            <ChatInterface />
+        </Suspense>
+    );
+}
+```
