@@ -12,6 +12,8 @@ import { askMentorAction } from '@/lib/actions';
 import ReactMarkdown from 'react-markdown';
 import { useTranslation } from '@/hooks/use-translation';
 
+export const dynamic = 'force-dynamic';
+
 type Message = {
     role: 'user' | 'ai';
     content: string;
