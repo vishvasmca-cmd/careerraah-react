@@ -20,14 +20,14 @@ function isMobileDevice(): boolean {
 export async function initiateGoogleSignIn(authInstance: Auth): Promise<void> {
   const provider = new GoogleAuthProvider();
   try {
-    // Use redirect on mobile devices, popup on desktop
-    if (isMobileDevice()) {
-      console.log('Mobile device detected - using redirect');
-      await signInWithRedirect(authInstance, provider);
-    } else {
-      console.log('Desktop device detected - using popup');
-      await signInWithPopup(authInstance, provider);
-    }
+    // Unified strategy: Use Popup for all devices.
+    // Why? 'signInWithRedirect' on mobile often fails on hosted platforms (like Render)
+    // because the domain (onrender.com) differs from the auth domain (firebaseapp.com),
+    // causing "Intelligent Tracking Prevention" (ITP) to block 3rd-party cookies/storage
+    // required to restore the session after the redirect returns.
+    // Popup avoids this because the main window never unloads, maintaining its own state.
+    console.log('Initiating Google Sign-In via Popup (Universal)');
+    await signInWithPopup(authInstance, provider);
     console.log('Google Sign-In initiated successfully');
   } catch (error) {
     console.error('Google Sign-In error:', error);
