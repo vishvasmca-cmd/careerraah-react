@@ -28,7 +28,7 @@ const GoogleIcon = () => (
 function LoginForm() {
   const router = useRouter();
   const { toast } = useToast();
-  const { auth, user, isUserLoading } = useFirebase();
+  const { auth, user, isUserLoading, firestore } = useFirebase();
 
   const [role, setRole] = useState('student');
   const [name, setName] = useState('');
@@ -47,6 +47,9 @@ function LoginForm() {
 
   useEffect(() => {
     if (!isUserLoading && user) {
+      // TODO: Re-enable profile completion check after Google Sign-In is working
+      // Temporarily disabled to debug authentication flow
+
       if (returnPath) {
         router.push(returnPath);
       } else {
@@ -57,17 +60,25 @@ function LoginForm() {
   }, [user, isUserLoading, router, role, name, returnPath]);
 
 
-  const handleGoogleSignIn = () => {
+  const handleGoogleSignIn = async () => {
     if (!auth) return;
     setIsSigningIn(true);
-    initiateGoogleSignIn(auth);
-    // The non-blocking flow starts here. Redirection and state changes
-    // will be handled by the onAuthStateChanged listener in FirebaseProvider
-    // and the useEffect hook above. We can show a toast as immediate feedback.
-    toast({
-      title: "Signing in...",
-      description: "You'll be redirected shortly.",
-    });
+
+    try {
+      await initiateGoogleSignIn(auth);
+      toast({
+        title: "Signed in successfully!",
+        description: "Redirecting...",
+      });
+    } catch (error: any) {
+      console.error('Sign-in error:', error);
+      toast({
+        variant: 'destructive',
+        title: "Sign-in failed",
+        description: error.message || "Please try again.",
+      });
+      setIsSigningIn(false);
+    }
   };
 
   const handleContinue = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -94,13 +105,16 @@ function LoginForm() {
   };
 
 
-  if (isUserLoading || (!isUserLoading && user)) {
+  if (isUserLoading) {
     return (
       <div className="flex justify-center items-center min-h-[60vh]">
         <Loader2 className="h-16 w-16 animate-spin text-primary" />
       </div>
     );
   }
+
+  // If user is authenticated, the useEffect will handle redirect
+  // Don't render the form to avoid flash of content
 
   return (
     <div className="relative isolate min-h-full py-12">
@@ -125,58 +139,11 @@ function LoginForm() {
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
-              <div className="space-y-3">
-                <Label>I am a...</Label>
-                <RadioGroup defaultValue="student" value={role} onValueChange={setRole} className="grid grid-cols-2 gap-4">
-                  <div>
-                    <RadioGroupItem value="student" id="student" className="sr-only" />
-                    <Label
-                      htmlFor="student"
-                      className={`flex flex-col items-center justify-center rounded-md border-2 p-4 cursor-pointer hover:border-primary ${role === 'student' ? 'border-primary bg-primary/10' : 'border-muted'}`}
-                    >
-                      <User className="mb-2 h-6 w-6" />
-                      Student
-                    </Label>
-                  </div>
-                  <div>
-                    <RadioGroupItem value="parent" id="parent" className="sr-only" />
-                    <Label
-                      htmlFor="parent"
-                      className={`flex flex-col items-center justify-center rounded-md border-2 p-4 cursor-pointer hover:border-primary ${role === 'parent' ? 'border-primary bg-primary/10' : 'border-muted'}`}
-                    >
-                      <Users className="mb-2 h-6 w-6" />
-                      Parent
-                    </Label>
-                  </div>
-                </RadioGroup>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="name">{role === 'parent' ? "Child's Full Name" : "Your Full Name"}</Label>
-                <Input
-                  id="name"
-                  placeholder={role === 'parent' ? "e.g. Priya Kumar" : "e.g. Rani Sharma"}
-                  required
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)} />
-              </div>
-
-              <Button className="w-full" size="lg" style={{ backgroundColor: '#FF6B00', color: 'white' }} onClick={(e) => handleContinue(e as any)}>
-                Continue <ArrowRight className="ml-2" />
+              <Button variant="outline" className="w-full" size="lg" onClick={handleGoogleSignIn} disabled={isSigningIn}>
+                {isSigningIn ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <GoogleIcon />}
+                Sign in with Google
               </Button>
             </div>
-            <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
-              </div>
-            </div>
-            <Button variant="outline" className="w-full" size="lg" onClick={handleGoogleSignIn} disabled={isSigningIn}>
-              {isSigningIn ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <GoogleIcon />}
-              Sign in with Google
-            </Button>
           </CardContent>
           <CardFooter className="text-center text-xs text-muted-foreground justify-center">
             <p>

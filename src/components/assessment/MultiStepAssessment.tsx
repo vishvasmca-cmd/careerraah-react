@@ -22,6 +22,8 @@ import { InteractiveChat } from '@/components/assessment/InteractiveChat';
 import { useTranslation } from '@/hooks/use-translation';
 import { useRouter } from 'next/navigation';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useFirebase } from '@/firebase';
+import { saveUserAssessment, saveUserReport } from '@/lib/firestore-utils';
 
 
 // A simple markdown-to-html renderer
@@ -59,10 +61,10 @@ const MarkdownRenderer = ({ content, id }: { content: string; id: string }) => {
 
   // A bit of post-processing to wrap list items and table rows correctly
   const finalHtml = html
-    .replace(/(<li>.*?<\/li>)/gs, '<ul>$1</ul>')
-    .replace(/<\/ul>\s*<ul>/gs, '')
-    .replace(/(<tr>.*?<\/tr>)/gs, '<table><tbody>$1</tbody></table>')
-    .replace(/<\/tbody><\/table>\s*<table><tbody>/gs, '');
+    .replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>')
+    .replace(/<\/ul>\s*<ul>/g, '')
+    .replace(/(<tr>[\s\S]*?<\/tr>)/g, '<table><tbody>$1</tbody></table>')
+    .replace(/<\/tbody><\/table>\s*<table><tbody>/g, '');
 
 
   return <div id={id} className="prose prose-sm max-w-none text-foreground/90 space-y-4" dangerouslySetInnerHTML={{ __html: finalHtml }} />;
@@ -174,6 +176,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const { language } = useTranslation();
+  const { user } = useFirebase();
   const [isClient, setIsClient] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -278,6 +281,13 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
 
         if (result.report) {
           setReport(result.report);
+
+          // Save to database if user is logged in
+          if (user) {
+            saveUserAssessment(user.uid, payload);
+            saveUserReport(user.uid, result.report.reportContent);
+          }
+
           setIsFinished(true);
           setCurrentStep(currentStep + 1);
         } else {
@@ -332,7 +342,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
   }
 
   const handleMultiSelect = (field: 'strongSubjects' | 'examStatus' | 'interests' | 'strengthSignals', value: string) => {
-    const currentValues = formData[field] as string[];
+    const currentValues = (formData[field] || []) as string[];
     const newValues = currentValues.includes(value)
       ? currentValues.filter(i => i !== value)
       : [...currentValues, value];
@@ -376,6 +386,15 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
       return;
     };
 
+    // Clone the content and clean up Tailwind classes for PDF
+    const cleanedContent = contentElement.innerHTML
+      .replace(/class="[^"]*"/g, '') // Remove all class attributes
+      .replace(/<h1>/g, '<h1 style="font-size: 1.8rem; font-weight: 700; color: #000; margin-top: 1rem; margin-bottom: 0.5rem;">')
+      .replace(/<h2>/g, '<h2 style="font-size: 1.5rem; font-weight: 700; color: #000; margin-top: 1rem; margin-bottom: 0.5rem;">')
+      .replace(/<h3>/g, '<h3 style="font-size: 1.3rem; font-weight: 700; color: #000; margin-top: 1rem; margin-bottom: 0.5rem;">')
+      .replace(/<strong>/g, '<strong style="font-weight: 700; color: #000;">')
+      .replace(/<p>/g, '<p style="color: #000; margin-bottom: 0.5rem;">');
+
     const header = `
       <div style="padding: 20px; text-align: center; border-bottom: 1px solid #eee; background-color: white;">
         <h1 style="font-size: 2.5rem; font-family: 'Belleza', sans-serif; color: #4338ca; margin: 0;">CareerRaah</h1>
@@ -385,7 +404,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
 
     const reportBody = `
       <div style="padding: 20px 40px; font-family: 'Alegreya', serif; color: #000; background-color: #fff;">
-        ${contentElement.innerHTML}
+        ${cleanedContent}
       </div>
     `;
 
@@ -394,10 +413,13 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
         <head>
           <style>
             @import url('https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&family=Belleza&display=swap');
-            body { background-color: white; color: black; }
-            h1, h2, h3, h4, h5, h6 { color: black; }
-            p, li, span, div { color: black; }
-            strong { color: black; }
+            body { background-color: white; color: #000; }
+            h1, h2, h3, h4, h5, h6 { color: #000 !important; font-weight: 700 !important; margin-top: 1rem; margin-bottom: 0.5rem; }
+            h1 { font-size: 1.8rem !important; }
+            h2 { font-size: 1.5rem !important; }
+            h3 { font-size: 1.3rem !important; }
+            p, li, span, div { color: #000; }
+            strong { color: #000; font-weight: 700; }
             ul, ol { margin-left: 20px; }
             table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
             td, th { padding: 8px; border: 1px solid #ddd; text-align: left; }
@@ -575,7 +597,7 @@ export function MultiStepAssessment({ userRole = 'student', userName = 'Student'
                     <p className="text-sm text-muted-foreground">Select all that apply.</p>
                     <div className="flex flex-wrap gap-2 mt-2">
                       {entranceExams.map(exam => (
-                        <Button key={exam} variant={formData.examStatus.includes(exam) ? 'default' : 'outline'} onClick={() => handleMultiSelect('examStatus', exam)}>
+                        <Button key={exam} variant={(formData.examStatus || []).includes(exam) ? 'default' : 'outline'} onClick={() => handleMultiSelect('examStatus', exam)}>
                           {exam}
                         </Button>
                       ))}

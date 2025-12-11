@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Header } from '@/components/common/Header';
+import { Footer } from '@/components/common/Footer';
 import { Toaster } from "@/components/ui/toaster"
 import { LanguageProvider } from '@/context/LanguageProvider';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
@@ -30,6 +31,7 @@ export default function RootLayout({
             <div className="flex flex-col min-h-screen">
               <Header />
               <main className="flex-grow">{children}</main>
+              <Footer />
             </div>
             <Toaster />
           </LanguageProvider>

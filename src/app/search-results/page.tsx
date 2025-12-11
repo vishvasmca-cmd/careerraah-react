@@ -89,7 +89,7 @@ function ChatInterface() {
             );
 
             if (result.error) {
-                setMessages(prev => [...prev, { role: 'ai', content: "I'm having a little trouble thinking right now. Can you try asking again?" }]);
+                setMessages(prev => [...prev, { role: 'ai', content: `Detailed Error: ${result.error}` }]);
             } else if (result.response) {
                 setMessages(prev => [...prev, {
                     role: 'ai',
@@ -97,9 +97,9 @@ function ChatInterface() {
                     suggestions: result.response.followUpQuestions
                 }]);
             }
-        } catch (e) {
+        } catch (e: any) {
             console.error(e);
-            setMessages(prev => [...prev, { role: 'ai', content: "Oops, something went wrong. Let's try that again!" }]);
+            setMessages(prev => [...prev, { role: 'ai', content: `Exception: ${e.message || "Unknown error"}` }]);
         } finally {
             setIsLoading(false);
         }

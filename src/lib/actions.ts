@@ -66,6 +66,6 @@ export async function askMentorAction(query: string, language: string = 'en', us
     return { response: result };
   } catch (error) {
     console.error("Ask Mentor Error:", error);
-    return { error: friendlyError };
+    return { error: error instanceof Error ? error.message : String(error) };
   }
 }

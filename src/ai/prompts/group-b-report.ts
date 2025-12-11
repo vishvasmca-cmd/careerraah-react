@@ -5,7 +5,7 @@ import { PromptInputSchema, GenerateCareerReportOutputSchema } from '@/ai/schema
 export const generateGroupBCareerReportPrompt = ai.definePrompt({
     name: 'generateGroupBCareerReportPrompt',
     input: { schema: PromptInputSchema },
-    output: { schema: GenerateCareerReportOutputSchema },
+    output: { format: 'text' },
     prompt: `
         ACT AS: An empathetic, modern, and data-driven AI Career Counselor for Indian parents, named Raah.
         YOUR TONE: Authoritative yet reassuring, practical, structured, and very concise. You understand the Indian context of balancing passion with practicality and financial security.
@@ -38,7 +38,7 @@ export const generateGroupBCareerReportPrompt = ai.definePrompt({
             * **If stream is 'Commerce' or 'Humanities' and parent question mentions 'IIT' or 'Engineering',** you must state: "IITs are focused on engineering, which requires a Science stream in high school. With a Commerce/Humanities background, a more aligned path would be top colleges for Economics, Business, or Law, which offer equally fantastic careers."
             * **If parentPressure is true and it conflicts with student's interests,** you must state: "It's important to balance parental aspirations with the child's natural interests. A career where the child is genuinely motivated often leads to greater success. Let's explore how their interest in [Student's Interest] can lead to a secure and fulfilling career."
 
-        ### 2. 🏆 Top 2 Best-Fit Career Paths
+        ### 2. 🏆 Top 5 Best-Fit Career Paths
         (For each path, provide in one line):
         * **Path:** (Degree -> Job Role) | **Starting Salary:** (Approx. in LPA). Ensure the path is logical (e.g., B.Tech CS -> AI Engineer).
         * **Justification:** A single line explaining why this path is a good match.

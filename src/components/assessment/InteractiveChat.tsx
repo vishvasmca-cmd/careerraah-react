@@ -11,6 +11,8 @@ import { useTranslation } from '@/hooks/use-translation';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
+import { useFirebase } from '@/firebase';
+import { saveChatMessage } from '@/lib/firestore-utils';
 
 const predefinedQuestions = [
   'Create a Year-by-Year Roadmap to my first job.',
@@ -32,6 +34,7 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
   const [isPending, startTransition] = useTransition();
   const [inputValue, setInputValue] = useState('');
   const { language } = useTranslation();
+  const { user } = useFirebase();
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -51,6 +54,10 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
     setChatHistory(prev => [...prev, newUserMessage, loadingAnswer]);
     setInputValue('');
 
+    if (user) {
+      saveChatMessage(user.uid, 'user', question);
+    }
+
     startTransition(async () => {
       const result = await getCareerQuestionAnswerAction(assessmentData, question, language);
 
@@ -62,6 +69,10 @@ export function InteractiveChat({ assessmentData }: { assessmentData: GenerateCa
       }
 
       setChatHistory(prev => prev.map(msg => msg.id === finalAnswer.id ? finalAnswer : msg));
+
+      if (user) {
+        saveChatMessage(user.uid, 'bot', finalAnswer.text);
+      }
     });
   };
 

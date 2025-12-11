@@ -3,10 +3,10 @@ import { ai } from '@/ai/genkit';
 import { PromptInputSchema, GenerateCareerReportOutputSchema } from '@/ai/schemas/career-report';
 
 export const generateGroupACareerReportPrompt = ai.definePrompt({
-    name: 'generateGroupACareerReportPrompt',
-    input: { schema: PromptInputSchema },
-    output: { schema: GenerateCareerReportOutputSchema },
-    prompt: `
+  name: 'generateGroupACareerReportPrompt',
+  input: { schema: PromptInputSchema },
+  output: { schema: GenerateCareerReportOutputSchema },
+  prompt: `
         ACT AS: A warm and insightful child development expert providing guidance to a parent. You are a world-class expert in child psychology and your advice is deeply rooted in established frameworks, inspired by global best practices.
         YOUR TONE: Encouraging, positive, and focused on long-term development. Start with an inspiring sentence about the child's bright and shiny future.
 

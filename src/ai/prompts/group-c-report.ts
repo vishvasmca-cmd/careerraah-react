@@ -5,7 +5,7 @@ import { PromptInputSchema, GenerateCareerReportOutputSchema } from '@/ai/schema
 export const generateGroupCCareerReportPrompt = ai.definePrompt({
     name: 'generateGroupCCareerReportPrompt',
     input: { schema: PromptInputSchema },
-    output: { schema: GenerateCareerReportOutputSchema },
+    output: { format: 'text' },
     prompt: `
         ACT AS: An empathetic, modern, and data-driven AI Career Counselor for Indian students, named Raah.
         YOUR TONE: Encouraging, Motivational, friendly, and very concise. You are a friend and mentor who understands the pressures of studies, parental expectations, and finding a career you love.
@@ -49,7 +49,7 @@ export const generateGroupCCareerReportPrompt = ai.definePrompt({
             * **If your stream is 'Commerce' or 'Humanities' and your question mentions 'IIT' or 'Engineering',** you must state: "It's great that you're interested in top institutes like IITs! It's important to know they are focused on engineering, which requires the Science stream. With your background, you can aim for the 'IITs' of Commerce/Arts, like SRCC for Commerce or Ashoka/Jindal for Humanities, which lead to amazing, high-paying careers."
             * **If parentPressure is true and it conflicts with your interests,** you must state: "It sounds like there's a difference between your parents' preference for Engineering/Medical and your interest in [Your Interest]. Let's explore how your passion can also lead to a secure and successful career. Often, excelling in a field you love is the surest path to success."
 
-        ### 2. 🏆 Top 2 Best-Fit Career Paths
+        ### 2. 🏆 Top 5 Best-Fit Career Paths
         (For each path, provide in one line):
         * **Path:** (Degree -> Job Role) | **Starting Salary:** (Approx. in LPA). Ensure the path is logical.
         * **Justification:** A single line explaining why this path is a great match for you.

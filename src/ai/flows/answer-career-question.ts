@@ -28,7 +28,7 @@ export async function answerCareerQuestion(input: AnswerCareerQuestionInput): Pr
 const prompt = ai.definePrompt({
   name: 'answerCareerQuestionPrompt',
   input: { schema: AnswerCareerQuestionInputSchema },
-  output: { schema: AnswerCareerQuestionOutputSchema },
+  output: { format: 'text' },
   prompt: `
     ACT AS: A helpful and empathetic AI career counselor named Raah.
 
@@ -67,12 +67,11 @@ const answerCareerQuestionFlow = ai.defineFlow(
     outputSchema: AnswerCareerQuestionOutputSchema,
   },
   async (input) => {
-    const { output } = await prompt(input);
-    if (!output) {
+    const { text } = await prompt(input);
+    if (!text) {
       throw new Error("Failed to generate answer from AI model.");
     }
-    return output;
+    return { answer: text };
   }
 );
 
-    

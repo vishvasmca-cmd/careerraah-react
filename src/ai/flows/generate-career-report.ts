@@ -50,12 +50,12 @@ const generateCareerReportFlow = ai.defineFlow(
       promptToUse = generateStandardCareerReportPrompt;
     }
 
-    const { output } = await promptToUse(promptInput);
-    if (!output) {
+    const { text } = await promptToUse(promptInput);
+    if (!text) {
       throw new Error("Failed to generate report from AI model.");
     }
-    // Make sure to return the expected 'reportContent' property
-    return { reportContent: output.reportContent };
+    // Wrap the text response in the expected object structure
+    return { reportContent: text };
   }
 );
 

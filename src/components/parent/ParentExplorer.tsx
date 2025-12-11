@@ -31,11 +31,13 @@ import {
   Target,
   Dumbbell,
   Crosshair,
+  Sparkles,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { getAiCareerDetails } from '@/app/actions/career';
 
 const CAREER_DB = [
   {
@@ -50,19 +52,19 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1677756119517-756a188d2d94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhaSUyMGVuZ2luZWVyfGVufDB8fHx8MTc2NjgyMTk1NHww&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'ai engineer',
     roiChart: [
-        { name: 'Avg. Edu Cost', value: 16, fill: 'hsl(var(--muted))' },
-        { name: 'Starting Salary', value: 12, fill: 'hsl(var(--primary))' },
+      { name: 'Avg. Edu Cost', value: 16, fill: 'hsl(var(--muted))' },
+      { name: 'Starting Salary', value: 12, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
-        { step: '10+2 (Science)', desc: 'Strong foundation in Math and CS is a must.' },
-        { step: 'B.Tech in CS/AI', desc: 'From a Tier-1 institute (IIT/NIT/BITS).' },
-        { step: 'Master Projects', desc: 'Build projects in NLP, Computer Vision, etc.' },
-        { step: 'First Job', desc: 'Join a product-based company or a research lab.' },
+      { step: '10+2 (Science)', desc: 'Strong foundation in Math and CS is a must.' },
+      { step: 'B.Tech in CS/AI', desc: 'From a Tier-1 institute (IIT/NIT/BITS).' },
+      { step: 'Master Projects', desc: 'Build projects in NLP, Computer Vision, etc.' },
+      { step: 'First Job', desc: 'Join a product-based company or a research lab.' },
     ],
     fitCheck: [
-        { question: 'Is your child exceptionally strong in mathematics and logic?' },
-        { question: 'Do they have a passion for programming and building complex systems?' },
-        { question: 'Are they a self-learner, constantly updating their skills?' },
+      { question: 'Is your child exceptionally strong in mathematics and logic?' },
+      { question: 'Do they have a passion for programming and building complex systems?' },
+      { question: 'Are they a self-learner, constantly updating their skills?' },
     ],
   },
   {
@@ -77,22 +79,22 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkYXRhJTIwc2NpZW5jZXxlbnwwfHx8fDE3NjY4MjE5OTR8MA&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'data science',
     roiChart: [
-        { name: 'Avg. Edu Cost', value: 10, fill: 'hsl(var(--muted))' },
-        { name: 'Starting Salary', value: 9, fill: 'hsl(var(--primary))' },
+      { name: 'Avg. Edu Cost', value: 10, fill: 'hsl(var(--muted))' },
+      { name: 'Starting Salary', value: 9, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
-        { step: 'Degree in CS/Stats/Math', desc: 'A quantitative background is key.' },
-        { step: 'Master Python/R', desc: 'Learn libraries like Pandas, Scikit-learn, TensorFlow.' },
-        { step: 'Build a Portfolio', desc: 'Work on Kaggle competitions or personal projects.' },
-        { step: 'First Job', desc: 'Data Analyst or Junior Data Scientist.' },
+      { step: 'Degree in CS/Stats/Math', desc: 'A quantitative background is key.' },
+      { step: 'Master Python/R', desc: 'Learn libraries like Pandas, Scikit-learn, TensorFlow.' },
+      { step: 'Build a Portfolio', desc: 'Work on Kaggle competitions or personal projects.' },
+      { step: 'First Job', desc: 'Data Analyst or Junior Data Scientist.' },
     ],
     fitCheck: [
-        { question: 'Does your child enjoy finding patterns in numbers and information?' },
-        { question: 'Are they skilled in statistics and logical reasoning?' },
-        { question: 'Do they have the persistence to clean and analyze messy data?' },
+      { question: 'Does your child enjoy finding patterns in numbers and information?' },
+      { question: 'Are they skilled in statistics and logical reasoning?' },
+      { question: 'Do they have the persistence to clean and analyze messy data?' },
     ],
   },
-   {
+  {
     id: 8,
     name: 'Product Manager',
     category: 'Management',
@@ -104,19 +106,19 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9kdWN0JTIwbWFuYWdlbWVudHxlbnwwfHx8fDE3NjY4MjIwODJ8MA&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'product management',
     roiChart: [
-        { name: 'Avg. Edu Cost', value: 25, fill: 'hsl(var(--muted))' },
-        { name: 'Starting Salary', value: 18, fill: 'hsl(var(--primary))' },
+      { name: 'Avg. Edu Cost', value: 25, fill: 'hsl(var(--muted))' },
+      { name: 'Starting Salary', value: 18, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
-        { step: 'Engg or Business Degree', desc: 'A B.Tech or BBA from a good college is a common start.' },
-        { step: 'Gain Experience', desc: 'Work for 2-4 years in a related field like engineering, design, or marketing.' },
-        { step: 'MBA (Optional but helpful)', desc: 'An MBA from a top school can fast-track the career.' },
-        { step: 'APM Role', desc: 'Join as an Associate Product Manager.' },
+      { step: 'Engg or Business Degree', desc: 'A B.Tech or BBA from a good college is a common start.' },
+      { step: 'Gain Experience', desc: 'Work for 2-4 years in a related field like engineering, design, or marketing.' },
+      { step: 'MBA (Optional but helpful)', desc: 'An MBA from a top school can fast-track the career.' },
+      { step: 'APM Role', desc: 'Join as an Associate Product Manager.' },
     ],
     fitCheck: [
-        { question: 'Is your child a natural leader who can influence without authority?' },
-        { question: 'Do they have a strong sense of empathy for users and their problems?' },
-        { question: 'Are they excellent communicators who can balance business and tech needs?' },
+      { question: 'Is your child a natural leader who can influence without authority?' },
+      { question: 'Do they have a strong sense of empathy for users and their problems?' },
+      { question: 'Are they excellent communicators who can balance business and tech needs?' },
     ],
   },
   {
@@ -239,19 +241,19 @@ const CAREER_DB = [
     imageUrl: 'https://images.unsplash.com/photo-1664448039325-797c6241ab9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaW5hbmNlJTIwdHJhZGluZ3xlbnwwfHx8fDE3NjY4MjIwMzV8MA&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'finance trading',
     roiChart: [
-        { name: 'Avg. Edu Cost', value: 30, fill: 'hsl(var(--muted))' },
-        { name: 'Starting Salary', value: 20, fill: 'hsl(var(--primary))' },
+      { name: 'Avg. Edu Cost', value: 30, fill: 'hsl(var(--muted))' },
+      { name: 'Starting Salary', value: 20, fill: 'hsl(var(--primary))' },
     ],
     roadmap: [
-        { step: 'Tier-1 Degree', desc: 'B.Com(H)/Eco(H) from SRCC/LSR or B.Tech from IIT/BITS.' },
-        { step: 'MBA in Finance', desc: 'From an IIM A/B/C or equivalent top B-School.' },
-        { step: 'Grueling Internships', desc: 'Secure internships in finance firms during college.' },
-        { step: 'Analyst Role', desc: 'Start as an analyst at an investment bank.' },
+      { step: 'Tier-1 Degree', desc: 'B.Com(H)/Eco(H) from SRCC/LSR or B.Tech from IIT/BITS.' },
+      { step: 'MBA in Finance', desc: 'From an IIM A/B/C or equivalent top B-School.' },
+      { step: 'Grueling Internships', desc: 'Secure internships in finance firms during college.' },
+      { step: 'Analyst Role', desc: 'Start as an analyst at an investment bank.' },
     ],
     fitCheck: [
-        { question: 'Can your child handle extremely long hours and high-pressure situations?' },
-        { question: 'Are they exceptionally good with numbers and financial modeling?' },
-        { question: 'Do they have strong networking and communication skills?' },
+      { question: 'Can your child handle extremely long hours and high-pressure situations?' },
+      { question: 'Are they exceptionally good with numbers and financial modeling?' },
+      { question: 'Do they have strong networking and communication skills?' },
     ],
   },
   {
@@ -570,52 +572,88 @@ const categoryIcons: { [key: string]: React.ElementType } = {
 type Career = typeof CAREER_DB[number];
 
 const CareerCard: FC<{ career: Career, onSelect: (career: Career) => void }> = ({ career, onSelect }) => {
-    const [imgError, setImgError] = useState(false);
-    const CategoryIcon = career.icon;
+  const [imgError, setImgError] = useState(false);
+  const CategoryIcon = career.icon;
 
-    return (
-        <Card className="overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 group flex flex-col bg-card">
-            <div className="relative h-40 w-full">
-                {imgError ? (
-                    <div className="absolute inset-0 bg-black" />
-                ) : (
-                    <Image
-                        src={career.imageUrl}
-                        alt={career.name}
-                        data-ai-hint={career.imageHint}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        onError={() => setImgError(true)}
-                    />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-4 left-4">
-                    <CategoryIcon className="w-8 h-8 mb-2 text-white" />
-                    <h3 className="font-bold text-lg text-white shadow-md">{career.name}</h3>
-                </div>
-            </div>
-            <CardContent className="p-5 flex flex-col flex-grow">
-                <p className="text-sm text-muted-foreground line-clamp-3 flex-grow">{career.description}</p>
-                <Button
-                    variant="outline"
-                    className="w-full mt-4 border-primary text-primary hover:bg-primary/10 hover:text-primary"
-                    onClick={() => onSelect(career)}
-                >
-                    View Details
-                </Button>
-            </CardContent>
-        </Card>
-    );
+  return (
+    <Card className="overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 group flex flex-col bg-card">
+      <div className="relative h-40 w-full">
+        {imgError ? (
+          <div className="absolute inset-0 bg-black" />
+        ) : (
+          <Image
+            src={career.imageUrl}
+            alt={career.name}
+            data-ai-hint={career.imageHint}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            onError={() => setImgError(true)}
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        <div className="absolute bottom-4 left-4">
+          <CategoryIcon className="w-8 h-8 mb-2 text-white" />
+          <h3 className="font-bold text-lg text-white shadow-md">{career.name}</h3>
+        </div>
+      </div>
+      <CardContent className="p-5 flex flex-col flex-grow">
+        <p className="text-sm text-muted-foreground line-clamp-3 flex-grow">{career.description}</p>
+        <Button
+          variant="outline"
+          className="w-full mt-4 border-primary text-primary hover:bg-primary/10 hover:text-primary"
+          onClick={() => onSelect(career)}
+        >
+          View Details
+        </Button>
+      </CardContent>
+    </Card>
+  );
 };
 
 export default function ParentExplorer() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedCareer, setSelectedCareer] = useState<Career | null>(null);
+  const [dynamicCareers, setDynamicCareers] = useState<Career[]>([]);
+  const [isAiLoading, setIsAiLoading] = useState(false);
+
+  const allCareers = useMemo(() => [...CAREER_DB, ...dynamicCareers], [dynamicCareers]);
+
+  const handleAiSearch = async () => {
+    if (!searchQuery) return;
+    setIsAiLoading(true);
+    const aiData = await getAiCareerDetails(searchQuery);
+    setIsAiLoading(false);
+
+    if (aiData) {
+      // Map AI data to Career interface
+      const newCareer: Career = {
+        id: Date.now(), // simple ID generation
+        name: aiData.name,
+        category: aiData.category,
+        icon: Sparkles, // Default to Sparkles or map later
+        salary: aiData.salary,
+        risk: aiData.risk,
+        trustScore: aiData.trustScore,
+        description: aiData.description,
+        imageUrl: `https://source.unsplash.com/1080x720/?${encodeURIComponent(aiData.imageHint)}`,
+        imageHint: aiData.imageHint,
+        roiChart: [
+          { name: 'Avg. Edu Cost', value: aiData.financials.eduCost, fill: 'hsl(var(--muted))' },
+          { name: 'Starting Salary', value: aiData.financials.startSalary, fill: 'hsl(var(--primary))' },
+        ],
+        roadmap: aiData.roadmap,
+        fitCheck: aiData.fitCheck.map(q => ({ question: q })),
+      };
+      setDynamicCareers(prev => [...prev, newCareer]);
+      setSelectedCareer(newCareer);
+      setSearchQuery(''); // Clear search or keep it? Maybe keep to show it matched. Actually clear is better if we auto-select.
+    }
+  };
 
   const filteredCareers = useMemo(() => {
-    return CAREER_DB.filter(career => {
+    return allCareers.filter(career => {
       const matchesCategory = selectedCategory === 'All' || career.category === selectedCategory;
       const matchesSearch = career.name.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesCategory && matchesSearch;
@@ -626,14 +664,18 @@ export default function ParentExplorer() {
     <>
       <div className="sticky top-[64px] z-30 bg-background/80 backdrop-blur-lg border-b border-border">
         <div className="container mx-auto px-4 py-4">
-          <div className="relative mb-4">
+          <div className="mb-6 text-center">
+            <h1 className="text-2xl md:text-3xl font-headline font-bold text-foreground mb-2">Bharat Ka Career Encyclopedia 🇮🇳</h1>
+            <p className="text-muted-foreground">Every Parent's Guide to Secure & High-Paying Careers.</p>
+          </div>
+          <div className="relative mb-4 max-w-2xl mx-auto">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Search any career, e.g., 'Data Scientist'"
+              placeholder="Search Career (e.g. IAS, Doctor, Pilot)"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-input bg-card rounded-full focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-shadow"
+              className="w-full pl-10 pr-4 py-3 border border-input bg-card rounded-full focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-shadow shadow-sm"
             />
           </div>
           <ScrollArea className="w-full whitespace-nowrap">
@@ -646,11 +688,10 @@ export default function ParentExplorer() {
                     variant={selectedCategory === category ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setSelectedCategory(category)}
-                    className={`rounded-full transition-colors duration-200 ${
-                      selectedCategory === category
-                        ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-                        : 'bg-card border-border text-foreground hover:bg-muted'
-                    }`}
+                    className={`rounded-full transition-colors duration-200 ${selectedCategory === category
+                      ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+                      : 'bg-card border-border text-foreground hover:bg-muted'
+                      }`}
                   >
                     {CategoryIcon && <CategoryIcon className="mr-2 h-4 w-4" />}
                     {category}
@@ -668,6 +709,26 @@ export default function ParentExplorer() {
           {filteredCareers.map(career => (
             <CareerCard key={career.id} career={career} onSelect={setSelectedCareer} />
           ))}
+
+          {/* AI Search Card */}
+          {searchQuery && filteredCareers.length === 0 && (
+            <Card className="overflow-hidden shadow-md border-dashed border-2 border-primary/50 flex flex-col items-center justify-center p-6 text-center bg-primary/5 cursor-pointer hover:bg-primary/10 transition-colors" onClick={handleAiSearch}>
+              {isAiLoading ? (
+                <div className="flex flex-col items-center animate-pulse">
+                  <Sparkles className="w-12 h-12 text-primary mb-4 animate-spin" />
+                  <h3 className="font-bold text-lg mb-2">Consulting AI Experts...</h3>
+                  <p className="text-sm text-muted-foreground">Gathering salary, roadmap, and safety data for "{searchQuery}"</p>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center">
+                  <Sparkles className="w-12 h-12 text-primary mb-4" />
+                  <h3 className="font-bold text-lg mb-2">Can't find "{searchQuery}"?</h3>
+                  <p className="text-sm text-muted-foreground mb-4">Click to generate a detailed report using our AI Career Encyclopedia.</p>
+                  <Button>Generate Report</Button>
+                </div>
+              )}
+            </Card>
+          )}
         </div>
       </main>
 
@@ -680,10 +741,10 @@ export default function ParentExplorer() {
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
           >
-             <div
-                className="fixed inset-0 bg-black/30 backdrop-blur-sm"
-                onClick={() => setSelectedCareer(null)}
-              />
+            <div
+              className="fixed inset-0 bg-black/30 backdrop-blur-sm"
+              onClick={() => setSelectedCareer(null)}
+            />
             <motion.div
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
@@ -701,85 +762,85 @@ export default function ParentExplorer() {
               <header className="p-6 border-b border-border">
                 <h2 className="text-2xl font-bold text-foreground">{selectedCareer.name}</h2>
                 <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-1.5 px-2 py-1 bg-green-900/50 text-green-300 border border-green-700 rounded-full font-semibold">
-                        <Shield size={14} />
-                        <span>Trust Score: {selectedCareer.trustScore}/10 Job Security</span>
-                    </div>
+                  <div className="flex items-center gap-1.5 px-2 py-1 bg-green-900/50 text-green-300 border border-green-700 rounded-full font-semibold">
+                    <Shield size={14} />
+                    <span>Suraksha Score: {selectedCareer.trustScore}/10 (Job Security)</span>
+                  </div>
                 </div>
               </header>
 
               <div className="flex-grow overflow-y-auto">
                 <Tabs defaultValue="roi" className="h-full flex flex-col">
                   <TabsList className="sticky top-0 z-10 bg-background/95 backdrop-blur-sm rounded-none border-b justify-start px-6">
-                    <TabsTrigger value="roi"><DollarSign className="mr-2 h-4 w-4" /> Money & ROI</TabsTrigger>
+                    <TabsTrigger value="roi"><DollarSign className="mr-2 h-4 w-4" /> Kharcha vs Kamai</TabsTrigger>
                     <TabsTrigger value="roadmap"><Map className="mr-2 h-4 w-4" /> Roadmap</TabsTrigger>
-                    <TabsTrigger value="fit"><CheckCircle className="mr-2 h-4 w-4" /> Fit Check</TabsTrigger>
+                    <TabsTrigger value="fit"><CheckCircle className="mr-2 h-4 w-4" /> Sahi Hai?</TabsTrigger>
                   </TabsList>
-                  
+
                   <div className="p-6">
                     <TabsContent value="roi">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <Card className="p-4 bg-card">
-                            <CardContent className="p-0">
-                                <p className="text-sm font-medium text-muted-foreground">Expected Salary Range (Per Annum)</p>
-                                <p className="text-2xl font-bold text-primary">₹{selectedCareer.salary.low}L - ₹{selectedCareer.salary.high}L+</p>
-                            </CardContent>
+                          <CardContent className="p-0">
+                            <p className="text-sm font-medium text-muted-foreground">Expected Salary Range (Per Annum)</p>
+                            <p className="text-2xl font-bold text-primary">₹{selectedCareer.salary.low}L - ₹{selectedCareer.salary.high}L+</p>
+                          </CardContent>
                         </Card>
                         <Card className="p-4 bg-card">
-                             <CardContent className="p-0">
-                                <p className="text-sm font-medium text-muted-foreground">Financial Risk</p>
-                                <p className={`text-2xl font-bold ${selectedCareer.risk === 'High' || selectedCareer.risk === 'Very High' ? 'text-red-500' : 'text-green-500'}`}>
-                                    {selectedCareer.risk}
-                                </p>
-                            </CardContent>
+                          <CardContent className="p-0">
+                            <p className="text-sm font-medium text-muted-foreground">Financial Risk</p>
+                            <p className={`text-2xl font-bold ${selectedCareer.risk === 'High' || selectedCareer.risk === 'Very High' ? 'text-red-500' : 'text-green-500'}`}>
+                              {selectedCareer.risk}
+                            </p>
+                          </CardContent>
                         </Card>
                       </div>
 
                       <h3 className="text-lg font-semibold mb-2">Cost vs. Starting Salary</h3>
-                       <p className="text-sm text-muted-foreground mb-4">A visual comparison of average education cost vs. potential starting salary (in Lakhs Per Annum).</p>
+                      <p className="text-sm text-muted-foreground mb-4">A visual comparison of average education cost vs. potential starting salary (in Lakhs Per Annum).</p>
                       <div className="h-40 w-full bg-card rounded-lg p-4 flex items-end gap-8">
-                         {selectedCareer.roiChart.map(item => (
-                             <div key={item.name} className="flex-1 flex flex-col items-center">
-                                 <motion.div
-                                    initial={{height: 0}}
-                                    animate={{height: `${item.value * 6}%`}}
-                                    transition={{ duration: 0.5, delay: 0.2 }}
-                                    className="w-full rounded-t-md"
-                                    style={{backgroundColor: item.fill}}
-                                 />
-                                 <p className="text-xs font-medium mt-2 text-center">{item.name}</p>
-                                 <p className="text-sm font-bold">~₹{item.value}L</p>
-                             </div>
-                         ))}
+                        {selectedCareer.roiChart.map(item => (
+                          <div key={item.name} className="flex-1 flex flex-col items-center">
+                            <motion.div
+                              initial={{ height: 0 }}
+                              animate={{ height: `${item.value * 6}%` }}
+                              transition={{ duration: 0.5, delay: 0.2 }}
+                              className="w-full rounded-t-md"
+                              style={{ backgroundColor: item.fill }}
+                            />
+                            <p className="text-xs font-medium mt-2 text-center">{item.name}</p>
+                            <p className="text-sm font-bold">~₹{item.value}L</p>
+                          </div>
+                        ))}
                       </div>
-                       <p className="text-xs text-muted-foreground mt-3 text-center">Note: This is a simplified illustration. Actual figures can vary significantly.</p>
+                      <p className="text-xs text-muted-foreground mt-3 text-center">Note: This is a simplified illustration. Actual figures can vary significantly.</p>
                     </TabsContent>
 
                     <TabsContent value="roadmap">
-                       <h3 className="text-lg font-semibold mb-4">Path to Your First Job</h3>
-                       <div className="space-y-4">
-                           {selectedCareer.roadmap.map((step, index) => (
-                               <div key={index} className="flex items-start gap-4">
-                                   <div className="flex-shrink-0 bg-primary text-primary-foreground h-8 w-8 rounded-full flex items-center justify-center font-bold">{index + 1}</div>
-                                   <div>
-                                       <h4 className="font-semibold">{step.step}</h4>
-                                       <p className="text-muted-foreground text-sm">{step.desc}</p>
-                                   </div>
-                               </div>
-                           ))}
-                       </div>
+                      <h3 className="text-lg font-semibold mb-4">Path to Your First Job</h3>
+                      <div className="space-y-4">
+                        {selectedCareer.roadmap.map((step, index) => (
+                          <div key={index} className="flex items-start gap-4">
+                            <div className="flex-shrink-0 bg-primary text-primary-foreground h-8 w-8 rounded-full flex items-center justify-center font-bold">{index + 1}</div>
+                            <div>
+                              <h4 className="font-semibold">{step.step}</h4>
+                              <p className="text-muted-foreground text-sm">{step.desc}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </TabsContent>
 
                     <TabsContent value="fit">
-                        <h3 className="text-lg font-semibold mb-4">Is This Career Right for Your Child?</h3>
-                        <ul className="space-y-3">
-                            {selectedCareer.fitCheck.map((item, index) => (
-                                <li key={index} className="flex items-start gap-3 p-3 bg-card rounded-lg">
-                                    <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
-                                    <span>{item.question}</span>
-                                </li>
-                            ))}
-                        </ul>
+                      <h3 className="text-lg font-semibold mb-4">Is This Career Right for Your Child?</h3>
+                      <ul className="space-y-3">
+                        {selectedCareer.fitCheck.map((item, index) => (
+                          <li key={index} className="flex items-start gap-3 p-3 bg-card rounded-lg">
+                            <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                            <span>{item.question}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </TabsContent>
                   </div>
                 </Tabs>
