@@ -63,16 +63,34 @@ function LoginForm() {
 
   useEffect(() => {
     if (!isUserLoading && user && !isRedirecting) {
+      console.log("LoginPage: Auth successful, preparing redirect...", { email: user.email, returnPath });
       setIsRedirecting(true);
-      // TODO: Re-enable profile completion check after Google Sign-In is working
-      // Temporarily disabled to debug authentication flow
+
+      // Determine the destination URL
+      let targetUrl: string;
 
       if (returnPath) {
-        router.push(returnPath);
+        // If returnPath exists, append params if needed, or trust it
+        // Check if returnPath already has these params to avoid duplication
+        const hasParams = returnPath.includes('?');
+        const separator = hasParams ? '&' : '?';
+        // Only add name/role if not present? Actually the previous logic always added them.
+        targetUrl = `${returnPath}${separator}name=${encodeURIComponent(name || '')}&role=${encodeURIComponent(role)}`;
       } else {
         const userName = name || user.displayName || (role === 'parent' ? 'your child' : 'User');
-        router.push(`/assessment?role=${role}&name=${encodeURIComponent(userName)}`);
+        targetUrl = `/assessment?role=${role}&name=${encodeURIComponent(userName)}`;
       }
+
+      console.log("LoginPage: Redirecting to:", targetUrl);
+
+      // Verify we are not redirecting to the current page (infinite loop protection)
+      if (window.location.pathname + window.location.search === targetUrl) {
+        console.warn("LoginPage: Redirect loop detected. Target same as current. Aborting.");
+        return;
+      }
+
+      // Use replace to avoid history stack buildup
+      router.replace(targetUrl);
     }
   }, [user, isUserLoading, router, role, name, returnPath, isRedirecting]);
 
