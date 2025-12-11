@@ -29,7 +29,7 @@ const GoogleIcon = () => (
 function LoginForm() {
   const router = useRouter();
   const { toast } = useToast();
-  const { auth, user, isUserLoading, firestore } = useFirebase();
+  const { auth, user, isUserLoading, firestore, userError } = useFirebase();
 
   const [role, setRole] = useState('student');
   const [name, setName] = useState('');
@@ -41,17 +41,17 @@ function LoginForm() {
   const [isRedirecting, setIsRedirecting] = useState(false);
 
   useEffect(() => {
-    if (auth) {
-      getRedirectResult(auth).catch((error) => {
-        console.error("Redirect auth error:", error);
-        toast({
-          variant: 'destructive',
-          title: "Sign-in failed",
-          description: error.message,
-        });
+    // Error handling logic moved to rely on the Provider's state
+    // The FirebaseProvider handles getRedirectResult and sets userError
+    if (userError) {
+      console.error("Login Page Auth Error:", userError);
+      toast({
+        variant: 'destructive',
+        title: "Sign-in failed",
+        description: userError.message,
       });
     }
-  }, [auth, toast]);
+  }, [userError, toast]);
 
   useEffect(() => {
     // Clear any existing report from the session when the login page is visited.
