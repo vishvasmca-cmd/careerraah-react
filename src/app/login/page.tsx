@@ -16,6 +16,7 @@ import { User, Users, UserPlus, ArrowRight, Loader2 } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { useFirebase } from '@/firebase';
 import { initiateGoogleSignIn } from '@/firebase/non-blocking-login'; // Import the new function
+import { getRedirectResult } from 'firebase/auth';
 
 
 const GoogleIcon = () => (
@@ -37,6 +38,21 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const returnPath = searchParams.get('returnPath');
 
+  const [isRedirecting, setIsRedirecting] = useState(false);
+
+  useEffect(() => {
+    if (auth) {
+      getRedirectResult(auth).catch((error) => {
+        console.error("Redirect auth error:", error);
+        toast({
+          variant: 'destructive',
+          title: "Sign-in failed",
+          description: error.message,
+        });
+      });
+    }
+  }, [auth, toast]);
+
   useEffect(() => {
     // Clear any existing report from the session when the login page is visited.
     // This ensures a new login always starts a new assessment, unless we are returning to a specific flow.
@@ -46,7 +62,8 @@ function LoginForm() {
   }, [returnPath]);
 
   useEffect(() => {
-    if (!isUserLoading && user) {
+    if (!isUserLoading && user && !isRedirecting) {
+      setIsRedirecting(true);
       // TODO: Re-enable profile completion check after Google Sign-In is working
       // Temporarily disabled to debug authentication flow
 
@@ -57,7 +74,7 @@ function LoginForm() {
         router.push(`/assessment?role=${role}&name=${encodeURIComponent(userName)}`);
       }
     }
-  }, [user, isUserLoading, router, role, name, returnPath]);
+  }, [user, isUserLoading, router, role, name, returnPath, isRedirecting]);
 
 
   const handleGoogleSignIn = async () => {
