@@ -1,30 +1,14 @@
 
 'use client';
 
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, Route, Globe } from 'lucide-react';
+import { Menu, Route } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from '@/components/ui/sheet';
-import { Separator } from '@/components/ui/separator';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { LanguageContext, languageOptions, Language } from '@/context/LanguageProvider';
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
-  const { language, setLanguage } = useContext(LanguageContext);
-
-  const handleLanguageChange = (lang: Language) => {
-    setLanguage(lang);
-    setIsOpen(false);
-  }
-
-  const currentLanguageName = languageOptions.find(l => l.code === language)?.name || 'English';
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -50,54 +34,27 @@ export function MobileNav() {
           </Link>
           <nav className="flex flex-col gap-4">
             <Link
-              href="/login"
-              onClick={() => setIsOpen(false)}
-              className="text-lg font-medium text-foreground hover:text-primary transition-colors"
-            >
-              Expert Assessment
-            </Link>
-            <Link
-              href="/parent-explorer"
-              onClick={() => setIsOpen(false)}
-              className="text-lg font-medium text-foreground hover:text-primary transition-colors"
-            >
-              Career Explorer
-            </Link>
-            <Link
-              href="/blog"
-              onClick={() => setIsOpen(false)}
-              className="text-lg font-medium text-foreground hover:text-primary transition-colors"
-            >
-              Blog
-            </Link>
-            <Link
               href="/sarkari-naukri"
               onClick={() => setIsOpen(false)}
-              className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+              className="text-lg font-medium text-foreground hover:text-primary transition-colors flex items-center gap-2"
             >
-              Sarkari Naukri
+              <span className="text-xl">🏛️</span> Sarkari Naukri
+            </Link>
+            <Link
+              href="/board-papers"
+              onClick={() => setIsOpen(false)}
+              className="text-lg font-medium text-foreground hover:text-primary transition-colors flex items-center gap-2"
+            >
+              <span className="text-xl">📄</span> Board Papers
+            </Link>
+            <Link
+              href="/chat"
+              onClick={() => setIsOpen(false)}
+              className="text-lg font-medium text-foreground hover:text-primary transition-colors flex items-center gap-2"
+            >
+              <span className="text-xl">🤖</span> Ask AI Didi
             </Link>
           </nav>
-
-          <Separator />
-
-          <div className="flex flex-col gap-2">
-            <p className="text-sm font-medium text-muted-foreground">Language</p>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline">
-                  <Globe className="mr-2 h-4 w-4" /> {currentLanguageName}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {languageOptions.map((lang) => (
-                  <DropdownMenuItem key={lang.code} onClick={() => handleLanguageChange(lang.code)}>
-                    {lang.name}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
         </div>
       </SheetContent>
     </Sheet>

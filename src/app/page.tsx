@@ -189,11 +189,18 @@ export default function Home() {
 
             {/* Card 1: Eligibility */}
             <Link href="/sarkari-naukri">
-              <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded shadow-sm hover:shadow-md cursor-pointer h-full transition-transform hover:-translate-y-1">
-                <h3 className="font-bold text-blue-900 text-lg flex items-center gap-2">
-                  <span className="text-2xl">👮‍♂️</span> Am I Eligible?
-                </h3>
-                <p className="text-sm text-blue-700 mt-1">Check Height, Age & Marks for Police/Army.</p>
+              <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded shadow-sm hover:shadow-md cursor-pointer h-full transition-transform hover:-translate-y-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-bold text-blue-900 text-lg flex items-center gap-2">
+                    <span className="text-2xl">👮‍♂️</span> Eligibility Check
+                  </h3>
+                  <p className="text-sm text-blue-700 mt-2 font-medium">Meri Height/Age check karo.</p>
+                </div>
+                <div className="mt-4">
+                  <span className="inline-flex items-center gap-1 bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors group-hover:bg-blue-700">
+                    Check Now <ArrowRight className="w-4 h-4" />
+                  </span>
+                </div>
               </div>
             </Link>
 
@@ -254,7 +261,7 @@ export default function Home() {
         {/* 3. LIVE FEED SECTION */}
         <section className="bg-white py-8 mb-12">
           <div className="container max-w-4xl mx-auto px-4">
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <h2 className="text-2xl font-bold text-zinc-900 flex items-center gap-2">
                 <span className="relative flex h-3 w-3">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
@@ -262,7 +269,7 @@ export default function Home() {
                 </span>
                 Aaj ki Sarkari Naukriyan <span className="text-zinc-500 font-normal text-lg ml-2 hidden sm:inline">(Live Updates)</span>
               </h2>
-              <Button variant="link" asChild className="text-blue-600 font-semibold">
+              <Button variant="link" asChild className="text-blue-600 font-semibold p-0 sm:px-4 h-auto sm:h-10 justify-start sm:justify-center">
                 <Link href="/sarkari-naukri">View All Jobs &rarr;</Link>
               </Button>
             </div>
