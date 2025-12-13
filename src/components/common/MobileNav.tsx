@@ -23,7 +23,7 @@ export function MobileNav() {
     setLanguage(lang);
     setIsOpen(false);
   }
-  
+
   const currentLanguageName = languageOptions.find(l => l.code === language)?.name || 'English';
 
   return (
@@ -49,34 +49,41 @@ export function MobileNav() {
             </span>
           </Link>
           <nav className="flex flex-col gap-4">
-             <Link
-                href="/login"
-                onClick={() => setIsOpen(false)}
-                className="text-lg font-medium text-foreground hover:text-primary transition-colors"
-              >
-                Expert Assessment
-            </Link>
-             <Link
-                href="/parent-explorer"
-                onClick={() => setIsOpen(false)}
-                className="text-lg font-medium text-foreground hover:text-primary transition-colors"
-              >
-                Career Explorer
+            <Link
+              href="/login"
+              onClick={() => setIsOpen(false)}
+              className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+            >
+              Expert Assessment
             </Link>
             <Link
-                href="/blog"
-                onClick={() => setIsOpen(false)}
-                className="text-lg font-medium text-foreground hover:text-primary transition-colors"
-              >
-                Blog
+              href="/parent-explorer"
+              onClick={() => setIsOpen(false)}
+              className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+            >
+              Career Explorer
+            </Link>
+            <Link
+              href="/blog"
+              onClick={() => setIsOpen(false)}
+              className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+            >
+              Blog
+            </Link>
+            <Link
+              href="/sarkari-naukri"
+              onClick={() => setIsOpen(false)}
+              className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+            >
+              Sarkari Naukri
             </Link>
           </nav>
 
           <Separator />
-          
+
           <div className="flex flex-col gap-2">
             <p className="text-sm font-medium text-muted-foreground">Language</p>
-             <DropdownMenu>
+            <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline">
                   <Globe className="mr-2 h-4 w-4" /> {currentLanguageName}

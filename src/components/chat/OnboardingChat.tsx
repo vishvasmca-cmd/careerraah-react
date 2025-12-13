@@ -30,6 +30,7 @@ export default function OnboardingChat({ initialQuestion }: { initialQuestion: s
 
 
     // Initial Greeting
+    // Initial Greeting
     useEffect(() => {
         if (messages.length === 0) {
             const userName = user?.displayName?.split(' ')[0] || 'there';
@@ -37,15 +38,28 @@ export default function OnboardingChat({ initialQuestion }: { initialQuestion: s
 
             if (initialQuestion) {
                 // Scenario A: User came from Homepage with a question
-                const gradeQuestion = isParent
-                    ? "To give you the best career advice, could you tell me which **Class/Grade** your child is in?"
-                    : "To give you the best career advice, could you tell me which **Class/Grade** you are in?";
+                const sarkariKeywords = /(sarkari|govt|job|vacancy|police|railway|ssc|bank|upsc|army|gd|constable|clerk|po|rrb|ibps|teaching|teacher)/i;
+                const isSarkari = sarkariKeywords.test(initialQuestion);
+
+                let askText = "";
+                let suggestions: string[] = [];
+
+                if (isSarkari) {
+                    askText = "To help you better, bataiye aapki **Highest Qualification** kya hai? 👇";
+                    suggestions = ["10th Pass", "12th Pass", "Graduate", "Post Graduate"];
+                } else {
+                    askText = isParent
+                        ? "To give you the best career advice, could you tell me which **Class/Grade** your child is in?"
+                        : "To give you the best career advice, could you tell me which **Class/Grade** you are in?";
+                    suggestions = ["Class 9", "Class 10", "Class 11 (Science)", "Class 11 (Commerce)", "Class 12"];
+                }
 
                 setMessages([
                     {
                         id: 1,
                         role: 'bot',
-                        text: `Namaste ${userName}! 🙏\n\nI see you're asking: **"${initialQuestion}"**\n\n${gradeQuestion}`
+                        text: `Namaste ${userName}! 🙏\n\nI see you're asking: **"${initialQuestion}"**\n\n${askText}`,
+                        suggestions: suggestions
                     }
                 ]);
             } else {
@@ -54,13 +68,13 @@ export default function OnboardingChat({ initialQuestion }: { initialQuestion: s
                     {
                         id: 1,
                         role: 'bot',
-                        text: `Namaste ${userName}! 🙏\n\nI'm Raah, your Career Guide. What career question can I help you with today?`,
+                        text: `Namaste ${userName}! 🙏\n\nMain hoon **AI Didi**, aapki Sarkari Expert. 🤖\n\nAaj aap kis exam ya job ke baare mein jaanna chahte hain?`,
                         suggestions: [
-                            "What are the best Engineering colleges in India?",
-                            "How to become a Pilot after Class 12?",
-                            "Top Commerce colleges in Delhi without Maths?",
-                            "What is the scope of AI in future careers?",
-                            "Best high-paying career options in Arts?"
+                            "SSC GD Constable details",
+                            "Railway Group D vacancy",
+                            "UP Police Constable kab aayegi?",
+                            "Bank PO vs Clerk",
+                            "Best government job after 12th?"
                         ]
                     }
                 ]);
@@ -209,8 +223,8 @@ export default function OnboardingChat({ initialQuestion }: { initialQuestion: s
                     />
                 </div>
                 <div>
-                    <h2 className="font-bold text-lg">Raah - Career Counselor</h2>
-                    <p className="text-xs text-purple-100">Your Personal Career Guide</p>
+                    <h2 className="font-bold text-lg">AI Didi - Sarkari Expert</h2>
+                    <p className="text-xs text-purple-100">Your Sarkari Mentor</p>
                 </div>
             </div>
 
@@ -269,7 +283,7 @@ export default function OnboardingChat({ initialQuestion }: { initialQuestion: s
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         placeholder={
-                            step === 'grade' ? "e.g., 10th, 12th, B.Tech..." :
+                            step === 'grade' ? "e.g., 10th Pass, 12th Pass, Graduate..." :
                                 step === 'location' ? "e.g., Mumbai, Delhi..." :
                                     "Type your message..."
                         }

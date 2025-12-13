@@ -1,26 +1,19 @@
 
 'use client';
 
-import { useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Globe, Route, LogOut } from 'lucide-react';
+import { Route, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MobileNav } from './MobileNav';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { LanguageContext, languageOptions } from '@/context/LanguageProvider';
+
 import { useFirebase } from '@/firebase';
 import { signOut } from 'firebase/auth';
 import { useToast } from '@/hooks/use-toast';
 
 
 export function Header() {
-  const { setLanguage } = useContext(LanguageContext);
+
   const { auth, user } = useFirebase();
   const router = useRouter();
   const { toast } = useToast();
@@ -46,60 +39,47 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 max-w-screen-2xl items-center justify-between">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white shadow-sm">
+      <div className="container flex h-16 max-w-screen-2xl items-center justify-between px-4">
+
         <Link href="/" className="flex items-center gap-2" aria-label="CareerRaah Home">
-          <Route className="h-7 w-7 text-primary" />
-          <span className="text-2xl font-bold font-headline text-foreground">CareerRaah</span>
+          <Route className="h-7 w-7 text-blue-700" />
+          <span className="text-2xl font-bold font-headline text-blue-900 tracking-tight">CareerRaah</span>
         </Link>
 
-        <div className="flex items-center gap-4">
-          <nav className="hidden items-center gap-2 sm:gap-4 md:flex">
-            <Button variant="ghost" asChild>
-              <Link href="/login" className="text-sm font-medium">
-                Expert Assessment
-              </Link>
-            </Button>
-            <Button variant="ghost" asChild>
-              <Link href="/parent-explorer" className="text-sm font-medium">
-                Career Explorer
-              </Link>
-            </Button>
-            <Button variant="ghost" asChild>
-              <Link href="/blog" className="text-sm font-medium">
-                Blog
-              </Link>
-            </Button>
+        <div className="hidden md:flex items-center gap-6">
+          <nav className="flex items-center gap-6">
+            <Link href="/sarkari-naukri" className="text-sm font-semibold text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1">
+              <span className="text-lg">🏛️</span> Sarkari Naukri
+            </Link>
+            <Link href="/board-papers" className="text-sm font-semibold text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1">
+              <span className="text-lg">📄</span> Board Papers
+            </Link>
+            <Link href="/chat" className="text-sm font-semibold text-gray-700 hover:text-blue-700 transition-colors flex items-center gap-1">
+              <span className="text-lg">🤖</span> Ask AI Didi
+            </Link>
           </nav>
+        </div>
 
-          {user && (
-            <Button variant="outline" size="sm" onClick={handleSignOut} className="hidden md:flex">
+        <div className="flex items-center gap-3">
+
+
+
+          {user ? (
+            <Button variant="ghost" size="sm" onClick={handleSignOut} className="hidden sm:inline-flex text-gray-700 hover:text-blue-700 hover:bg-blue-50">
               <LogOut className="h-4 w-4 mr-2" />
               Sign Out
             </Button>
+          ) : (
+            <Link href="/login" className="hidden sm:inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-blue-700 text-white hover:bg-blue-800 h-9 px-4 shadow-sm transition-colors">
+              Login
+            </Link>
           )}
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="gap-2">
-                <Globe className="h-4 w-4" />
-                <span className="hidden sm:inline">Language</span>
-                <span className="sm:hidden">A/अ</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {languageOptions.map((lang) => (
-                <DropdownMenuItem key={lang.code} onClick={() => setLanguage(lang.code)}>
-                  {lang.name}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="md:hidden">
+            <MobileNav />
+          </div>
 
-        </div>
-
-        <div className="md:hidden">
-          <MobileNav />
         </div>
       </div>
     </header>

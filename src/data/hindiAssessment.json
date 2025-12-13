@@ -1,0 +1,199 @@
+[
+    {
+        "id": 1,
+        "question_hindi": "आपकी पढ़ाई (Qualification) अभी क्या है?",
+        "question_english": "What is your current qualification?",
+        "type": "single_select",
+        "options": [
+            {
+                "text": "10th Pass (High School)",
+                "value": "10th",
+                "tags": [
+                    "police_constable",
+                    "army_gd",
+                    "group_d"
+                ]
+            },
+            {
+                "text": "12th Pass (Science - PCM)",
+                "value": "12th_science",
+                "tags": [
+                    "navy_tech",
+                    "airforce_x",
+                    "ssc_chsl"
+                ]
+            },
+            {
+                "text": "12th Pass (Arts/Commerce/Bio)",
+                "value": "12th_other",
+                "tags": [
+                    "police_constable",
+                    "ssc_chsl",
+                    "clerk"
+                ]
+            },
+            {
+                "text": "Graduate (BA/BSc/BCom)",
+                "value": "graduate",
+                "tags": [
+                    "upsc",
+                    "ssc_cgl",
+                    "bank_po"
+                ]
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "question_hindi": "Family की स्थिति और नौकरी की जल्दी कितनी है?",
+        "question_english": "What is your financial/timeline situation?",
+        "type": "single_select",
+        "options": [
+            {
+                "text": "बहुत जल्दी जॉब चाहिए (Financial problem hai)",
+                "value": "urgent",
+                "weights": {
+                    "army": 5,
+                    "police": 5,
+                    "railway_group_d": 4,
+                    "ssc_cgl": -2
+                }
+            },
+            {
+                "text": "1-2 साल तैयारी कर सकता हूँ",
+                "value": "moderate",
+                "weights": {
+                    "ssc_chsl": 3,
+                    "railway_ntpc": 3,
+                    "bank_clerk": 3
+                }
+            },
+            {
+                "text": "3-4 साल दे सकता हूँ (Best Officer job chahiye)",
+                "value": "relaxed",
+                "weights": {
+                    "upsc": 5,
+                    "ssc_cgl": 5,
+                    "state_pcs": 5,
+                    "group_d": -5
+                }
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "question_hindi": "Maths और English में आपका हाथ कैसा है?",
+        "question_english": "How are you in Maths and English?",
+        "type": "single_select",
+        "options": [
+            {
+                "text": "English बहुत कमजोर है, Maths ठीक है",
+                "value": "weak_english",
+                "weights": {
+                    "railway": 10,
+                    "police": 5,
+                    "bank": -5,
+                    "ssc_cgl": -2
+                }
+            },
+            {
+                "text": "Maths कमजोर है, रटने (GK/GS) में तेज हूँ",
+                "value": "weak_maths",
+                "weights": {
+                    "state_pcs": 5,
+                    "upsc": 4,
+                    "ssc_cgl": -3,
+                    "bank": -5
+                }
+            },
+            {
+                "text": "Dono (Maths & English) अच्छे हैं",
+                "value": "strong_both",
+                "weights": {
+                    "ssc_cgl": 5,
+                    "bank_po": 5,
+                    "cds": 4
+                }
+            },
+            {
+                "text": "दोनों कमजोर हैं, बस शारीरिक मेहनत (Running) कर सकता हूँ",
+                "value": "weak_academic",
+                "weights": {
+                    "army_gd": 10,
+                    "police_constable": 8,
+                    "security": 5
+                }
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "question_hindi": "आपकी Height (लंबाई) कितनी है?",
+        "question_english": "What is your height?",
+        "note": "For General Male Category",
+        "type": "single_select",
+        "options": [
+            {
+                "text": "170 cm से ज्यादा (Good Height)",
+                "value": "tall",
+                "tags": [
+                    "army",
+                    "ssc_gd",
+                    "police"
+                ]
+            },
+            {
+                "text": "165 cm - 169 cm (Average)",
+                "value": "average",
+                "tags": [
+                    "police_up",
+                    "navy"
+                ]
+            },
+            {
+                "text": "165 cm से कम (Short)",
+                "value": "short",
+                "tags": [
+                    "railway",
+                    "bank",
+                    "ssc_cgl",
+                    "clerk"
+                ]
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "question_hindi": "किस तरह की नौकरी पसंद है?",
+        "question_english": "What kind of work environment do you prefer?",
+        "type": "single_select",
+        "options": [
+            {
+                "text": "वर्दी और पॉवर (Uniform & Power)",
+                "value": "field",
+                "weights": {
+                    "police": 5,
+                    "army": 5,
+                    "ips": 5
+                }
+            },
+            {
+                "text": "ऑफिस की शांति वाली जॉब (9 to 5 AC Office)",
+                "value": "desk",
+                "weights": {
+                    "ssc_cgl": 5,
+                    "bank": 5,
+                    "railway_clerk": 5,
+                    "army": -2
+                }
+            },
+            {
+                "text": "रेलवे का जुनून (Trains & Travel)",
+                "value": "railway",
+                "weights": {
+                    "railway": 10
+                }
+            }
+        ]
+    }
+]

@@ -103,6 +103,11 @@ export function Footer() {
                 </div>
 
                 <div className="mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
+                    <p className="mb-4 max-w-2xl mx-auto italic opacity-80">
+                        “CareerRaah aggregates publicly available government job information from official sources.
+                        All job notifications belong to respective government departments.
+                        CareerRaah provides AI-generated guidance for educational purposes.”
+                    </p>
                     <p>&copy; {currentYear} CareerRaah. All rights reserved.</p>
                 </div>
             </div>
