@@ -73,7 +73,7 @@ export default function Home() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/jobs?limit=5');
+        const res = await fetch('/api/jobs?limit=5');
         if (res.ok) {
           const data = await res.json();
           setJobs(data.data || []);

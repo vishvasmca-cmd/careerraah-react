@@ -97,7 +97,7 @@ export default function SarkariNaukriPage() {
             try {
                 // Fetching all jobs for now (client-side filtering)
                 // In production, you'd want query params for server-side filtering
-                const res = await fetch('http://localhost:3000/api/jobs?limit=100');
+                const res = await fetch('/api/jobs?limit=100');
                 if (!res.ok) throw new Error('Failed to fetch jobs');
                 const data = await res.json();
                 setJobs(data.data || []);
